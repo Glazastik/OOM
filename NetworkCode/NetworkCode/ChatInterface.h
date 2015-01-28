@@ -10,6 +10,6 @@ private:
 	ChatInterface();
 	~ChatInterface();
 public:
-	static void Init();
+	static void TestConnect(int serviceType, char* responseBuffer, int bufferCapacity);
 	static void GetMessage(char* messageBuffer, int bufferCapacity);
 };
