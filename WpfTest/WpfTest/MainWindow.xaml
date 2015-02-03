@@ -1,0 +1,23 @@
+﻿<Window x:Class="WpfTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ViewModel="clr-namespace:WpfTest.ViewModel"
+        Title="MainWindow" 
+        Height="350" 
+        Width="525"
+        ResizeMode="NoResize">
+    <Window.DataContext>
+        <!-- Declaratively create an instance of our SongViewModel -->
+        <ViewModel:MainWindowViewModel />
+    </Window.DataContext>
+    
+    <UserControl>
+        <UserControl.InputBindings>
+            <KeyBinding Key="Enter" Command="{Binding ChangeTextCommand}"/>
+        </UserControl.InputBindings>
+        <StackPanel>
+            <TextBox Text="{Binding GiveText, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+            <Button Command="{Binding ChangeTextCommand}" Margin="5">getMessage()</Button>
+        </StackPanel>
+    </UserControl>
+</Window>
