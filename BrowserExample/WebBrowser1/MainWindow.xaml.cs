@@ -1,8 +1,4 @@
-﻿// Houssem Dellai
-// houssem.dellai@ieee.org
-// +216 95 325 964
-// Studying Software Engineering
-// in the National Engineering School of Sfax (ENIS)
+﻿
 
 using System;
 using System.Collections.Generic;
@@ -21,9 +17,7 @@ using System.Windows.Shapes;
 
 namespace WebBrowserApp
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+ 
     public partial class MainWindow : Window
     {
         private String token;
@@ -58,7 +52,7 @@ namespace WebBrowserApp
 
         private void helpButtonClick(object sender, RoutedEventArgs e)
         {
-            //open my personal page on msdn.microsoft
+           
             webBrowser1.Navigate("https://www.facebook.com/dialog/oauth?client_id=355530074619140&display=popup&response_type=token&&redirect_uri=https://www.facebook.com/connect/login_success.html");
         }
 
