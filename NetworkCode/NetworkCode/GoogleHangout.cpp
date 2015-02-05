@@ -1,7 +1,7 @@
 #include "GoogleHangout.h"
 #include <boost\array.hpp>
 
-GoogleHangout::GoogleHangout() : ChatService("talk.google.com", "5222")
+GoogleHangout::GoogleHangout() : ChatService("talk.l.google.com", "5222")
 {
 	
 }
@@ -25,7 +25,7 @@ std::string GoogleHangout::TestConnect()
 	size_t responseLength;
 
 	// Initiate xml stream to server
-	message = "<stream:stream xmlns = 'jabber:client' xmlns : stream = 'http://etherx.jabber.org/streams' to = 'example.com' version = '1.0'>\r\n";
+	message = "<stream:stream  to = ' http://www.google.com/hangouts/' xmlns = 'jabber:client' xmlns : stream = 'http://etherx.jabber.org/streams' version = '1.0'>\r\n";
 	socket->write_some(boost::asio::buffer(message));
 
 	// Read server response

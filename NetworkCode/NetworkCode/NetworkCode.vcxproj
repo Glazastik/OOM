@@ -47,11 +47,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\carl\Documents\boost_1_57_0\boost_1_57_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\boost_1_57_0</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\carl\Documents\boost_1_57_0\boost_1_57_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\boost_1_57_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -71,11 +71,16 @@
   <ItemGroup>
     <ClInclude Include="ChatInterface.h" />
     <ClInclude Include="ChatModel.h" />
+    <ClInclude Include="ChatService.h" />
+    <ClInclude Include="GoogleHangout.h" />
+    <ClInclude Include="ServiceType.h" />
     <ClInclude Include="WindowsInterface.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChatInterface.cpp" />
     <ClCompile Include="ChatModel.cpp" />
+    <ClCompile Include="ChatService.cpp" />
+    <ClCompile Include="GoogleHangout.cpp" />
     <ClCompile Include="WindowsInterface.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

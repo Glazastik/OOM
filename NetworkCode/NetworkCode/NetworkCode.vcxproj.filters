@@ -24,10 +24,10 @@
     <ClInclude Include="WindowsInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GoogleHangout.h">
+    <ClInclude Include="ChatService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ChatService.h">
+    <ClInclude Include="GoogleHangout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ServiceType.h">
@@ -44,10 +44,10 @@
     <ClCompile Include="WindowsInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GoogleHangout.cpp">
+    <ClCompile Include="ChatService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ChatService.cpp">
+    <ClCompile Include="GoogleHangout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
