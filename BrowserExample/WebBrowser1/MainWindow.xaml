@@ -1,0 +1,11 @@
+﻿<Window x:Class="WebBrowserApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WebBrowser v1.0" Height="592" Width="954" WindowStartupLocation="CenterScreen" Icon="/WebBrowser1;component/Images/icon_internet.png">
+    <Grid Background="#FF687EC1">
+        <WebBrowser Name="webBrowser1" Margin="0,41,0,0" Navigating ="wbSample_Navigating"/>
+        <TextBox Name="webSiteAdr" Height="23" HorizontalAlignment="Left" Margin="68,9,0,0" VerticalAlignment="Top" Width="459" Text="S" BorderBrush="Blue" />
+        <Button Content="Download" Height="23" HorizontalAlignment="Left" Margin="533,8,0,0" Name="button1" VerticalAlignment="Top" Width="75" MouseEnter="mouseEnterEvent" MouseLeave="mouseLeaveEvent" BorderBrush="DarkMagenta" Click="downloadButtonClick" />
+        <Button Content="Help" Height="23" HorizontalAlignment="Left" Margin="857,8,0,0" Name="button5" VerticalAlignment="Top" Width="75" MouseLeave="mouseLeaveEvent" MouseEnter="mouseEnterEvent" BorderBrush="Blue" Click="helpButtonClick" />
+    </Grid>
+</Window>
