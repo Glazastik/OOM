@@ -41,6 +41,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>./bin/</OutDir>
     <TargetExt>.dll</TargetExt>
+    <IncludePath>C:\Users\Kim\Documents\GitHub\OOM\CPP-NETLIB\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Kim\Documents\GitHub\OOM\CPP-NETLIB\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -48,10 +50,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Program Files %28x86%29\boost_1_57_0</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\boost_1_57_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Kim\Documents\GitHub\OOM\CPP-NETLIB\lib;C:\Program Files %28x86%29\boost_1_57_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cppnetlib-client-connections.lib;cppnetlib-server-parsers.lib;cppnetlib-uri.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -74,6 +78,7 @@
     <ClInclude Include="ChatService.h" />
     <ClInclude Include="GoogleHangout.h" />
     <ClInclude Include="ServiceType.h" />
+    <ClInclude Include="TokenHandler.h" />
     <ClInclude Include="WindowsInterface.h" />
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +86,7 @@
     <ClCompile Include="ChatModel.cpp" />
     <ClCompile Include="ChatService.cpp" />
     <ClCompile Include="GoogleHangout.cpp" />
+    <ClCompile Include="TokenHandler.cpp" />
     <ClCompile Include="WindowsInterface.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

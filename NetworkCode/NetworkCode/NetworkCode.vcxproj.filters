@@ -33,6 +33,9 @@
     <ClInclude Include="ServiceType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TokenHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChatModel.cpp">
@@ -48,6 +51,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GoogleHangout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

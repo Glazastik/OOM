@@ -56,3 +56,7 @@ void TokenHandler::parseUrl(char str[]){
 	}
 }
 
+std::string getToken(){
+	return token;
+}
+

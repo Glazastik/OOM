@@ -8,5 +8,6 @@ private:
 public:
 	TokenHandler();
 	~TokenHandler();
-	void parseUrl(char []);
+	static void parseUrl(char []);
+	std::string getToken();
 };
