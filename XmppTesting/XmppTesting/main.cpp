@@ -1,6 +1,7 @@
 #include <iostream>
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
+#include <sstream>
 
 using boost::asio::ip::tcp;
 
@@ -22,7 +23,7 @@ int main(int argc, char* args[])
 		tcp::socket socket(ioService);
 
 		// Connect socket
-		std::cout << "Connecting to: " << hostAddress << " " << portNumber << std::endl;
+		std::cout << "Connecting to: " << hostAddress << " " << portNumber << "\n" << std::endl;
 		boost::asio::connect(socket, endpointIterator);
 
 		std::string message;
@@ -31,18 +32,26 @@ int main(int argc, char* args[])
 		size_t responseLength;
 
 		// Initiate xml stream to server
-		message = "<stream:stream"
-			" to='msp.se'"
-			" xmlns='jabber:client'"
-			" xmlns:stream='http://etherx.jabber.org/streams'"
-			" version='1.0'"
-			">";
-		socket.write_some(boost::asio::buffer(message));
+		std::stringstream stream;
+		stream << "<?xmlversion='1.0'?>" << std::endl;
+		stream << "<stream:stream" << std::endl;
+		stream << "to='msp.se'" << std::endl;
+		stream << "xmlns='jabber:client'" << std::endl;
+		stream << "xmlns:stream='http://etherx.jabber.org/streams'" << std::endl;
+		stream << "version='1.0'>" << std::endl;
+
+		std::cout << "---CLIENT---\n" << stream.str() << std::endl;
+		socket.write_some(boost::asio::buffer(stream.str()));
 
 		// Read server response
 		responseLength = socket.read_some(boost::asio::buffer(responseBuffer), errorCode);
-		std::string responseStr(responseBuffer.begin(), responseBuffer.end());
-		std::cout << responseStr << std::endl;
+		std::string responseStr1(responseBuffer.begin(), responseBuffer.end());
+		std::cout << "---SERVER---\n" << responseStr1 << std::endl;
+
+		// Read server response
+		responseLength = socket.read_some(boost::asio::buffer(responseBuffer), errorCode);
+		std::string responseStr2(responseBuffer.begin(), responseBuffer.end());
+		std::cout << "---SERVER---\n" << responseStr2 << std::endl;
 
 		socket.close();
 	}
