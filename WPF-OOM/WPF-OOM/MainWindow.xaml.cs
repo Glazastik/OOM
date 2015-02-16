@@ -23,21 +23,30 @@ namespace WPF_OOM
     public partial class MainWindow : Window
     {
         ObservableCollection<Contact> contactList;
+        ObservableCollection<Conversation> conversations; 
         public MainWindow()
         {
             InitializeComponent();
             contactList = new ObservableCollection<Contact>();
+            conversations = new ObservableCollection<Conversation>();
             Contact c = new Contact();
             Contact d = new Contact();
             c.FirstName = "Sven";
             c.LastName = "Svensson";
             d.FirstName = "Kalle";
             d.LastName = "Karlsson";
-            
+            Conversation t = new Conversation(c);
+            Conversation y = new Conversation(d);
+            t.addMessage(new Message("hej"));
+            y.addMessage(new Message("asdasdas"));
+
+            conversations.Add(t);
+            conversations.Add(y);
+
             contactList.Add(c);
             contactList.Add(d);
             ContactListView.ItemsSource = contactList;
-
+            ChatTabControl.ItemsSource = conversations;
         }
     }
 }

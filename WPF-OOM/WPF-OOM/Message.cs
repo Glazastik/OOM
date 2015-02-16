@@ -8,9 +8,10 @@ namespace WPF_OOM
 {
     class Message
     {
-        public Message()
+        public string text { get; private set; }
+        public Message(String s)
         {
-            
+            text = s;
         }
     }
 }

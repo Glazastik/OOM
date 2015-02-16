@@ -14,6 +14,21 @@
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
-    
+        <TabControl x:Name="ChatTabControl" DockPanel.Dock="Right" ItemsSource="{Binding}">
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <ListView ItemsSource="{Binding messages}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn DisplayMemberBinding="{Binding text}"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+
+                        </ListView>
+                    </StackPanel>              
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
     </DockPanel>
 </Window>
