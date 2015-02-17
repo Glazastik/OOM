@@ -22,7 +22,7 @@ namespace WPF_OOM
 
     public partial class MainWindow : Window
     {
-        ObservableCollection<Contact> contactList;
+        public ObservableCollection<Contact> contactList;
         ObservableCollection<Conversation> conversations; 
         public MainWindow()
         {
@@ -37,8 +37,9 @@ namespace WPF_OOM
             d.LastName = "Karlsson";
             Conversation t = new Conversation(c);
             Conversation y = new Conversation(d);
-            t.addMessage(new Message("hej"));
-            y.addMessage(new Message("asdasdas"));
+            t.addMessage(new Message("hej",c));
+            y.addMessage(new Message("asdasdas",d));
+            t.addMessage(new Message("asdhsadg", c));
 
             conversations.Add(t);
             conversations.Add(y);
@@ -47,6 +48,18 @@ namespace WPF_OOM
             contactList.Add(d);
             ContactListView.ItemsSource = contactList;
             ChatTabControl.ItemsSource = conversations;
+        }
+
+        private void OnSelectContact(object sender, SelectionChangedEventArgs e)
+        {
+
+            ChatTabControl.SelectedIndex = ContactListView.SelectedIndex;
+            //foreach (TabItem ti in ChatTabControl.Items)
+            //{
+            //    ti.
+            //}
+            //ChatTabControl.SelectedItem = ChatTabControl.Items.
+            //textBlock.Text = ((Contact)lb.SelectedItem).Name;
         }
     }
 }

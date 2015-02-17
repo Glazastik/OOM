@@ -3,28 +3,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="OOM" Height="350" Width="525">
     <DockPanel x:Name="DP">
-    <ListView x:Name="ContactListView" DockPanel.Dock="Left">
+    <ListView x:Name="ContactListView" DockPanel.Dock="Left" SelectionChanged="OnSelectContact">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <WrapPanel>                    
-                    <TextBlock Text="{Binding FirstName}" />
-                    <TextBlock Text="{Binding NickName}" />
-                    <TextBlock Text="{Binding LastName}" />
+                    <TextBlock Text="{Binding FirstName}" Margin="10"/>
+                    <TextBlock Text="{Binding NickName}" Margin="10"/>
+                    <TextBlock Text="{Binding LastName}" Margin="10"/>
                 </WrapPanel>                
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
         <TabControl x:Name="ChatTabControl" DockPanel.Dock="Right" ItemsSource="{Binding}">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Style>
+            </TabControl.ItemContainerStyle>
             <TabControl.ContentTemplate>
                 <DataTemplate>
                     <StackPanel>
                         <ListView ItemsSource="{Binding messages}">
                             <ListView.View>
                                 <GridView>
+                                    <GridViewColumn DisplayMemberBinding="{Binding sender.FirstName}"></GridViewColumn>
                                     <GridViewColumn DisplayMemberBinding="{Binding text}"></GridViewColumn>
                                 </GridView>
                             </ListView.View>
-
                         </ListView>
                     </StackPanel>              
                 </DataTemplate>
