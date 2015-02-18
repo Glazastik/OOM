@@ -20,6 +20,7 @@ namespace WPF_OOM
 
         public void addMessage(Message m)
         {
+            //TODO: Needs to validate that the sender of the message either is the user or the contact.
             messages.Add(m);
         }
     }

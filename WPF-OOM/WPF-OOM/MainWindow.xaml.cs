@@ -31,15 +31,18 @@ namespace WPF_OOM
             conversations = new ObservableCollection<Conversation>();
             Contact c = new Contact();
             Contact d = new Contact();
+            Contact me = new Contact();
+            me.FirstName = "Me";
             c.FirstName = "Sven";
             c.LastName = "Svensson";
             d.FirstName = "Kalle";
             d.LastName = "Karlsson";
             Conversation t = new Conversation(c);
             Conversation y = new Conversation(d);
-            t.addMessage(new Message("hej"));
-            y.addMessage(new Message("asdasdas"));
-            t.addMessage(new Message("asdhsadg"));
+            t.addMessage(new Message("hej",c));
+            t.addMessage(new Message("hejhej",me));
+            y.addMessage(new Message("asdasdas",d));
+            t.addMessage(new Message("asdhsadg",c));
 
             conversations.Add(t);
             conversations.Add(y);
@@ -54,14 +57,14 @@ namespace WPF_OOM
 
         private void OnSelectContact(object sender, SelectionChangedEventArgs e)
         {
-
-            ChatTabControl.SelectedIndex = ContactListView.SelectedIndex;
-            //foreach (TabItem ti in ChatTabControl.Items)
-            //{
-            //    ti.
-            //}
-            //ChatTabControl.SelectedItem = ChatTabControl.Items.
-            //textBlock.Text = ((Contact)lb.SelectedItem).Name;
+            foreach (Conversation c in ChatTabControl.Items)
+            {
+                if(c.contact == ContactListView.SelectedItem)
+                {
+                    ChatTabControl.SelectedItem = c;
+                    break;
+                }
+            }
         }
     }
 }

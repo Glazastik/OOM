@@ -10,8 +10,10 @@ namespace WPF_OOM
     class Message
     {
         public string text { get; private set; }
-        public Message(String s)
+        public Contact sender { get; private set; }
+        public Message(String s, Contact c)
         {
+            sender = c;
             text = s;
         }
     }
