@@ -26,7 +26,7 @@ namespace WPF_OOM
         ObservableCollection<Conversation> conversations; 
         public MainWindow()
         {
-            InitializeComponent();
+           
             contactList = new ObservableCollection<Contact>();
             conversations = new ObservableCollection<Conversation>();
             Contact c = new Contact();
@@ -37,17 +37,19 @@ namespace WPF_OOM
             d.LastName = "Karlsson";
             Conversation t = new Conversation(c);
             Conversation y = new Conversation(d);
-            t.addMessage(new Message("hej",c));
-            y.addMessage(new Message("asdasdas",d));
-            t.addMessage(new Message("asdhsadg", c));
+            t.addMessage(new Message("hej"));
+            y.addMessage(new Message("asdasdas"));
+            t.addMessage(new Message("asdhsadg"));
 
             conversations.Add(t);
             conversations.Add(y);
 
             contactList.Add(c);
             contactList.Add(d);
+            InitializeComponent();
             ContactListView.ItemsSource = contactList;
             ChatTabControl.ItemsSource = conversations;
+            
         }
 
         private void OnSelectContact(object sender, SelectionChangedEventArgs e)
