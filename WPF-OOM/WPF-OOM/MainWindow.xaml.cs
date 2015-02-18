@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,6 +65,16 @@ namespace WPF_OOM
                     ChatTabControl.SelectedItem = c;
                     break;
                 }
+            }
+        }
+
+        private void ChatBox_OnKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                TextBox box = (TextBox) sender;
+                box.Text = ((Contact) box.DataContext).FirstName;
+                Debug.WriteLine(box.GetHashCode());
             }
         }
     }

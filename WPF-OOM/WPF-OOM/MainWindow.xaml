@@ -23,8 +23,8 @@
             </TabControl.ItemContainerStyle>
             <TabControl.ContentTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <ListView ItemsSource="{Binding Path=messages}">
+                    <DockPanel>
+                        <ListView ItemsSource="{Binding Path=messages}" DockPanel.Dock="Top">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn DisplayMemberBinding="{Binding sender.FirstName}"></GridViewColumn>
@@ -32,7 +32,8 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                    </StackPanel>              
+                        <TextBox x:Name="ChatBox" DockPanel.Dock="Bottom" AcceptsReturn="False" KeyUp="ChatBox_OnKeyUp" DataContext="{Binding contact}"></TextBox>
+                    </DockPanel>              
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>
