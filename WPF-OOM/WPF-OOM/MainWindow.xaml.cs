@@ -24,7 +24,8 @@ namespace WPF_OOM
     public partial class MainWindow : Window
     {
         public ObservableCollection<Contact> contactList;
-        ObservableCollection<Conversation> conversations; 
+        ObservableCollection<Conversation> conversations;
+        private Contact me;
         public MainWindow()
         {
            
@@ -32,7 +33,7 @@ namespace WPF_OOM
             conversations = new ObservableCollection<Conversation>();
             Contact c = new Contact();
             Contact d = new Contact();
-            Contact me = new Contact();
+            me = new Contact();
             me.FirstName = "Me";
             c.FirstName = "Sven";
             c.LastName = "Svensson";
@@ -73,8 +74,13 @@ namespace WPF_OOM
             if (e.Key == Key.Enter)
             {
                 TextBox box = (TextBox) sender;
-                box.Text = ((Contact) box.DataContext).FirstName;
-                Debug.WriteLine(box.GetHashCode());
+                string text = box.Text;
+                Conversation conv = (Conversation)ChatTabControl.SelectedItem;
+                conv.addMessage(new Message(text, me));
+                box.Text = "";
+                //Contact c = Bindin
+                //box.Text = ((Contact) box.DataContext).FirstName;
+                //Debug.WriteLine(box.GetHashCode());
             }
         }
     }

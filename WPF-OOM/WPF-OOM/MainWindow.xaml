@@ -32,7 +32,7 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                        <TextBox x:Name="ChatBox" DockPanel.Dock="Bottom" AcceptsReturn="False" KeyUp="ChatBox_OnKeyUp" DataContext="{Binding contact}"></TextBox>
+                        <TextBox DockPanel.Dock="Bottom" AcceptsReturn="False" KeyUp="ChatBox_OnKeyUp" Text="{Binding DraftMessage}"></TextBox>
                     </DockPanel>              
                 </DataTemplate>
             </TabControl.ContentTemplate>

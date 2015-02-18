@@ -12,6 +12,7 @@ namespace WPF_OOM
     {
         public Contact contact { get; private set; }
         public ObservableCollection<Message> messages { get; private set; }
+        public string DraftMessage { get; set; }
         public Conversation(Contact c)
         {
             contact = c;
