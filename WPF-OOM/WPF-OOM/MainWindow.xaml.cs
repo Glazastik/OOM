@@ -77,11 +77,15 @@ namespace WPF_OOM
                 string text = box.Text;
                 Conversation conv = (Conversation)ChatTabControl.SelectedItem;
                 conv.addMessage(new Message(text, me));
-                box.Text = "";
-                //Contact c = Bindin
-                //box.Text = ((Contact) box.DataContext).FirstName;
-                //Debug.WriteLine(box.GetHashCode());
+                conv.DraftMessage = "";
             }
+        }
+
+        private void SendMessageButtonClick(object sender, RoutedEventArgs e)
+        {
+            Conversation c = (Conversation)ChatTabControl.SelectedItem;
+            c.addMessage(new Message(c.DraftMessage,me));
+            c.DraftMessage = "";
         }
     }
 }

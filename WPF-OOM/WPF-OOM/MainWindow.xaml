@@ -23,8 +23,12 @@
             </TabControl.ItemContainerStyle>
             <TabControl.ContentTemplate>
                 <DataTemplate>
-                    <DockPanel>
-                        <ListView ItemsSource="{Binding Path=messages}" DockPanel.Dock="Top">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="100" />
+                        </Grid.RowDefinitions>
+                        <ListView DockPanel.Dock="Top" ItemsSource="{Binding Path=messages}" Height="Auto" Grid.Row="0">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn DisplayMemberBinding="{Binding sender.FirstName}"></GridViewColumn>
@@ -32,8 +36,19 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                        <TextBox DockPanel.Dock="Bottom" AcceptsReturn="False" KeyUp="ChatBox_OnKeyUp" Text="{Binding DraftMessage}"></TextBox>
-                    </DockPanel>              
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="ChatBox"  DockPanel.Dock="Bottom" AcceptsReturn="False" KeyUp="ChatBox_OnKeyUp" Height="100" Grid.Column="0">
+                                <TextBox.Text>
+                                    <Binding Path="DraftMessage" UpdateSourceTrigger="PropertyChanged" BindsDirectlyToSource="True" Mode="TwoWay"/>
+                                </TextBox.Text>
+                            </TextBox>
+                            <Button Grid.Column="1" Focusable="False" Click="SendMessageButtonClick" Content="Send message"/>
+                        </Grid>
+                    </Grid>              
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>
