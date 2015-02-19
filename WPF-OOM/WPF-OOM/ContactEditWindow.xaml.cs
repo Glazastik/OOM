@@ -27,5 +27,15 @@ namespace WPF_OOM
             this.Visibility = Visibility.Visible;
             ContactGrid.DataContext = c;
         }
+
+        private void AcceptButtonClick(object sender, RoutedEventArgs e)
+        {
+            BindingExpression be1 = FnameBox.GetBindingExpression(TextBox.TextProperty);
+            BindingExpression be2 = NnameBox.GetBindingExpression(TextBox.TextProperty);
+            BindingExpression be3 = LnameBox.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            be2.UpdateSource();
+            be3.UpdateSource();
+        }
     }
 }
