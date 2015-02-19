@@ -4,7 +4,7 @@
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         Title="OOM" Height="350" Width="525">
     <DockPanel x:Name="DP">
-    <ListView x:Name="ContactListView" DockPanel.Dock="Left" SelectionChanged="OnSelectContact">
+        <ListView x:Name="ContactListView" DockPanel.Dock="Left" SelectionChanged="OnSelectContact" Background="Transparent" BorderThickness="0">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <WrapPanel>                    
@@ -16,7 +16,7 @@
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
-        <TabControl x:Name="ChatTabControl" DockPanel.Dock="Right" ItemsSource="{Binding}">
+        <TabControl x:Name="ChatTabControl" DockPanel.Dock="Right" ItemsSource="{Binding}" Background="Transparent" BorderThickness="0">
             <TabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type TabItem}">
                     <Setter Property="Visibility" Value="Collapsed" />
