@@ -88,7 +88,7 @@ namespace WPF_OOM
         private void SendMessageButtonClick(object sender, RoutedEventArgs e)
         {
             Conversation c = (Conversation)ChatTabControl.SelectedItem;
-            if (c.DraftMessage != null && c.DraftMessage.Length > 0)
+            if (!string.IsNullOrEmpty(c.DraftMessage))
             {
                 c.addMessage(new Message(c.DraftMessage, me));
                 c.DraftMessage = "";
