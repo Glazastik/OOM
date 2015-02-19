@@ -75,17 +75,25 @@ namespace WPF_OOM
             {
                 TextBox box = (TextBox) sender;
                 string text = box.Text;
-                Conversation conv = (Conversation)ChatTabControl.SelectedItem;
-                conv.addMessage(new Message(text, me));
-                conv.DraftMessage = "";
+                if (text.Length > 0)
+                {
+                    Conversation conv = (Conversation)ChatTabControl.SelectedItem;
+                    conv.addMessage(new Message(text, me));
+                    conv.DraftMessage = "";
+                }
+                
             }
         }
 
         private void SendMessageButtonClick(object sender, RoutedEventArgs e)
         {
             Conversation c = (Conversation)ChatTabControl.SelectedItem;
-            c.addMessage(new Message(c.DraftMessage,me));
-            c.DraftMessage = "";
+            if (c.DraftMessage != null && c.DraftMessage.Length > 0)
+            {
+                c.addMessage(new Message(c.DraftMessage, me));
+                c.DraftMessage = "";
+            }
+            
         }
     }
 }
