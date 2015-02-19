@@ -95,5 +95,12 @@ namespace WPF_OOM
             }
             
         }
+
+        private void EditContact(object sender, RoutedEventArgs e)
+        {
+
+            Contact c = (Contact)((Button) sender).DataContext;
+            ContactEditWindow cew = new ContactEditWindow(c);
+        }
     }
 }

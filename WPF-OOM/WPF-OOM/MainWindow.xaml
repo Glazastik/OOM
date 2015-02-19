@@ -8,9 +8,10 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <WrapPanel>                    
-                    <TextBlock Text="{Binding FirstName}" Margin="10"/>
-                    <TextBlock Text="{Binding NickName}" Margin="10"/>
-                    <TextBlock Text="{Binding LastName}" Margin="10"/>
+                    <TextBlock Text="{Binding FirstName}" Margin="2"/>
+                    <TextBlock Text="{Binding NickName}" Margin="2"/>
+                    <TextBlock Text="{Binding LastName}" Margin="2"/>
+                    <Button Content="Edit" Click="EditContact"></Button>
                 </WrapPanel>                
             </DataTemplate>
         </ListView.ItemTemplate>
