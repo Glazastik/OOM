@@ -43,7 +43,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBox x:Name="ChatBox"  DockPanel.Dock="Bottom" AcceptsReturn="False" KeyUp="ChatBox_OnKeyUp" Height="100" Grid.Column="0">
                                 <TextBox.Text>
-                                    <Binding Path="DraftMessage" UpdateSourceTrigger="PropertyChanged" BindsDirectlyToSource="True" Mode="TwoWay"/>
+                                    <Binding Path="DraftMessage" UpdateSourceTrigger="PropertyChanged"/>
                                 </TextBox.Text>
                             </TextBox>
                             <Button Grid.Column="1" Focusable="False" Click="SendMessageButtonClick" Content="Send message"/>
