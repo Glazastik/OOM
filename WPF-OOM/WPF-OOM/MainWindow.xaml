@@ -40,18 +40,18 @@
                                     <GridViewColumn>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <ListView ItemsSource="{Binding Services}">
-                                                    <ListView.ItemsPanel>
+                                                <ItemsControl ItemsSource="{Binding Services}" BorderThickness="0">
+                                                    <ItemsControl.ItemsPanel>
                                                         <ItemsPanelTemplate>
                                                             <StackPanel Orientation="Horizontal"></StackPanel>
                                                         </ItemsPanelTemplate>
-                                                    </ListView.ItemsPanel>
-                                                    <ListView.ItemTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                    <ItemsControl.ItemTemplate>
                                                         <DataTemplate>
                                                             <Image Source="{Binding Path=Logo}" Width="12" Height="12" />                                                          
                                                         </DataTemplate>
-                                                    </ListView.ItemTemplate>
-                                                </ListView>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
