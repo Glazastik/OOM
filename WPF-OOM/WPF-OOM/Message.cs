@@ -12,7 +12,7 @@ namespace WPF_OOM
     {
         public string text { get; private set; }
         public Contact sender { get; private set; }
-        public ObservableCollection<Service> Services { get; private set; }; 
+        public ObservableCollection<Service> Services { get; private set; }
         public Message(String s, Contact c)
         {
             sender = c;
