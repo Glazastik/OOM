@@ -30,5 +30,23 @@ namespace WPF_OOM
             bmi.EndInit();
             Logo = bmi;
         }
+        
+    }
+    public class Steam : Service
+    {
+        public string Name { get; private set; }
+        public ImageSource Logo { get; private set; }
+
+        public Steam()
+        {
+            Name = "Steam";
+            BitmapImage bmi = new BitmapImage();
+            bmi.BeginInit();
+            bmi.UriSource = new Uri(@"../../steam.png", UriKind.Relative);
+            bmi.CacheOption = BitmapCacheOption.OnLoad;
+            bmi.EndInit();
+            Logo = bmi;
+
+        }
     }
 }
