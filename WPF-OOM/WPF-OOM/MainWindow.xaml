@@ -41,9 +41,14 @@
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <ListView ItemsSource="{Binding Services}">
+                                                    <ListView.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <StackPanel Orientation="Horizontal"></StackPanel>
+                                                        </ItemsPanelTemplate>
+                                                    </ListView.ItemsPanel>
                                                     <ListView.ItemTemplate>
                                                         <DataTemplate>
-                                                            <Image Source="{Binding Path=Logo}" Width="12" Height="12" />
+                                                            <Image Source="{Binding Path=Logo}" Width="12" Height="12" />                                                          
                                                         </DataTemplate>
                                                     </ListView.ItemTemplate>
                                                 </ListView>

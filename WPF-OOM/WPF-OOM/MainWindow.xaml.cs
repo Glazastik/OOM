@@ -27,9 +27,11 @@ namespace WPF_OOM
         ObservableCollection<Conversation> conversations;
         private Contact me;
         private Service fb;
+        private Service steam;
         public MainWindow()
         {
             fb = new Facebook();
+            steam = new Steam();
             contactList = new ObservableCollection<Contact>();
             conversations = new ObservableCollection<Conversation>();
             Contact c = new Contact();
@@ -43,6 +45,7 @@ namespace WPF_OOM
             Conversation t = new Conversation(c);
             Conversation y = new Conversation(d);
             Message m = new Message("this has logo", c, fb);
+            m.Services.Add(steam);
             t.addMessage(m);
             t.addMessage(new Message("hej",c,fb));
             t.addMessage(new Message("hejhej",me,fb));
