@@ -22,9 +22,8 @@ namespace WPF_OOM
         private Contact contact;
         public ContactEditWindow(Contact c)
         {
-            
-            contact = c;
             InitializeComponent();
+            contact = c;     
             this.Visibility = Visibility.Visible;
             ContactGrid.DataContext = c;
             
@@ -39,7 +38,6 @@ namespace WPF_OOM
             be2.UpdateSource();
             be3.UpdateSource();
             this.Close();
-
         }
     }
 }

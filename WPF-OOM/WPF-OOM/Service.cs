@@ -24,7 +24,6 @@ namespace WPF_OOM
             Name = "Facebook";
             BitmapImage bmi = new BitmapImage();
             bmi.BeginInit();
-            //bmi.UriSource = new Uri(@"/Users/christoffer/Documents/git-repos/OOM/WPF-OOM/WPF-OOM/fb.png", UriKind.Relative);
             bmi.UriSource = new Uri(@"../../fb.png", UriKind.Relative);
             bmi.CacheOption = BitmapCacheOption.OnLoad;
             bmi.EndInit();
