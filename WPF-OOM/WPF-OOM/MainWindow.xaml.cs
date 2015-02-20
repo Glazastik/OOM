@@ -28,7 +28,7 @@ namespace WPF_OOM
         private Contact me;
         public MainWindow()
         {
-           
+            Service fb = new Facebook();
             contactList = new ObservableCollection<Contact>();
             conversations = new ObservableCollection<Conversation>();
             Contact c = new Contact();
@@ -41,6 +41,9 @@ namespace WPF_OOM
             d.LastName = "Karlsson";
             Conversation t = new Conversation(c);
             Conversation y = new Conversation(d);
+            Message m = new Message("this has logo", c);
+            m.Service = fb;
+            t.addMessage(m);
             t.addMessage(new Message("hej",c));
             t.addMessage(new Message("hejhej",me));
             y.addMessage(new Message("asdasdas",d));
