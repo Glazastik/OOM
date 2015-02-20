@@ -12,8 +12,16 @@ namespace WPF_OOM
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string NickName { get; set; }
+        public ObservableCollection<Service> Services { get; private set; }
+        public Dictionary<Service, String> Accounts { get; private set; } 
         public Contact()
         {
+        }
+
+        public void addService(Service s, String acc)
+        {
+            Services.Add(s);
+            Accounts.Add(s,acc);
         }
     }
 }

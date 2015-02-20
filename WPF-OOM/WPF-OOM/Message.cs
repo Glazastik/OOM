@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace WPF_OOM
     {
         public string text { get; private set; }
         public Contact sender { get; private set; }
+        public ObservableCollection<Service> Services { get; private set; }; 
         public Message(String s, Contact c)
         {
             sender = c;

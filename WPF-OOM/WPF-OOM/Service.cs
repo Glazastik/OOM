@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPF_OOM
 {
-    interface Service
+    public interface Service
     {
         string Name { get; set; }
 
