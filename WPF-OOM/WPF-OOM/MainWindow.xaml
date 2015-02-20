@@ -40,7 +40,13 @@
                                     <GridViewColumn>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Image Source="{Binding Path=Service.Logo}" Width="12" Height="12" />
+                                                <ListView ItemsSource="{Binding Services}">
+                                                    <ListView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Image Source="{Binding Path=Logo}" Width="12" Height="12" />
+                                                        </DataTemplate>
+                                                    </ListView.ItemTemplate>
+                                                </ListView>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>

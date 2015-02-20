@@ -26,9 +26,10 @@ namespace WPF_OOM
         public ObservableCollection<Contact> contactList;
         ObservableCollection<Conversation> conversations;
         private Contact me;
+        private Service fb;
         public MainWindow()
         {
-            Service fb = new Facebook();
+            fb = new Facebook();
             contactList = new ObservableCollection<Contact>();
             conversations = new ObservableCollection<Conversation>();
             Contact c = new Contact();
@@ -41,13 +42,12 @@ namespace WPF_OOM
             d.LastName = "Karlsson";
             Conversation t = new Conversation(c);
             Conversation y = new Conversation(d);
-            Message m = new Message("this has logo", c);
-            m.Service = fb;
+            Message m = new Message("this has logo", c, fb);
             t.addMessage(m);
-            t.addMessage(new Message("hej",c));
-            t.addMessage(new Message("hejhej",me));
-            y.addMessage(new Message("asdasdas",d));
-            t.addMessage(new Message("asdhsadg",c));
+            t.addMessage(new Message("hej",c,fb));
+            t.addMessage(new Message("hejhej",me,fb));
+            y.addMessage(new Message("asdasdas",d,fb));
+            t.addMessage(new Message("asdhsadg",c,fb));
 
             conversations.Add(t);
             conversations.Add(y);
@@ -81,7 +81,7 @@ namespace WPF_OOM
                 if (text.Length > 0)
                 {
                     Conversation conv = (Conversation)ChatTabControl.SelectedItem;
-                    conv.addMessage(new Message(text, me));
+                    conv.addMessage(new Message(text, me, fb));
                     conv.DraftMessage = "";
                 }
                 
@@ -93,7 +93,7 @@ namespace WPF_OOM
             Conversation c = (Conversation)ChatTabControl.SelectedItem;
             if (!string.IsNullOrEmpty(c.DraftMessage))
             {
-                c.addMessage(new Message(c.DraftMessage, me));
+                c.addMessage(new Message(c.DraftMessage, me, fb));
                 c.DraftMessage = "";
             }
             
