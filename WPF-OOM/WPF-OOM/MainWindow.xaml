@@ -11,16 +11,21 @@
     </Window.Resources>
     <DockPanel x:Name="DP">
         <ListView x:Name="ContactListView" DockPanel.Dock="Left" SelectionChanged="OnSelectContact" Background="Transparent" BorderThickness="0">
-        <ListView.ItemTemplate>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Edit" Click="EditContact"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.ItemTemplate>
             <DataTemplate>
-                <WrapPanel>                    
+                <WrapPanel>                 
                     <TextBlock Text="{Binding FirstName}" Margin="2"/>
                     <TextBlock Text="{Binding NickName}" Margin="2"/>
                     <TextBlock Text="{Binding LastName}" Margin="2"/>
-                    <Button Content="Edit" Click="EditContact"></Button>
+                    <!-- <Button Content="Edit" Click="EditContact"></Button> -->
                 </WrapPanel>                
             </DataTemplate>
-        </ListView.ItemTemplate>
+            </ListView.ItemTemplate>
     </ListView>
         <TabControl x:Name="ChatTabControl" DockPanel.Dock="Right" ItemsSource="{Binding}" Background="Transparent" BorderThickness="0">
             <TabControl.ItemContainerStyle>
