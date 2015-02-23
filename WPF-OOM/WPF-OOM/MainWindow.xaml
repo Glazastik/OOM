@@ -10,6 +10,21 @@
         </Style>
     </Window.Resources>
     <DockPanel x:Name="DP">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_OOM">
+                <MenuItem Header="_Profile" />
+                <Separator />
+                <MenuItem Header="_Log off" />
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+            <MenuItem Header="_Contacts">
+                <MenuItem Header="New contact" />
+                <MenuItem Header="Sort by">
+                    <MenuItem Header="MMR" IsChecked="True"/>
+                    <MenuItem Header="Alphabetical" IsChecked="False"/>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
         <ListView x:Name="ContactListView" DockPanel.Dock="Left" SelectionChanged="OnSelectContact" Background="Transparent" BorderThickness="0">
             <ListView.ContextMenu>
                 <ContextMenu>
