@@ -35,7 +35,7 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="100" />
                         </Grid.RowDefinitions>
-                        <local:ASListView DockPanel.Dock="Top" ItemsSource="{Binding Path=messages}" Height="Auto" Grid.Row="0" DataContextChanged="ListView_DataContextChanged">
+                        <local:ASListView DockPanel.Dock="Top" ItemsSource="{Binding Path=messages}" Height="Auto" Grid.Row="0">
                             <local:ASListView.View>
                                 <GridView ColumnHeaderContainerStyle="{StaticResource CollapsedColumnHeader}">
                                     <GridViewColumn>

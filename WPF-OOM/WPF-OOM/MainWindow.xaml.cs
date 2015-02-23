@@ -109,10 +109,5 @@ namespace WPF_OOM
             Contact c = (Contact)((Button) sender).DataContext;
             ContactEditWindow cew = new ContactEditWindow(c);
         }
-
-        private void ListView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-
-        }
     }
 }
