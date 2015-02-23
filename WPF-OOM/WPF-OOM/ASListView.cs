@@ -3,6 +3,11 @@ using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+/*
+ * This class makes a ListView scroll autoscroll.
+ * Original idea by Richard Dutton
+ */
+
 
 namespace WPF_OOM
 {
@@ -24,9 +29,7 @@ namespace WPF_OOM
 
             public override void OnApplyTemplate()
             {
-                base.OnApplyTemplate();
-
-                // Dig out and store a reference to our internal ScrollViewer  
+                base.OnApplyTemplate(); 
                 _scrollViewer = RecursiveVisualChildFinder<ScrollViewer>(this) as ScrollViewer;
             }
 
