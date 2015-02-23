@@ -21,6 +21,7 @@ namespace WPF_OOM
     /// Interaction logic for MainWindow.xaml
     /// </summary>
 
+
     public partial class MainWindow : Window
     {
         public ObservableCollection<Contact> contactList;
@@ -107,6 +108,11 @@ namespace WPF_OOM
 
             Contact c = (Contact)((Button) sender).DataContext;
             ContactEditWindow cew = new ContactEditWindow(c);
+        }
+
+        private void ListView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
         }
     }
 }
