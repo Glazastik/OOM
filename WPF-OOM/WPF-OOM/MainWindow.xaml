@@ -37,7 +37,7 @@
                         </Grid.RowDefinitions>
                         <local:ASListView DockPanel.Dock="Top" ItemsSource="{Binding Path=messages}" Height="Auto" Grid.Row="0">
                             <local:ASListView.View>
-                                <GridView ColumnHeaderContainerStyle="{StaticResource CollapsedColumnHeader}">
+                                <local:ASGridView ColumnHeaderContainerStyle="{StaticResource CollapsedColumnHeader}">
                                     <GridViewColumn>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -58,7 +58,7 @@
                                     </GridViewColumn>
                                     <GridViewColumn DisplayMemberBinding="{Binding sender.FirstName}" Width="Auto"/>
                                     <GridViewColumn DisplayMemberBinding="{Binding text}" Width="1000"/>
-                                </GridView>
+                                </local:ASGridView>
                             </local:ASListView.View>
                         </local:ASListView>
                         <Grid Grid.Row="1">
