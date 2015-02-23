@@ -57,7 +57,7 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn DisplayMemberBinding="{Binding sender.FirstName}" Width="Auto"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding text}" Width="1000"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding text}" Width="Auto"/>
                                 </local:ASGridView>
                             </local:ASListView.View>
                         </local:ASListView>
