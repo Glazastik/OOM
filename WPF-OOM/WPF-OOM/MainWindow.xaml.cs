@@ -48,10 +48,10 @@ namespace WPF_OOM
             Message m = new Message("this has logo", c, fb);
             m.Services.Add(steam);
             t.addMessage(m);
-            t.addMessage(new Message("hej",c,fb));
-            t.addMessage(new Message("hejhej",me,fb));
-            y.addMessage(new Message("asdasdas",d,fb));
-            t.addMessage(new Message("asdhsadg",c,fb));
+            t.addMessage(new Message("hej", c, fb));
+            t.addMessage(new Message("hejhej", me, fb));
+            y.addMessage(new Message("asdasdas", d, fb));
+            t.addMessage(new Message("asdhsadg", c, fb));
 
             conversations.Add(t);
             conversations.Add(y);
@@ -61,14 +61,14 @@ namespace WPF_OOM
             InitializeComponent();
             ContactListView.ItemsSource = contactList;
             ChatTabControl.ItemsSource = conversations;
-            
+
         }
 
         private void OnSelectContact(object sender, SelectionChangedEventArgs e)
         {
             foreach (Conversation c in ChatTabControl.Items)
             {
-                if(c.contact == ContactListView.SelectedItem)
+                if (c.contact == ContactListView.SelectedItem)
                 {
                     ChatTabControl.SelectedItem = c;
                     break;
@@ -80,7 +80,7 @@ namespace WPF_OOM
         {
             if (e.Key == Key.Enter)
             {
-                TextBox box = (TextBox) sender;
+                TextBox box = (TextBox)sender;
                 string text = box.Text;
                 if (text.Length > 0)
                 {
@@ -88,7 +88,7 @@ namespace WPF_OOM
                     conv.addMessage(new Message(text, me, fb));
                     conv.DraftMessage = "";
                 }
-                
+
             }
         }
 
@@ -100,7 +100,7 @@ namespace WPF_OOM
                 c.addMessage(new Message(c.DraftMessage, me, fb));
                 c.DraftMessage = "";
             }
-            
+
         }
 
         private void EditContact(object sender, RoutedEventArgs e)

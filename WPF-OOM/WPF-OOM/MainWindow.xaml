@@ -17,16 +17,16 @@
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.ItemTemplate>
-            <DataTemplate>
-                <WrapPanel>                 
-                    <TextBlock Text="{Binding FirstName}" Margin="2"/>
-                    <TextBlock Text="{Binding NickName}" Margin="2"/>
-                    <TextBlock Text="{Binding LastName}" Margin="2"/>
-                    <!-- <Button Content="Edit" Click="EditContact"></Button> -->
-                </WrapPanel>                
-            </DataTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="{Binding FirstName}" Margin="2"/>
+                        <TextBlock Text="{Binding NickName}" Margin="2"/>
+                        <TextBlock Text="{Binding LastName}" Margin="2"/>
+                        <!-- <Button Content="Edit" Click="EditContact"></Button> -->
+                    </WrapPanel>
+                </DataTemplate>
             </ListView.ItemTemplate>
-    </ListView>
+        </ListView>
         <TabControl x:Name="ChatTabControl" DockPanel.Dock="Right" ItemsSource="{Binding}" Background="Transparent" BorderThickness="0">
             <TabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type TabItem}">
@@ -54,7 +54,7 @@
                                                     </ItemsControl.ItemsPanel>
                                                     <ItemsControl.ItemTemplate>
                                                         <DataTemplate>
-                                                            <Image Source="{Binding Path=Logo}" Width="12" Height="12" />                                                          
+                                                            <Image Source="{Binding Path=Logo}" Width="12" Height="12" />
                                                         </DataTemplate>
                                                     </ItemsControl.ItemTemplate>
                                                 </ItemsControl>
@@ -78,7 +78,7 @@
                             </TextBox>
                             <Button Grid.Column="1" Focusable="False" Click="SendMessageButtonClick" Content="Send message"/>
                         </Grid>
-                    </Grid>              
+                    </Grid>
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>
