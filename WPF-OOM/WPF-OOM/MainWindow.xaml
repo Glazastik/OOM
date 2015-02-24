@@ -55,7 +55,8 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="100" />
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="50" />
                         </Grid.RowDefinitions>
                         <local:ASListView DockPanel.Dock="Top" ItemsSource="{Binding Path=messages}" Height="Auto" Grid.Row="0">
                             <local:ASListView.View>
@@ -83,12 +84,13 @@
                                 </local:ASGridView>
                             </local:ASListView.View>
                         </local:ASListView>
-                        <Grid Grid.Row="1">
+                        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5"/>
+                        <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="100" />
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="ChatBox"  DockPanel.Dock="Bottom" AcceptsReturn="False" KeyUp="ChatBox_OnKeyUp" Height="100" Grid.Column="0">
+                            <TextBox x:Name="ChatBox"  DockPanel.Dock="Bottom" AcceptsReturn="False" KeyUp="ChatBox_OnKeyUp" Height="Auto" Grid.Column="0">
                                 <TextBox.Text>
                                     <Binding Path="DraftMessage" UpdateSourceTrigger="PropertyChanged"/>
                                 </TextBox.Text>

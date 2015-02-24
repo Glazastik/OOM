@@ -55,8 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ASListView.cs" />
-    <Compile Include="ASGridView.cs" />
+    <Compile Include="Controls\ASGridView.cs" />
+    <Compile Include="Controls\ASListView.cs" />
     <Compile Include="Service.cs" />
     <Page Include="ContactEditWindow.xaml">
       <SubType>Designer</SubType>
@@ -112,9 +112,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
