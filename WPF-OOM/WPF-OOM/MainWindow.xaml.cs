@@ -24,7 +24,7 @@ namespace WPF_OOM
 
     public partial class MainWindow : Window
     {
-        public ObservableCollection<Contact> contactList;
+        public ObservableCollection<Contact> ContactList;
         ObservableCollection<Conversation> conversations;
         private Contact me;
         private Service fb;
@@ -33,7 +33,7 @@ namespace WPF_OOM
         {
             fb = new Facebook();
             steam = new Steam();
-            contactList = new ObservableCollection<Contact>();
+            ContactList = new ObservableCollection<Contact>();
             conversations = new ObservableCollection<Conversation>();
             Contact c = new Contact();
             Contact d = new Contact();
@@ -56,10 +56,10 @@ namespace WPF_OOM
             conversations.Add(t);
             conversations.Add(y);
 
-            contactList.Add(c);
-            contactList.Add(d);
+            ContactList.Add(c);
+            ContactList.Add(d);
             InitializeComponent();
-            ContactListView.ItemsSource = contactList;
+            ContactListView.ItemsSource = ContactList;
             ChatTabControl.ItemsSource = conversations;
 
         }
@@ -114,7 +114,7 @@ namespace WPF_OOM
 
         private void DeleteContact(object sender, RoutedEventArgs e)
         {
-            contactList.Remove((Contact) ContactListView.SelectedItem);
+            ContactList.Remove((Contact) ContactListView.SelectedItem);
             ContactListView.SelectedIndex = 0;
         }
     }
