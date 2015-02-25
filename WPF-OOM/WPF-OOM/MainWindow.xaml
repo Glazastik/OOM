@@ -18,7 +18,7 @@
                 <MenuItem Header="_Exit" />
             </MenuItem>
             <MenuItem Header="_Contacts">
-                <MenuItem Header="New contact..." />
+                <MenuItem Header="New contact..." Click="NewContactMenu"/>
                 <MenuItem Header="Sort by">
                     <MenuItem Header="MMR" IsChecked="True"/>
                     <MenuItem Header="Alphabetical" IsChecked="False"/>
