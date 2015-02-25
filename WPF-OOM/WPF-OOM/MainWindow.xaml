@@ -30,7 +30,7 @@
                 <ContextMenu>
                     <MenuItem Header="Edit details..." Click="EditContact"/>
                     <Separator />
-                    <MenuItem Header="Delete contact" />
+                    <MenuItem Header="Delete contact" Click ="DeleteContact"/>
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.ItemTemplate>

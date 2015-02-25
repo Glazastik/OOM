@@ -111,5 +111,11 @@ namespace WPF_OOM
                 ContactEditWindow cew = new ContactEditWindow(c);
             }
         }
+
+        private void DeleteContact(object sender, RoutedEventArgs e)
+        {
+            contactList.Remove((Contact) ContactListView.SelectedItem);
+            ContactListView.SelectedIndex = 0;
+        }
     }
 }
