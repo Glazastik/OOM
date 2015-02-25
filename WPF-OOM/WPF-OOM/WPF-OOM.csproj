@@ -55,9 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddNewContactWindow.xaml.cs">
+      <DependentUpon>AddNewContactWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ASGridView.cs" />
     <Compile Include="Controls\ASListView.cs" />
     <Compile Include="Service.cs" />
+    <Page Include="AddNewContactWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ContactEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
