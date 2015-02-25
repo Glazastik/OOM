@@ -107,7 +107,7 @@ namespace WPF_OOM
         {
             if (sender is MenuItem)
             {
-                Contact c = (Contact)((MenuItem)sender).DataContext;
+                Contact c = (Contact)ContactListView.SelectedItem;
                 ContactEditWindow cew = new ContactEditWindow(c);
             }
         }
@@ -116,6 +116,11 @@ namespace WPF_OOM
         {
             ContactList.Remove((Contact) ContactListView.SelectedItem);
             ContactListView.SelectedIndex = 0;
+        }
+
+        private void NewContactMenu(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
