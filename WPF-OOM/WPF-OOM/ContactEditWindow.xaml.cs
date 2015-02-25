@@ -39,5 +39,10 @@ namespace WPF_OOM
             be3.UpdateSource();
             this.Close();
         }
+
+        private void CancelButtonClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
