@@ -1,19 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WPF_OOM
 {
@@ -47,11 +36,11 @@ namespace WPF_OOM
             Conversation y = new Conversation(d);
             Message m = new Message("this has logo", c, fb);
             m.Services.Add(steam);
-            t.addMessage(m);
-            t.addMessage(new Message("hej", c, fb));
-            t.addMessage(new Message("hejhej", me, fb));
-            y.addMessage(new Message("asdasdas", d, fb));
-            t.addMessage(new Message("asdhsadg", c, fb));
+            t.AddMessage(m);
+            t.AddMessage(new Message("hej", c, fb));
+            t.AddMessage(new Message("hejhej", me, fb));
+            y.AddMessage(new Message("asdasdas", d, fb));
+            t.AddMessage(new Message("asdhsadg", c, fb));
 
             conversations.Add(t);
             conversations.Add(y);
@@ -68,7 +57,7 @@ namespace WPF_OOM
         {
             foreach (Conversation c in ChatTabControl.Items)
             {
-                if (c.contact == ContactListView.SelectedItem)
+                if (c.Contact == ContactListView.SelectedItem)
                 {
                     ChatTabControl.SelectedItem = c;
                     break;
@@ -85,7 +74,7 @@ namespace WPF_OOM
                 if (text.Length > 0)
                 {
                     Conversation conv = (Conversation)ChatTabControl.SelectedItem;
-                    conv.addMessage(new Message(text, me, fb));
+                    conv.AddMessage(new Message(text, me, fb));
                     conv.DraftMessage = "";
                 }
 
@@ -97,7 +86,7 @@ namespace WPF_OOM
             Conversation c = (Conversation)ChatTabControl.SelectedItem;
             if (!string.IsNullOrEmpty(c.DraftMessage))
             {
-                c.addMessage(new Message(c.DraftMessage, me, fb));
+                c.AddMessage(new Message(c.DraftMessage, me, fb));
                 c.DraftMessage = "";
             }
 
@@ -108,7 +97,7 @@ namespace WPF_OOM
             if (sender is MenuItem)
             {
                 Contact c = (Contact)ContactListView.SelectedItem;
-                ContactEditWindow cew = new ContactEditWindow(c);
+                new ContactEditWindow(c);
             }
         }
 
