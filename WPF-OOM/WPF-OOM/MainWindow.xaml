@@ -26,16 +26,17 @@
             </MenuItem>
         </Menu>
         <ListView x:Name="ContactListView" DockPanel.Dock="Left" SelectionChanged="OnSelectContact" Background="Transparent" BorderThickness="0">
-            <ListView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Edit details..." Click="EditContact"/>
-                    <Separator />
-                    <MenuItem Header="Delete contact" Click ="DeleteContact"/>
-                </ContextMenu>
-            </ListView.ContextMenu>
+            
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
+                        <WrapPanel.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Edit details..." Click="EditContact"/>
+                                <Separator />
+                                <MenuItem Header="Delete contact" Click ="DeleteContact"/>
+                            </ContextMenu>
+                        </WrapPanel.ContextMenu>
                         <TextBlock Text="{Binding FirstName}" Margin="2"/>
                         <TextBlock Text="{Binding NickName}" Margin="2"/>
                         <TextBlock Text="{Binding LastName}" Margin="2"/>
