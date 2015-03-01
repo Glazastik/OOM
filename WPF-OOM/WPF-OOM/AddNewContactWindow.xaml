@@ -3,6 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="New Contact" Height="300" Width="300">
     <Grid>
-        
+        <Button Content="Create" Click="CreateContact"></Button>
     </Grid>
 </Window>

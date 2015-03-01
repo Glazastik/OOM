@@ -22,6 +22,16 @@ namespace WPF_OOM
         public AddNewContactWindow()
         {
             InitializeComponent();
+            this.Visibility = Visibility.Visible;
+        }
+
+        private void CreateContact(object sender, RoutedEventArgs e)
+        {
+            Contact c = new Contact();
+            c.FirstName = "New";
+            c.LastName = "New";
+            c.NickName = "Contact";
+            MainWindow.ContactList.Add(c);
         }
     }
 }

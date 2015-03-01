@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
 
 namespace WPF_OOM
@@ -13,13 +15,14 @@ namespace WPF_OOM
 
     public partial class MainWindow : Window
     {
-        public ObservableCollection<Contact> ContactList;
+        public static ObservableCollection<Contact> ContactList { get; private set; }
         ObservableCollection<Conversation> conversations;
         private Contact me;
         private Service fb;
         private Service steam;
         public MainWindow()
         {
+            this.Closing += this.HideWindow;
             fb = new Facebook();
             steam = new Steam();
             ContactList = new ObservableCollection<Contact>();
@@ -109,7 +112,18 @@ namespace WPF_OOM
 
         private void NewContactMenu(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            new AddNewContactWindow();
+        }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void HideWindow(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.WindowState = WindowState.Minimized;
         }
     }
 }

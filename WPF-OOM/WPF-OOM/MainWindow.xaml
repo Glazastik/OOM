@@ -15,7 +15,7 @@
                 <MenuItem Header="_Profile..." />
                 <Separator />
                 <MenuItem Header="_Log off" />
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="_Exit" Click="Exit" />
             </MenuItem>
             <MenuItem Header="_Contacts">
                 <MenuItem Header="New contact..." Click="NewContactMenu"/>
