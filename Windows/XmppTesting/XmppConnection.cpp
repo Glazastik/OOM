@@ -13,7 +13,13 @@ XmppConnection::XmppConnection(std::shared_ptr<boost::asio::io_service> io_servi
 	ssl_context = std::make_shared<boost::asio::ssl::context>(boost::asio::ssl::context::sslv23);
 	ssl_context->set_default_verify_paths();
 	ssl_socket = std::make_shared<boost::asio::ssl::stream<boost::asio::ip::tcp::socket&>>(*tcp_socket, *ssl_context);
-	ssl_socket->set_verify_mode(boost::asio::ssl::verify_peer);
+
+	/*
+	 * Using verify_none for the time being since I don't want to mess with certificate verification right now.
+	 */
+	ssl_socket->set_verify_mode(boost::asio::ssl::verify_none);
+	//ssl_socket->set_verify_mode(boost::asio::ssl::verify_peer);
+
 	ssl_socket->set_verify_callback(boost::asio::ssl::rfc2818_verification(hostName));
 }
 
@@ -25,6 +31,7 @@ void XmppConnection::Connect()
 {
 	try {
 		// Connect TCP socket
+		DebugPrint("CONNECTING TO: " + hostName + ":" + boost::lexical_cast<std::string>(portNumber)+"\n");
 		TCPConnect();
 
 		std::stringstream stream;
@@ -59,7 +66,30 @@ void XmppConnection::Connect()
 		DebugPrintRead(readStr);
 
 		// Perform SSL Handshake
+		DebugPrint("PERFORMING SSL HANDSHAKE\n");
 		SSLHandshake();
+
+		// Initiate xml stream to server
+		stream.str("");
+		stream.clear();
+		stream << "<?xmlversion='1.0'?>" << std::endl;
+		stream << "<stream:stream" << std::endl;
+		stream << "to='msp.se'" << std::endl;
+		stream << "xmlns='jabber:client'" << std::endl;
+		stream << "xmlns:stream='http://etherx.jabber.org/streams'" << std::endl;
+		stream << "version='1.0'>" << std::endl;
+
+		boost::system::error_code error_code;
+		ssl_socket->write_some(boost::asio::buffer(stream.str()), error_code);
+		if (error_code)
+		{
+			DebugPrintError(error_code);
+		}
+		DebugPrintWrite(stream.str());
+
+		// Read server response
+		readStr = SSLReadUntil("</stream:features>");
+		DebugPrintRead(readStr);
 	}
 	catch (std::exception& exception)
 	{
@@ -87,7 +117,6 @@ void XmppConnection::TCPConnect()
 	boost::asio::ip::tcp::resolver::iterator endpointIterator = resolver.resolve(query);
 
 	// Connect socket
-	DebugPrint("CONNECTING TO: " + hostName + ":" + boost::lexical_cast<std::string>(portNumber)+"\n");
 	boost::system::error_code error_code;
 	boost::asio::connect(*tcp_socket, endpointIterator, error_code);
 	if (error_code)
@@ -98,7 +127,6 @@ void XmppConnection::TCPConnect()
 
 void XmppConnection::SSLHandshake()
 {
-	DebugPrint("PERFORMING SSL HANDSHAKE");
 	boost::system::error_code error_code;
 	ssl_socket->handshake(boost::asio::ssl::stream<boost::asio::ip::tcp::socket>::client, error_code);
 	if (error_code)
