@@ -100,7 +100,7 @@ namespace WPF_OOM
             if (sender is MenuItem)
             {
                 Contact c = (Contact)ContactListView.SelectedItem;
-                new ContactEditWindow(c);
+                new ContactEditWindow(c, false);
             }
         }
 
@@ -112,7 +112,8 @@ namespace WPF_OOM
 
         private void NewContactMenu(object sender, RoutedEventArgs e)
         {
-            new AddNewContactWindow();
+            //new AddNewContactWindow();
+            new ContactEditWindow(new Contact(), true);
         }
 
         private void Exit(object sender, RoutedEventArgs e)

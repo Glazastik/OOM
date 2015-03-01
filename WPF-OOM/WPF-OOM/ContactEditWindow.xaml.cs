@@ -10,8 +10,10 @@ namespace WPF_OOM
     public partial class ContactEditWindow : Window
     {
         private Contact contact;
-        public ContactEditWindow(Contact c)
+        private bool newContact;
+        public ContactEditWindow(Contact c, bool NewContact)
         {
+            newContact = NewContact;
             InitializeComponent();
             contact = c;     
             this.Visibility = Visibility.Visible;
@@ -27,6 +29,10 @@ namespace WPF_OOM
             be1.UpdateSource();
             be2.UpdateSource();
             be3.UpdateSource();
+            if (newContact)
+            {
+                MainWindow.ContactList.Add(contact);
+            }
             this.Close();
         }
 
