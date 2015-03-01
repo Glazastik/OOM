@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace WPF_OOM
 {
     
-    class Conversation : INotifyPropertyChanged
+    public class Conversation : INotifyPropertyChanged
     {
         public Contact Contact { get; private set; }
         public ObservableCollection<Message> Messages { get; private set; }

@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace WPF_OOM
 {
-    class Message
+    public class Message
     {
         public string text { get; private set; }
         public Contact sender { get; private set; }

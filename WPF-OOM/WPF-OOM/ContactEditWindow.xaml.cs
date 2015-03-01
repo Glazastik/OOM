@@ -18,6 +18,10 @@ namespace WPF_OOM
             contact = c;     
             this.Visibility = Visibility.Visible;
             ContactGrid.DataContext = c;
+            if (newContact)
+            {
+                this.Title = "New contact";
+            }
             
         }
 
@@ -32,6 +36,7 @@ namespace WPF_OOM
             if (newContact)
             {
                 MainWindow.ContactList.Add(contact);
+                MainWindow.conversations.Add(new Conversation(contact));
             }
             this.Close();
         }

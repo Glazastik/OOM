@@ -16,7 +16,7 @@ namespace WPF_OOM
     public partial class MainWindow : Window
     {
         public static ObservableCollection<Contact> ContactList { get; private set; }
-        ObservableCollection<Conversation> conversations;
+        public static ObservableCollection<Conversation> conversations { get; private set; }
         private Contact me;
         private Service fb;
         private Service steam;
@@ -112,7 +112,6 @@ namespace WPF_OOM
 
         private void NewContactMenu(object sender, RoutedEventArgs e)
         {
-            //new AddNewContactWindow();
             new ContactEditWindow(new Contact(), true);
         }
 
