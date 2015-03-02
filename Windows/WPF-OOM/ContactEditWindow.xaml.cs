@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace WPF_OOM
 {
@@ -27,18 +28,29 @@ namespace WPF_OOM
 
         private void AcceptButtonClick(object sender, RoutedEventArgs e)
         {
-            BindingExpression be1 = FnameBox.GetBindingExpression(TextBox.TextProperty);
-            BindingExpression be2 = NnameBox.GetBindingExpression(TextBox.TextProperty);
-            BindingExpression be3 = LnameBox.GetBindingExpression(TextBox.TextProperty);
-            be1.UpdateSource();
-            be2.UpdateSource();
-            be3.UpdateSource();
-            if (newContact)
+            if (!(string.IsNullOrWhiteSpace(FnameBox.Text) && string.IsNullOrWhiteSpace(LnameBox.Text) && string.IsNullOrWhiteSpace(NnameBox.Text)))
             {
-                MainWindow.ContactList.Add(contact);
-                MainWindow.conversations.Add(new Conversation(contact));
+                BindingExpression be1 = FnameBox.GetBindingExpression(TextBox.TextProperty);
+                BindingExpression be2 = NnameBox.GetBindingExpression(TextBox.TextProperty);
+                BindingExpression be3 = LnameBox.GetBindingExpression(TextBox.TextProperty);
+                be1.UpdateSource();
+                be2.UpdateSource();
+                be3.UpdateSource();
+                if (newContact)
+                {
+                    MainWindow.ContactList.Add(contact);
+                    MainWindow.conversations.Add(new Conversation(contact));
+                }
+
+                this.Close();
             }
-            this.Close();
+            else
+            {
+                ErrorLabel.Foreground = Brushes.Red;
+                ErrorLabel.Content = "Enter a name.";
+            }
+            
+            
         }
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)

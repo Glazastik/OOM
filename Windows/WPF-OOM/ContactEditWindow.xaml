@@ -8,7 +8,9 @@
                 <RowDefinition Height="35" />
                 <RowDefinition Height="35" />
                 <RowDefinition Height="35" />
-            </Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+        </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
@@ -22,5 +24,7 @@
             <TextBox x:Name="LnameBox" Grid.Row="2" Grid.Column="1" Text="{Binding LastName, UpdateSourceTrigger=Explicit}"  />
             <Button Grid.Row="4" Grid.Column="1" Content="Accept" Click="AcceptButtonClick"></Button>
             <Button Grid.Row="4" Grid.Column="2" Content="Cancel" Click="CancelButtonClick"></Button>
+            <Label x:Name="ErrorLabel" Grid.Row="6" Grid.Column="0" />
     </Grid>
+    
 </Window>
