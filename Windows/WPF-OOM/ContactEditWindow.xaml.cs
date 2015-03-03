@@ -30,6 +30,9 @@ namespace WPF_OOM
         {
             if (!(string.IsNullOrWhiteSpace(FnameBox.Text) && string.IsNullOrWhiteSpace(LnameBox.Text) && string.IsNullOrWhiteSpace(NnameBox.Text)))
             {
+                FnameBox.Text = FnameBox.Text.Trim();
+                NnameBox.Text = NnameBox.Text.Trim();
+                LnameBox.Text = LnameBox.Text.Trim();
                 BindingExpression be1 = FnameBox.GetBindingExpression(TextBox.TextProperty);
                 BindingExpression be2 = NnameBox.GetBindingExpression(TextBox.TextProperty);
                 BindingExpression be3 = LnameBox.GetBindingExpression(TextBox.TextProperty);
@@ -47,7 +50,7 @@ namespace WPF_OOM
             else
             {
                 ErrorLabel.Foreground = Brushes.Red;
-                ErrorLabel.Content = "Enter a name.";
+                ErrorLabel.Content = "Error: Enter a name.";
             }
             
             
