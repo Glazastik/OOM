@@ -1,0 +1,11 @@
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\ManagedDLL\bin\Debug\ManagedDLL.dll
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\ManagedDLL\bin\Debug\ManagedDLL.pdb
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\Debug\ManagedDLL.dll
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\Debug\ManagedDLL.pdb
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\ManagedDLL\obj\Debug\ManagedDLL.dll
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\ManagedDLL\obj\Debug\ManagedDLL.pdb
+C:\Users\alexander\Documents\GitHub\OOM\ExposeNativeToManaged\Debug\ManagedDLL.dll
+C:\Users\alexander\Documents\GitHub\OOM\ExposeNativeToManaged\Debug\ManagedDLL.pdb
+C:\Users\alexander\Documents\GitHub\OOM\ExposeNativeToManaged\ManagedDLL\obj\Debug\ManagedDLL.csprojResolveAssemblyReference.cache
+C:\Users\alexander\Documents\GitHub\OOM\ExposeNativeToManaged\ManagedDLL\obj\Debug\ManagedDLL.dll
+C:\Users\alexander\Documents\GitHub\OOM\ExposeNativeToManaged\ManagedDLL\obj\Debug\ManagedDLL.pdb

@@ -1,0 +1,17 @@
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\TestConsole\bin\Debug\TestConsole.exe.config
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\TestConsole\bin\Debug\TestConsole.exe
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\TestConsole\bin\Debug\TestConsole.pdb
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\TestConsole\bin\Debug\ManagedDLL.dll
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\TestConsole\bin\Debug\ManagedDLL.pdb
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\Debug\TestConsole.exe.config
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\Debug\TestConsole.exe
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\Debug\TestConsole.pdb
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\TestConsole\obj\Debug\TestConsole.csprojResolveAssemblyReference.cache
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\TestConsole\obj\Debug\TestConsole.exe
+C:\Users\alexander\Documents\C++\NativeLibrary\ExposeNativeToManaged\TestConsole\obj\Debug\TestConsole.pdb
+C:\Users\alexander\Documents\GitHub\OOM\ExposeNativeToManaged\Debug\TestConsole.exe.config
+C:\Users\alexander\Documents\GitHub\OOM\ExposeNativeToManaged\Debug\TestConsole.exe
+C:\Users\alexander\Documents\GitHub\OOM\ExposeNativeToManaged\Debug\TestConsole.pdb
+C:\Users\alexander\Documents\GitHub\OOM\ExposeNativeToManaged\TestConsole\obj\Debug\TestConsole.csprojResolveAssemblyReference.cache
+C:\Users\alexander\Documents\GitHub\OOM\ExposeNativeToManaged\TestConsole\obj\Debug\TestConsole.exe
+C:\Users\alexander\Documents\GitHub\OOM\ExposeNativeToManaged\TestConsole\obj\Debug\TestConsole.pdb
