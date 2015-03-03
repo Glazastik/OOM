@@ -123,7 +123,8 @@ namespace WPF_OOM
         private void HideWindow(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
-            this.WindowState = WindowState.Minimized;
+            //this.WindowState = WindowState.Minimized;
+            Environment.Exit(0);
         }
     }
 }
