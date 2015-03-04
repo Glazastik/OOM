@@ -44,3 +44,8 @@ extern "C" __declspec(dllexport) void __cdecl Dummy2(wchar_t *str, int capacity)
 extern "C" __declspec(dllexport) void __cdecl Dummy3(unsigned char *pnt, int capacity);
 extern "C" __declspec(dllexport) unsigned char * __cdecl Dummy4();
 extern "C" __declspec(dllexport) void __cdecl Dummy5(message_t *pnt, int size);
+
+
+extern "C" __declspec(dllexport) bool __cdecl HasMessage(void);
+typedef void(__stdcall *FUNCTION)(int arg1);
+extern "C" __declspec(dllexport) bool __cdecl CallingBack(FUNCTION func);

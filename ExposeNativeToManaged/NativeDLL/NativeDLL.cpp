@@ -152,12 +152,16 @@ extern "C" __declspec(dllexport) void __cdecl Dummy5(message_t *pnt, int size)
 	pnt->test[3] = 3;
 	pnt->test[4] = 4;
 
-	/*int *test = (int *)pnt;
-	*test = 3;
-	test++;
-	*test = 7;
-	test++;
-	*test = 6;
-	test++;
-	*test = 2;*/
+}
+
+extern "C" __declspec(dllexport) bool __cdecl HasMessage(void)
+{
+	return true;
+}
+
+extern "C" __declspec(dllexport) bool __cdecl CallingBack(FUNCTION func)
+{
+	int i = 0;
+	func(i);
+	return true;
 }

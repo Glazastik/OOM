@@ -10,9 +10,16 @@ namespace TestConsole
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             Console.Title = "Test";
+
+            Program prog = new Program();
+            heh[0] = prog;
+
+            IntPtr intptr_delegate = Marshal.GetFunctionPointerForDelegate(new TestCallback(Cool));
+            Console.WriteLine(ManagedMessenger.CallingBack(intptr_delegate));
 
             //Test1();
             Test2();
@@ -135,5 +142,34 @@ namespace TestConsole
                 buf, false);
             return buf;
         }
+
+        public delegate void TestCallback(int arg1);
+
+        public static void Cool(int i)
+        {
+            Console.WriteLine("it works u fagget");
+            heh[i].OnReceivedMessage(EventArgs.Empty);
+        }
+
+        public Program()
+        {
+            ReceivedMessage += new EventHandler(MessageReceived);
+        }
+
+        public delegate void ReceivedMessageHandler(Object sender, EventArgs e);
+        public event EventHandler ReceivedMessage;
+
+        protected virtual void OnReceivedMessage(EventArgs e)
+        {
+            if (ReceivedMessage != null)
+                ReceivedMessage(this, e);
+        }
+        public void MessageReceived(Object sender, EventArgs e)
+        {
+            Console.WriteLine("Message Received");
+        }
+
+        static Program[] heh = new Program[1];
+
     }
 }

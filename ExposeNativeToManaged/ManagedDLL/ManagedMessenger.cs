@@ -180,5 +180,12 @@ namespace ManagedDLL
         ThrowOnUnmappableChar = false)]
         public static extern void Dummy5(IntPtr pnt, int capacity);
 
+        [DllImport("NativeDll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool HasMessage();
+
+        [DllImport("NativeDll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool CallingBack(IntPtr p);
     }
 }
