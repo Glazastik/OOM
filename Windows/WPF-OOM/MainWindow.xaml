@@ -7,7 +7,8 @@
     <Window.Resources>
         <Style x:Key="CollapsedColumnHeader" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="Visibility" Value="Collapsed" />
-        </Style>
+        </Style> 
+
     </Window.Resources>
     <DockPanel x:Name="DP">
         <Menu DockPanel.Dock="Top">
@@ -96,11 +97,35 @@
                                     <Binding Path="DraftMessage" UpdateSourceTrigger="PropertyChanged"/>
                                 </TextBox.Text>
                             </TextBox>
-                            <Button Grid.Column="1" Focusable="False" Click="SendMessageButtonClick" Content="Send message"/>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="40" />
+                                </Grid.RowDefinitions>
+
+                                <ListView Grid.Row="0" ItemsSource="{Binding Contact.Services}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <WrapPanel>
+                                                <ToggleButton>
+                                                    <ToggleButton.Content>
+                                                        <Image Source="{Binding Path=Logo}" Width="24" Height="24"/>
+                                                    </ToggleButton.Content>
+                                                </ToggleButton>
+                                            </WrapPanel>   
+                                        </DataTemplate>
+                                     </ListView.ItemTemplate>
+                                   
+                                </ListView>
+                                <!--Button Grid.Row="0" Content="sadasd"></-->
+                                <Button Grid.Row="1" Focusable="False" Click="SendMessageButtonClick" Content="Send message"/>
+                            </Grid>
+                            
                         </Grid>
                     </Grid>
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>
     </DockPanel>
+    
 </Window>

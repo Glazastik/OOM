@@ -19,12 +19,13 @@ namespace WPF_OOM
         public static ObservableCollection<Conversation> conversations { get; private set; }
         private Contact me;
         private Service fb;
-        private Service steam;
+        public Service steam { get; private set; }
         public MainWindow()
         {
             this.Closing += this.HideWindow;
             fb = new Facebook();
             steam = new Steam();
+
             ContactList = new ObservableCollection<Contact>();
             conversations = new ObservableCollection<Conversation>();
             Contact c = new Contact();
@@ -35,6 +36,9 @@ namespace WPF_OOM
             c.LastName = "Svensson";
             d.FirstName = "Kalle";
             d.LastName = "Karlsson";
+            c.addService(steam, "sven_1337");
+            d.addService(fb, "Kalle_Karlsson");
+            d.addService(steam, "l33thax0r");
             Conversation t = new Conversation(c);
             Conversation y = new Conversation(d);
             Message m = new Message("this has logo", c, fb);

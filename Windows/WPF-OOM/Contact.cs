@@ -16,6 +16,8 @@ namespace WPF_OOM
         public Dictionary<Service, String> Accounts { get; private set; } 
         public Contact()
         {
+            Services = new ObservableCollection<Service>();
+            Accounts = new Dictionary<Service, string>();
         }
 
         public void addService(Service s, String acc)
