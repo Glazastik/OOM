@@ -104,17 +104,20 @@
                                 </Grid.RowDefinitions>
 
                                 <ListView Grid.Row="0" ItemsSource="{Binding Contact.Services}">
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal"/>   
+                                        </ItemsPanelTemplate>
+                                     </ListView.ItemsPanel>
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <WrapPanel>
-                                                <ToggleButton>
-                                                    <ToggleButton.Content>
-                                                        <Image Source="{Binding Path=Logo}" Width="24" Height="24"/>
-                                                    </ToggleButton.Content>
-                                                </ToggleButton>
-                                            </WrapPanel>   
+                                            <ToggleButton>
+                                                <ToggleButton.Content>
+                                                    <Image Source="{Binding Path=Logo}" Width="20" Height="20"/>
+                                                </ToggleButton.Content>
+                                            </ToggleButton>
                                         </DataTemplate>
-                                     </ListView.ItemTemplate>
+                                    </ListView.ItemTemplate>
                                    
                                 </ListView>
                                 <!--Button Grid.Row="0" Content="sadasd"></-->
