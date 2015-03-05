@@ -82,9 +82,9 @@ namespace WPF_OOM
 
         private void SendMessageButtonClick(object sender, RoutedEventArgs e)
         {
-            TabItem ti = (TabItem) ChatTabControl.SelectedContent;
+            //TabItem ti = (TabItem) ChatTabControl.SelectedContent;
             //ListView lv = (ListView)((TabItem) ChatTabControl.SelectedContent).FindName("ServiceListView");
-            Debug.WriteLine(ti.ToString());
+            //Debug.WriteLine(ti.ToString());
             Conversation c = (Conversation)ChatTabControl.SelectedItem;
             c.SendMessage();
 
