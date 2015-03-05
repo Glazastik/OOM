@@ -19,7 +19,6 @@ namespace WPF_OOM
     {
         public string Name { get; private set; }
         public ImageSource Logo { get; private set; }
-
         public ImageSource OtherLogo { get; private set; }
 
         public Facebook()
@@ -53,4 +52,23 @@ namespace WPF_OOM
             OtherLogo = bmi;
         }
     }
+
+    public class DraftService
+    {
+        private Service _service;
+        public Service Service
+        {
+            get { return _service; }
+            private set { _service = value; }
+        }
+
+        public bool Selected { get; set; }
+
+        public DraftService(Service s, bool selected)
+        {
+            this.Service = s;
+            this.Selected = selected;
+        }
+    }
+
 }

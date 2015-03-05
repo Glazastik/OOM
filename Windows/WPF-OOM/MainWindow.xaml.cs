@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms.VisualStyles;
@@ -17,7 +18,6 @@ namespace WPF_OOM
     {
         public static ObservableCollection<Contact> ContactList { get; private set; }
         public static ObservableCollection<Conversation> conversations { get; private set; }
-        private Contact me;
         private Service fb;
         public Service steam { get; private set; }
         public MainWindow()
@@ -30,8 +30,6 @@ namespace WPF_OOM
             conversations = new ObservableCollection<Conversation>();
             Contact c = new Contact();
             Contact d = new Contact();
-            me = new Contact();
-            me.FirstName = "Me";
             c.FirstName = "Sven";
             c.LastName = "Svensson";
             d.FirstName = "Kalle";
@@ -45,7 +43,7 @@ namespace WPF_OOM
             m.Services.Add(steam);
             t.AddMessage(m);
             t.AddMessage(new Message("hej", c, fb));
-            t.AddMessage(new Message("hejhej", me, fb));
+            t.AddMessage(new Message("hejhej", Contact.Me, fb));
             y.AddMessage(new Message("asdasdas", d, fb));
             t.AddMessage(new Message("asdhsadg", c, fb));
 
@@ -84,6 +82,9 @@ namespace WPF_OOM
 
         private void SendMessageButtonClick(object sender, RoutedEventArgs e)
         {
+            TabItem ti = (TabItem) ChatTabControl.SelectedContent;
+            //ListView lv = (ListView)((TabItem) ChatTabControl.SelectedContent).FindName("ServiceListView");
+            Debug.WriteLine(ti.ToString());
             Conversation c = (Conversation)ChatTabControl.SelectedItem;
             c.SendMessage();
 

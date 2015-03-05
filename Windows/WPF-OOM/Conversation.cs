@@ -9,9 +9,9 @@ namespace WPF_OOM
         public Contact Contact { get; private set; }
         public ObservableCollection<Message> Messages { get; private set; }
         public event PropertyChangedEventHandler PropertyChanged;
-        private Message _draftMessage;
+        private DraftMessage _draftMessage;
 
-        public Message DraftMessage
+        public DraftMessage DraftMessage
         {
             get { return _draftMessage; }
             set
@@ -25,7 +25,8 @@ namespace WPF_OOM
         {
             Contact = c;
             Messages = new ObservableCollection<Message>();
-            DraftMessage = new Message("", Contact, new ObservableCollection<Service>());
+            //TODO: Change 2nd c.Services to new OC.
+            DraftMessage = new DraftMessage(c.Services, c.Services);
         }
 
         public void AddMessage(Message m)
@@ -46,10 +47,9 @@ namespace WPF_OOM
         {
             if (!string.IsNullOrEmpty(DraftMessage.text))
             {
-                this.Messages.Add(DraftMessage);
-                Message dm = DraftMessage;
-                this.DraftMessage = new Message("", Contact, dm.Services);
-                DraftMessage.text = "";
+                this.Messages.Add(DraftMessage.ToMessage());
+                DraftMessage dm = DraftMessage;
+                this.DraftMessage = new DraftMessage(Contact.Services, dm.GetServices());
             }
         }
         

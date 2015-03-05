@@ -102,9 +102,23 @@
                                     <RowDefinition Height="40" />
                                     <RowDefinition Height="40" />
                                 </Grid.RowDefinitions>
-
-
-                                <!--Button Grid.Row="0" Content="sadasd"></-->
+                                <ListView x:Name="ServiceListView" Grid.Row="0" ItemsSource="{Binding DraftMessage.Services, diag:PresentationTraceSources.TraceLevel=High}">
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal"/>   
+                                        </ItemsPanelTemplate>
+                                     </ListView.ItemsPanel>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ToggleButton IsChecked="{Binding Path=Selected, diag:PresentationTraceSources.TraceLevel=High}">
+                                                <ToggleButton.Content>
+                                                    <Image Source="{Binding Path=Service.Logo}" Width="20" Height="20"/>
+                                                </ToggleButton.Content>
+                                            </ToggleButton>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                   
+                                </ListView>
                                 <Button Grid.Row="1" Focusable="False" Click="SendMessageButtonClick" Content="Send message"/>
                             </Grid>
                             
