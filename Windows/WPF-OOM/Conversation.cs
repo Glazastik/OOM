@@ -9,13 +9,14 @@ namespace WPF_OOM
         public Contact Contact { get; private set; }
         public ObservableCollection<Message> Messages { get; private set; }
         public event PropertyChangedEventHandler PropertyChanged;
-        private string draftMessage;
-        public string DraftMessage
+        private DraftMessage _draftMessage;
+
+        public DraftMessage DraftMessage
         {
-            get { return draftMessage;  }
+            get { return _draftMessage; }
             set
             {
-                draftMessage = value;
+                _draftMessage = value;
                 OnPropertyChanged("DraftMessage");
             }
         }
@@ -24,6 +25,8 @@ namespace WPF_OOM
         {
             Contact = c;
             Messages = new ObservableCollection<Message>();
+            //TODO: Change 2nd c.Services to new OC.
+            DraftMessage = new DraftMessage(c.Services, c.Services);
         }
 
         public void AddMessage(Message m)
@@ -37,6 +40,16 @@ namespace WPF_OOM
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        public void SendMessage()
+        {
+            if (!string.IsNullOrEmpty(DraftMessage.text))
+            {
+                this.Messages.Add(DraftMessage.ToMessage());
+                DraftMessage dm = DraftMessage;
+                this.DraftMessage = new DraftMessage(Contact.Services, dm.GetServices());
             }
         }
         

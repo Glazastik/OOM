@@ -9,6 +9,17 @@ namespace WPF_OOM
 {
     public class Contact
     {
+        private static Contact _me;
+        public static Contact Me { 
+            get {
+                if (_me == null)
+                {
+                    _me = new Contact();
+                    _me.FirstName = "Me";
+                }
+                return _me;
+            }
+        }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string NickName { get; set; }
@@ -16,6 +27,8 @@ namespace WPF_OOM
         public Dictionary<Service, String> Accounts { get; private set; } 
         public Contact()
         {
+            Services = new ObservableCollection<Service>();
+            Accounts = new Dictionary<Service, string>();
         }
 
         public void addService(Service s, String acc)
@@ -24,4 +37,5 @@ namespace WPF_OOM
             Accounts.Add(s,acc);
         }
     }
+    
 }

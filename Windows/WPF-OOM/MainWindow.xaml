@@ -7,7 +7,8 @@
     <Window.Resources>
         <Style x:Key="CollapsedColumnHeader" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="Visibility" Value="Collapsed" />
-        </Style>
+        </Style> 
+
     </Window.Resources>
     <DockPanel x:Name="DP">
         <Menu DockPanel.Dock="Top">
@@ -93,14 +94,39 @@
                             </Grid.ColumnDefinitions>
                             <TextBox x:Name="ChatBox"  DockPanel.Dock="Bottom" AcceptsReturn="False" KeyUp="ChatBox_OnKeyUp" Height="Auto" Grid.Column="0">
                                 <TextBox.Text>
-                                    <Binding Path="DraftMessage" UpdateSourceTrigger="PropertyChanged"/>
+                                    <Binding Path="DraftMessage.text" UpdateSourceTrigger="PropertyChanged"/>
                                 </TextBox.Text>
                             </TextBox>
-                            <Button Grid.Column="1" Focusable="False" Click="SendMessageButtonClick" Content="Send message"/>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="40" />
+                                </Grid.RowDefinitions>
+                                <ListView x:Name="ServiceListView" Grid.Row="0" ItemsSource="{Binding DraftMessage.Services, diag:PresentationTraceSources.TraceLevel=High}">
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal"/>   
+                                        </ItemsPanelTemplate>
+                                     </ListView.ItemsPanel>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ToggleButton IsChecked="{Binding Path=Selected, diag:PresentationTraceSources.TraceLevel=High}">
+                                                <ToggleButton.Content>
+                                                    <Image Source="{Binding Path=Service.Logo}" Width="20" Height="20"/>
+                                                </ToggleButton.Content>
+                                            </ToggleButton>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                   
+                                </ListView>
+                                <Button Grid.Row="1" Focusable="False" Click="SendMessageButtonClick" Content="Send message"/>
+                            </Grid>
+                            
                         </Grid>
                     </Grid>
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>
     </DockPanel>
+    
 </Window>
