@@ -10,13 +10,20 @@ namespace WPF_OOM
 {
     public class Message
     {
-        public string text { get; private set; }
+        public string text { get; set; }
         public Contact sender { get; private set; }
         public ObservableCollection<Service> Services { get; private set; }
         public Message(String s, Contact c, Service service)
         {
             Services = new ObservableCollection<Service>();
             Services.Add(service);
+            sender = c;
+            text = s;
+        }
+
+        public Message(String s, Contact c, ObservableCollection<Service> services)
+        {
+            Services = services;
             sender = c;
             text = s;
         }

@@ -94,7 +94,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBox x:Name="ChatBox"  DockPanel.Dock="Bottom" AcceptsReturn="False" KeyUp="ChatBox_OnKeyUp" Height="Auto" Grid.Column="0">
                                 <TextBox.Text>
-                                    <Binding Path="DraftMessage" UpdateSourceTrigger="PropertyChanged"/>
+                                    <Binding Path="DraftMessage.text" UpdateSourceTrigger="PropertyChanged"/>
                                 </TextBox.Text>
                             </TextBox>
                             <Grid Grid.Column="1">
@@ -103,23 +103,7 @@
                                     <RowDefinition Height="40" />
                                 </Grid.RowDefinitions>
 
-                                <ListView Grid.Row="0" ItemsSource="{Binding Contact.Services}">
-                                    <ListView.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel Orientation="Horizontal"/>   
-                                        </ItemsPanelTemplate>
-                                     </ListView.ItemsPanel>
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <ToggleButton>
-                                                <ToggleButton.Content>
-                                                    <Image Source="{Binding Path=Logo}" Width="20" Height="20"/>
-                                                </ToggleButton.Content>
-                                            </ToggleButton>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                   
-                                </ListView>
+
                                 <!--Button Grid.Row="0" Content="sadasd"></-->
                                 <Button Grid.Row="1" Focusable="False" Click="SendMessageButtonClick" Content="Send message"/>
                             </Grid>
