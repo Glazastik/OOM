@@ -22,30 +22,22 @@ functions' names. For preventing the C++ name mangling (and keep the
 functions entry-points as the original functions' names), we can 
 declare the functions with the extern "C" keyword:*/
 
-//Testa utan extern "C" sen
-
-struct message_s {
-	unsigned char second[4];
-};
-
 extern "C" NATIVEDLL_API unsigned int __cdecl CreateMessenger();
 extern "C" NATIVEDLL_API void __cdecl DeleteMessenger(unsigned int MessengerId);
-extern "C" NATIVEDLL_API void __cdecl WriteMessageInt(unsigned int messengerId, unsigned int message);
+
+extern "C" NATIVEDLL_API void __cdecl WriteMessageInt(unsigned int messengerId, int message);
 extern "C" NATIVEDLL_API void __cdecl WriteMessageString(unsigned int messengerId, const char *message);
+extern "C" NATIVEDLL_API void __cdecl WriteMessageIntArray(unsigned int messengerId, int *message, int capacity);
 extern "C" NATIVEDLL_API void __cdecl WriteMessageStruct(unsigned int messengerId, message_t message);
-extern "C" NATIVEDLL_API message_t __cdecl ReadMessage(unsigned int messengerId);
-extern "C" NATIVEDLL_API message_t2 __cdecl ReadMessage2(unsigned int messengerId);
-extern "C" NATIVEDLL_API message_t3 __cdecl ReadMessage3(unsigned int messengerId);
 
-extern "C" NATIVEDLL_API message_s Test();
-
-extern "C" __declspec(dllexport) unsigned int Dummy();
-extern "C" __declspec(dllexport) void __cdecl Dummy2(wchar_t *str, int capacity);
-extern "C" __declspec(dllexport) void __cdecl Dummy3(unsigned char *pnt, int capacity);
-extern "C" __declspec(dllexport) unsigned char * __cdecl Dummy4();
-extern "C" __declspec(dllexport) void __cdecl Dummy5(message_t *pnt, int size);
+extern "C" __declspec(dllexport) int __cdecl ReadMessageInt(unsigned int messengerId);
+extern "C" __declspec(dllexport) void __cdecl ReadMessageString(unsigned int messengerId, wchar_t *str, int capacity);
+extern "C" __declspec(dllexport) void __cdecl ReadMessageCharArray(unsigned int messengerId, wchar_t *pnt, int capacity);
+extern "C" __declspec(dllexport) void __cdecl ReadMessageIntArray(unsigned int messengerId, int *pnt, int capacity);
+extern "C" __declspec(dllexport) void __cdecl ReadMessageStruct(unsigned int messengerId, message_t *pnt, int size);
 
 
 extern "C" __declspec(dllexport) bool __cdecl HasMessage(void);
+
 typedef void(__stdcall *FUNCTION)(int arg1);
 extern "C" __declspec(dllexport) bool __cdecl CallingBack(FUNCTION func);

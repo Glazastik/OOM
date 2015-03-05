@@ -61,7 +61,45 @@ void Messenger::WriteMessage(message_t message)
 	textfile.close();
 }
 
-message_t Messenger::ReadMessage(void)
+void Messenger::WriteMessage(int *message, int capacity)
+{
+	ofstream textfile;
+	textfile.open(messengerFile, ios::out);
+
+	for (int i = 0; i < capacity; message++, i++) {
+		textfile << *message;
+	}
+	textfile << '\n';
+	textfile.close();
+}
+
+int Messenger::ReadMessageInt(void)
+{
+	return 1;
+}
+
+const wchar_t * Messenger::ReadMessageString(void)
+{
+	wchar_t str[5];
+	str[0] = 'h';
+	str[1] = 'e';
+	str[2] = 'j';
+	str[3] = '\0';
+	str[4] = 't';
+	return str;
+}
+
+const int * Messenger::ReadMessageIntArray(void)
+{
+	int arr[4];
+	arr[0] = 0;
+	arr[1] = 1;
+	arr[2] = 2;
+	arr[3] = 3;
+	return arr;
+}
+
+message_t Messenger::ReadMessageStruct(void)
 {
 	ofstream textfile;
 	textfile.open(messengerFile, ios::out);
@@ -69,30 +107,7 @@ message_t Messenger::ReadMessage(void)
 	message_t temp;
 	temp.time = 4;
 	temp.test[0] = 4;
-
-	textfile.close();
-	return temp;
-}
-
-message_t2 Messenger::ReadMessage2(void)
-{
-	ofstream textfile;
-	textfile.open(messengerFile, ios::out);
-
-	message_t2 temp;
-	temp.time = 4;
-
-	textfile.close();
-	return temp;
-}
-
-message_t3 Messenger::ReadMessage3(void)
-{
-	ofstream textfile;
-	textfile.open(messengerFile, ios::out);
-
-	message_t3 temp;
-	temp.message = "hej";
+	temp.test[1] = 3;
 	textfile.close();
 	return temp;
 }
