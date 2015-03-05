@@ -9,7 +9,17 @@ namespace WPF_OOM
         public Contact Contact { get; private set; }
         public ObservableCollection<Message> Messages { get; private set; }
         public event PropertyChangedEventHandler PropertyChanged;
-        public Message DraftMessage { get; set; }
+        private Message _draftMessage;
+
+        public Message DraftMessage
+        {
+            get { return _draftMessage; }
+            set
+            {
+                _draftMessage = value;
+                OnPropertyChanged("DraftMessage");
+            }
+        }
 
         public Conversation(Contact c)
         {
@@ -23,7 +33,6 @@ namespace WPF_OOM
             //TODO: Needs to validate that the sender of the message either is the user or the contact.
             Messages.Add(m);
         }
-        /*
         protected void OnPropertyChanged(string name)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
@@ -32,7 +41,6 @@ namespace WPF_OOM
                 handler(this, new PropertyChangedEventArgs(name));
             }
         }
-         */
 
         public void SendMessage()
         {
