@@ -120,7 +120,7 @@
                                         <DataTemplate>
                                             <ToggleButton IsChecked="{Binding Path=Selected, diag:PresentationTraceSources.TraceLevel=High}" Style="{StaticResource CustomToggleButtonStyle}">
                                                 <ToggleButton.Content>
-                                                    <Image Source="{Binding Path=Service.Logo}" Width="20" Height="20"/>
+                                                    <Image Source="{Binding Path=Service.Logo}" Width="25" Height="25"/>
                                                 </ToggleButton.Content>
                                             </ToggleButton>
                                         </DataTemplate>
