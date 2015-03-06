@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace WPF_OOM
 {
@@ -27,6 +28,14 @@ namespace WPF_OOM
             Messages = new ObservableCollection<Message>();
             //TODO: Change 2nd c.Services to new OC.
             DraftMessage = new DraftMessage(c.Services, c.Services);
+            Contact.Services.CollectionChanged += ContactServicesChanged;
+        }
+
+        void ContactServicesChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            var s = (ObservableCollection<Service>) sender;
+            DraftMessage dm = new DraftMessage(s,DraftMessage.GetServices());
+            this.DraftMessage = dm;
         }
 
         public void AddMessage(Message m)
@@ -45,7 +54,7 @@ namespace WPF_OOM
 
         public void SendMessage()
         {
-            if (!string.IsNullOrEmpty(DraftMessage.text))
+            if (!string.IsNullOrEmpty(DraftMessage.text) && DraftMessage.GetServices().Count != 0)
             {
                 this.Messages.Add(DraftMessage.ToMessage());
                 DraftMessage dm = DraftMessage;

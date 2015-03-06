@@ -20,6 +20,7 @@ namespace WPF_OOM
         public static ObservableCollection<Conversation> conversations { get; private set; }
         private Service fb;
         public Service steam { get; private set; }
+        private Contact c;
         public MainWindow()
         {
             this.Closing += this.HideWindow;
@@ -28,7 +29,7 @@ namespace WPF_OOM
 
             ContactList = new ObservableCollection<Contact>();
             conversations = new ObservableCollection<Conversation>();
-            Contact c = new Contact();
+            c = new Contact();
             Contact d = new Contact();
             c.FirstName = "Sven";
             c.LastName = "Svensson";
