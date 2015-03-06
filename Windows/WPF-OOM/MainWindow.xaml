@@ -2,13 +2,21 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-        xmlns:local="clr-namespace:WPF_OOM" 
+        xmlns:local="clr-namespace:WPF_OOM"
         Title="OOM" Height="350" Width="525">
     <Window.Resources>
-        <Style x:Key="CollapsedColumnHeader" TargetType="{x:Type GridViewColumnHeader}">
-            <Setter Property="Visibility" Value="Collapsed" />
-        </Style> 
-
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary 
+                    Source="CustomToggleButton.xaml">
+                </ResourceDictionary>
+                <ResourceDictionary>
+                    <Style x:Key="CollapsedColumnHeader" TargetType="{x:Type GridViewColumnHeader}">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>       
     </Window.Resources>
     <DockPanel x:Name="DP">
         <Menu DockPanel.Dock="Top">
@@ -110,7 +118,7 @@
                                      </ListView.ItemsPanel>
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <ToggleButton IsChecked="{Binding Path=Selected, diag:PresentationTraceSources.TraceLevel=High}">
+                                            <ToggleButton IsChecked="{Binding Path=Selected, diag:PresentationTraceSources.TraceLevel=High}" Style="{StaticResource CustomToggleButtonStyle}">
                                                 <ToggleButton.Content>
                                                     <Image Source="{Binding Path=Service.Logo}" Width="20" Height="20"/>
                                                 </ToggleButton.Content>
