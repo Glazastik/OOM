@@ -48,8 +48,13 @@ namespace WPF_OOM
             bmi.UriSource = new Uri(@"../../steam.png", UriKind.Relative);
             bmi.CacheOption = BitmapCacheOption.OnLoad;
             bmi.EndInit();
+            BitmapImage bmi2 = new BitmapImage();
+            bmi2.BeginInit();
+            bmi2.UriSource = new Uri(@"../../fb.png", UriKind.Relative);
+            bmi2.CacheOption = BitmapCacheOption.OnLoad;
+            bmi2.EndInit();
             Logo = bmi;
-            OtherLogo = bmi;
+            OtherLogo = bmi2;
         }
     }
 

@@ -118,10 +118,36 @@
                                      </ListView.ItemsPanel>
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <ToggleButton IsChecked="{Binding Path=Selected, diag:PresentationTraceSources.TraceLevel=High}" Style="{StaticResource CustomToggleButtonStyle}">
-                                                <ToggleButton.Content>
-                                                    <Image Source="{Binding Path=Service.Logo}" Width="25" Height="25"/>
-                                                </ToggleButton.Content>
+                                            <ToggleButton IsChecked="{Binding Path=Selected, diag:PresentationTraceSources.TraceLevel=High}">
+                                                <!--  Style="{StaticResource CustomToggleButtonStyle}" -->
+                                                <!--ToggleButton.Resources>
+                                                    <Style x:Key="ImageEnabled" TargetType="Image">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsEnabled" Value="False">
+                                                                <Setter Property="Opacity" Value="0.25"></Setter>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </-->
+                                                <ToggleButton.Style>
+                                                    <Style TargetType="ToggleButton">
+                                                        <Setter Property="Opacity" Value="1"/>
+                                                        <Setter Property="Content">
+                                                            <Setter.Value>
+                                                                <Image x:Name="LogoI" Source="{Binding Path=Service.Logo}" Width="25" Height="25"/>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsChecked" Value="True">
+                                                                <Setter Property="Content">
+                                                                    <Setter.Value>
+                                                                        <Image Source="{Binding Path=Service.OtherLogo}" Width="25" Height="25"/>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ToggleButton.Style>
                                             </ToggleButton>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
