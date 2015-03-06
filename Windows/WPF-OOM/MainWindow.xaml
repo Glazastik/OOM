@@ -56,9 +56,9 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="200" />
                             <RowDefinition Height="5" />
-                            <RowDefinition Height="50" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <local:ASListView DockPanel.Dock="Top" ItemsSource="{Binding Path=Messages}" Height="Auto" Grid.Row="0">
                             <local:ASListView.View>

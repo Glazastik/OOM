@@ -38,6 +38,9 @@ namespace WPF_OOM
 
     public class DraftMessage
     {
+        //Creates a new draft message and with a list of services and a list that should be a subset of those services.
+        //If a service is in the subset, but not the whole set it will not be added.
+        //If a service is in both it will be selected, if it is in just the set it will not be selected.
         public DraftMessage(ObservableCollection<Service> services, ObservableCollection<Service> selectedServices )
         {
             Services = new ObservableCollection<DraftService>();
