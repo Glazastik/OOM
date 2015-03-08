@@ -14,84 +14,71 @@ namespace ManagedDLL
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5, ArraySubType = UnmanagedType.I4)]
         public int[] test;
     }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct message_t2
-    {
-        public int time;
-    }
-
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
-    public struct message_t3
-    {
-        public IntPtr message;
-    }
-
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public struct message_t4
-    {
-        public int time;
-        public IntPtr message;
-    }
-
-    [StructLayoutAttribute(LayoutKind.Sequential)]
-    public struct message_s
-    {
-
-        /// int[4]
-        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
-        public byte[] second;
-    }
-
-    public struct message_n
-    {
-        public int time;
-        public int[] test;
-    }
-
-    public class ManagedMessenger : IDisposable
+        
+    public class ManagedMessenger
     {
 
         #region NativeDLL imports
 
+        //
+        // Creating a messenger with ID
+        //
         [DllImport("NativeDLL.dll", EntryPoint = "CreateMessenger", CallingConvention = CallingConvention.Cdecl)]
         protected static extern uint _CreateMessenger();
 
         [DllImport("NativeDLL.dll", EntryPoint = "DeleteMessenger", CallingConvention = CallingConvention.Cdecl)]
         protected static extern void _DeleteMessenger(uint messengerId);
 
+        //
+        // Writing data
+        //
         [DllImport("NativeDLL.dll", EntryPoint = "WriteMessageInt", CallingConvention = CallingConvention.Cdecl)]
         protected static extern void _WriteMessageInt(uint messengerId, uint message);
 
         [DllImport("NativeDLL.dll", EntryPoint = "WriteMessageString", CallingConvention = CallingConvention.Cdecl)]
         protected static extern void _WriteMessageString(uint messengerId, String message);
 
+        [DllImport("NativeDLL.dll", EntryPoint = "WriteMessageIntArray", CallingConvention = CallingConvention.Cdecl)]
+        protected static extern void _WriteMessageIntArray(uint messengerId, int[] message, int capacity);
+
         [DllImport("NativeDLL.dll", EntryPoint = "WriteMessageStruct", CallingConvention = CallingConvention.Cdecl)]
         protected static extern void _WriteMessageStruct(uint messengerId, message_t message);
 
-        [DllImport("NativeDLL.dll", EntryPoint = "ReadMessage", CallingConvention = CallingConvention.Cdecl)]
-        protected static extern message_t _ReadMessage(uint messengerId);
+        //
+        // Reading data
+        //
+        [DllImport("NativeDLL.dll", EntryPoint = "ReadMessageInt", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int _ReadMessageInt(uint messengerId);
 
-        [DllImport("NativeDLL.dll", EntryPoint = "ReadMessage2", CallingConvention = CallingConvention.Cdecl)]
-        protected static extern message_t2 _ReadMessage2(uint messengerId);
+        [DllImport("NativeDLL.dll", EntryPoint = "ReadMessageString", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void _ReadMessageString(uint messengerId, IntPtr str, int capacity);
 
-        [DllImport("NativeDLL.dll", EntryPoint = "ReadMessage3", CallingConvention = CallingConvention.Cdecl)]
-        protected static extern message_t3 _ReadMessage3(uint messengerId);
+        [DllImport("NativeDLL", EntryPoint = "ReadMessageIntArray", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void _ReadMessageIntArray(uint messengerId, IntPtr pnt, int capacity);
 
-        [DllImport("NativeDLL.dll", EntryPoint = "Test")]
-        protected static extern message_s _Test();
+        [DllImport("NativeDLL", EntryPoint = "ReadMessageCharArray", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void _ReadMessageCharArray(uint messengerId, IntPtr pnt, int capacity);
+
+        [DllImport("NativeDLL", EntryPoint = "ReadMessageStruct", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void _ReadMessageStruct(uint messengerId, IntPtr pnt);
+
+        //
+        // Other functions
+        //
+        [DllImport("NativeDLL", EntryPoint = "HasMessage", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool _HasMessage();
+
+        [DllImport("NativeDLL", EntryPoint = "CallingBack", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool _CallingBack(IntPtr p);
 
         #endregion
 
-        // Constructor
+        // Creating Messenger
         public static uint CreateMessenger()
         {
             return _CreateMessenger();
-        }
-
-        public void Dispose()
-        {
-
         }
 
         public static void DeleteMessenger(uint _messengerId)
@@ -99,6 +86,9 @@ namespace ManagedDLL
             _DeleteMessenger(_messengerId);
         }
 
+        //
+        // Writing data
+        //
         public static void WriteMessageInt(uint _messengerId, uint message)
         {
             _WriteMessageInt(_messengerId, message);
@@ -114,78 +104,125 @@ namespace ManagedDLL
             _WriteMessageStruct(_messengerId, message);
         }
 
-        public static message_t ReadMessage(uint _messengerId)
+        public static void WriteMessageIntArray(uint _messengerId, int[] message, int capacity)
         {
-            return _ReadMessage(_messengerId);
+            _WriteMessageIntArray(_messengerId, message, capacity);
         }
 
-        public static message_t2 ReadMessage2(uint _messengerId)
+        //
+        // Reading data
+        //
+        public static int ReadMessageInt(uint _messengerId)
         {
-            return _ReadMessage2(_messengerId);
+            return _ReadMessageInt(_messengerId);
         }
 
-        public static message_t3 ReadMessage3(uint _messengerId)
+        public static string ReadMessageString(uint _messengerId)
         {
-            return _ReadMessage3(_messengerId);
+            int capacity = 32;
+            IntPtr _str = Marshal.AllocHGlobal(sizeof(char) * capacity);
+            String str;
+            try
+            {
+                ManagedMessenger._ReadMessageString(_messengerId, _str, capacity);
+                str = Marshal.PtrToStringUni(_str);
+            }
+            finally
+            {
+                // Free the unmanaged memory.
+                Marshal.FreeHGlobal(_str);
+            }
+            return str;
         }
 
-        public static message_s Test()
+        public static char[] ReadMessageCharArray(uint _messengerId)
         {
-            return _Test();
+            int capacity = 32;
+            // Create a managed array.
+            char[] managedArray = new char[4];
+            // Initialize unmanged memory to hold the array.
+            int size = sizeof(char) * 4;
+            IntPtr pnt = Marshal.AllocHGlobal(size);
+
+            try
+            {
+
+                ManagedMessenger._ReadMessageCharArray(_messengerId, pnt, capacity);
+                // Copy the unmanaged array back to another managed array.
+                for (int i = 0; i < 4; i++)
+                    managedArray[i] = (char) Marshal.ReadInt16(pnt, i * sizeof(char));
+
+            }
+            finally
+            {
+                // Free the unmanaged memory.
+                Marshal.FreeHGlobal(pnt);
+            }
+            return managedArray;
         }
 
-        [DllImport("NativeDLL")]
-        [return: MarshalAs(UnmanagedType.U4)]
-        public static extern uint Dummy();
+        public static int[] ReadMessageIntArray(uint _messengerId)
+        {
+            int capacity = 32;
+            // Create a managed array.
+            int[] managedArray = new int[4];
+            // Initialize unmanged memory to hold the array.
+            int size = sizeof(int) * 4;
+            IntPtr pnt = Marshal.AllocHGlobal(size);
 
+            try
+            {
 
+                ManagedMessenger._ReadMessageIntArray(_messengerId, pnt, capacity);
+                // Copy the unmanaged array back to another managed array.
+                for (int i = 0; i < 4; i++)
+                    managedArray[i] = (int) Marshal.ReadInt16(pnt, i * sizeof(int));
 
-        [DllImport("NativeDLL", EntryPoint = "Dummy2",
-                                CallingConvention = CallingConvention.Cdecl,
-                                BestFitMapping = false,
-                                CharSet = CharSet.Unicode,
-                                ExactSpelling = true,
-                                PreserveSig = true,
-                                SetLastError = true,
-                                ThrowOnUnmappableChar = false)]
-        public static extern void Dummy2(IntPtr str, int capacity);
+            }
+            finally
+            {
+                // Free the unmanaged memory.
+                Marshal.FreeHGlobal(pnt);
+            }
+            return managedArray;
+        }
 
-        [DllImport("NativeDLL", EntryPoint = "Dummy3",
-                        CallingConvention = CallingConvention.Cdecl,
-                        BestFitMapping = false,
-                        CharSet = CharSet.Unicode,
-                        ExactSpelling = true,
-                        PreserveSig = true,
-                        SetLastError = true,
-                        ThrowOnUnmappableChar = false)]
-        public static extern void Dummy3(IntPtr pnt, int capacity);
+        public static message_t ReadMessageStruct(uint _messengerId)
+        {
+            int[] internalArray = new int[5];
+            // Initialize unmanged memory to hold the array.
+            int size = sizeof(int) + (sizeof(int) * 5);
+            IntPtr pnt = Marshal.AllocHGlobal(size);
+            message_t managedStruct;
+            try
+            {
 
-        [DllImport("NativeDLL", EntryPoint = "Dummy4",
-                CallingConvention = CallingConvention.Cdecl,
-                BestFitMapping = false,
-                CharSet = CharSet.Unicode,
-                ExactSpelling = true,
-                PreserveSig = true,
-                SetLastError = true,
-                ThrowOnUnmappableChar = false)]
-        public static extern IntPtr Dummy4();
+                ManagedMessenger._ReadMessageStruct(_messengerId, pnt);
 
-        [DllImport("NativeDLL", EntryPoint = "Dummy5",
-        CallingConvention = CallingConvention.Cdecl,
-        BestFitMapping = false,
-        CharSet = CharSet.Unicode,
-        ExactSpelling = true,
-        PreserveSig = true,
-        SetLastError = true,
-        ThrowOnUnmappableChar = false)]
-        public static extern void Dummy5(IntPtr pnt, int capacity);
+                int internalInt = Marshal.ReadInt32(pnt, 0);
 
-        [DllImport("NativeDll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool HasMessage();
+                // Copy the unmanaged array back to another managed array.
+                for (int i = 0; i < internalArray.Length; i++)
+                    internalArray[i] = Marshal.ReadInt32(pnt, (i + 1) * 4);
 
-        [DllImport("NativeDll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool CallingBack(IntPtr p);
+                managedStruct.time = internalInt;
+                managedStruct.test = internalArray;
+            }
+            finally
+            {
+                // Free the unmanaged memory.
+                Marshal.FreeHGlobal(pnt);
+            }
+            return managedStruct;
+        }
+
+        private static IntPtr MarshalToPointer(message_t data)
+        {
+            IntPtr buf = Marshal.AllocHGlobal(
+                Marshal.SizeOf(data));
+            Marshal.StructureToPtr(data,
+                buf, false);
+            return buf;
+        }
     }
 }

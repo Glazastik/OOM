@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms.VisualStyles;
@@ -17,31 +18,33 @@ namespace WPF_OOM
     {
         public static ObservableCollection<Contact> ContactList { get; private set; }
         public static ObservableCollection<Conversation> conversations { get; private set; }
-        private Contact me;
         private Service fb;
-        private Service steam;
+        public Service steam { get; private set; }
+        private Contact c;
         public MainWindow()
         {
             this.Closing += this.HideWindow;
             fb = new Facebook();
             steam = new Steam();
+
             ContactList = new ObservableCollection<Contact>();
             conversations = new ObservableCollection<Conversation>();
-            Contact c = new Contact();
+            c = new Contact();
             Contact d = new Contact();
-            me = new Contact();
-            me.FirstName = "Me";
             c.FirstName = "Sven";
             c.LastName = "Svensson";
             d.FirstName = "Kalle";
             d.LastName = "Karlsson";
+            c.addService(steam, "sven_1337");
+            d.addService(fb, "Kalle_Karlsson");
+            d.addService(steam, "l33thax0r");
             Conversation t = new Conversation(c);
             Conversation y = new Conversation(d);
             Message m = new Message("this has logo", c, fb);
             m.Services.Add(steam);
             t.AddMessage(m);
             t.AddMessage(new Message("hej", c, fb));
-            t.AddMessage(new Message("hejhej", me, fb));
+            t.AddMessage(new Message("hejhej", Contact.Me, fb));
             y.AddMessage(new Message("asdasdas", d, fb));
             t.AddMessage(new Message("asdhsadg", c, fb));
 
@@ -72,26 +75,19 @@ namespace WPF_OOM
         {
             if (e.Key == Key.Enter)
             {
-                TextBox box = (TextBox)sender;
-                string text = box.Text;
-                if (text.Length > 0)
-                {
-                    Conversation conv = (Conversation)ChatTabControl.SelectedItem;
-                    conv.AddMessage(new Message(text, me, fb));
-                    conv.DraftMessage = "";
-                }
+                Conversation c = (Conversation)ChatTabControl.SelectedItem;
+                c.SendMessage();
 
             }
         }
 
         private void SendMessageButtonClick(object sender, RoutedEventArgs e)
         {
+            //TabItem ti = (TabItem) ChatTabControl.SelectedContent;
+            //ListView lv = (ListView)((TabItem) ChatTabControl.SelectedContent).FindName("ServiceListView");
+            //Debug.WriteLine(ti.ToString());
             Conversation c = (Conversation)ChatTabControl.SelectedItem;
-            if (!string.IsNullOrEmpty(c.DraftMessage))
-            {
-                c.AddMessage(new Message(c.DraftMessage, me, fb));
-                c.DraftMessage = "";
-            }
+            c.SendMessage();
 
         }
 

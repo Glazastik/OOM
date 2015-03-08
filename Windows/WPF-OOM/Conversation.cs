@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace WPF_OOM
 {
@@ -9,13 +10,14 @@ namespace WPF_OOM
         public Contact Contact { get; private set; }
         public ObservableCollection<Message> Messages { get; private set; }
         public event PropertyChangedEventHandler PropertyChanged;
-        private string draftMessage;
-        public string DraftMessage
+        private DraftMessage _draftMessage;
+
+        public DraftMessage DraftMessage
         {
-            get { return draftMessage;  }
+            get { return _draftMessage; }
             set
             {
-                draftMessage = value;
+                _draftMessage = value;
                 OnPropertyChanged("DraftMessage");
             }
         }
@@ -24,6 +26,16 @@ namespace WPF_OOM
         {
             Contact = c;
             Messages = new ObservableCollection<Message>();
+            //TODO: Change 2nd c.Services to new OC.
+            DraftMessage = new DraftMessage(c.Services, c.Services);
+            Contact.Services.CollectionChanged += ContactServicesChanged;
+        }
+
+        void ContactServicesChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            var s = (ObservableCollection<Service>) sender;
+            DraftMessage dm = new DraftMessage(s,DraftMessage.GetServices());
+            this.DraftMessage = dm;
         }
 
         public void AddMessage(Message m)
@@ -37,6 +49,16 @@ namespace WPF_OOM
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        public void SendMessage()
+        {
+            if (!string.IsNullOrEmpty(DraftMessage.text) && DraftMessage.GetServices().Count != 0)
+            {
+                this.Messages.Add(DraftMessage.ToMessage());
+                DraftMessage dm = DraftMessage;
+                this.DraftMessage = new DraftMessage(Contact.Services, dm.GetServices());
             }
         }
         
