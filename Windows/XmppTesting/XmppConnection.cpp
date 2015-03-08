@@ -1,5 +1,10 @@
 #include "XmppConnection.h"
 #include <boost/lexical_cast.hpp>
+#include <boost/archive/iterators/base64_from_binary.hpp>
+#include <boost/archive/iterators/insert_linebreaks.hpp>
+#include <boost/archive/iterators/transform_width.hpp>
+#include <boost/archive/iterators/ostream_iterator.hpp>
+#include "Base64.h"
 
 const int XmppConnection::bufferSize = 1024;
 
@@ -45,7 +50,7 @@ void XmppConnection::Connect()
 		stream << "xmlns:stream='http://etherx.jabber.org/streams'" << std::endl;
 		stream << "version='1.0'>" << std::endl;
 
-		tcp_socket->write_some(boost::asio::buffer(stream.str()));
+		TCPWriteSome(stream.str());
 		DebugPrintWrite(stream.str());
 
 		// Read server response
@@ -58,7 +63,7 @@ void XmppConnection::Connect()
 		stream << "<starttls" << std::endl;
 		stream << "xmlns='urn:ietf:params:xml:ns:xmpp-tls'/>" << std::endl;
 
-		tcp_socket->write_some(boost::asio::buffer(stream.str()));
+		TCPWriteSome(stream.str());
 		DebugPrintWrite(stream.str());
 
 		// Read server response
@@ -79,12 +84,57 @@ void XmppConnection::Connect()
 		stream << "xmlns:stream='http://etherx.jabber.org/streams'" << std::endl;
 		stream << "version='1.0'>" << std::endl;
 
-		boost::system::error_code error_code;
-		ssl_socket->write_some(boost::asio::buffer(stream.str()), error_code);
-		if (error_code)
-		{
-			DebugPrintError(error_code);
-		}
+		SSLWriteSome(stream.str());
+		DebugPrintWrite(stream.str());
+
+		// Read server response
+		readStr = SSLReadUntil("</stream:features>");
+		DebugPrintRead(readStr);
+
+		// SASL authentication
+		std::string authzid = "";
+		std::string authid = "kandidattest2015@gmail.com";
+		std::string password = "test2015";
+
+		char buffer[1024];
+		int offset = 0;
+		memcpy(buffer + offset, authzid.c_str(), authzid.length());
+		offset += authzid.length();
+		buffer[offset++] = 0;
+
+		memcpy(buffer + offset, authid.c_str(), authid.length());
+		offset += authid.length();
+		buffer[offset++] = 0;
+
+		memcpy(buffer + offset, password.c_str(), password.length());
+		offset += password.length();
+
+		std::string encodedStr = Base64::Encode(buffer, offset);
+
+		stream.str("");
+		stream.clear();
+		stream << "<auth xmlns='urn:ietf:params:xml:ns:xmpp-sasl' mechanism='PLAIN'>";
+		stream << encodedStr;
+		stream << "</auth>";
+
+		SSLWriteSome(stream.str());
+		DebugPrintWrite(stream.str() + "\n");
+
+		// Read server response
+		readStr = SSLReadUntil(">");
+		DebugPrintRead(readStr);
+
+		// Initiate xml stream to server
+		stream.str("");
+		stream.clear();
+		stream << "<?xmlversion='1.0'?>" << std::endl;
+		stream << "<stream:stream" << std::endl;
+		stream << "to='msp.se'" << std::endl;
+		stream << "xmlns='jabber:client'" << std::endl;
+		stream << "xmlns:stream='http://etherx.jabber.org/streams'" << std::endl;
+		stream << "version='1.0'>" << std::endl;
+
+		SSLWriteSome(stream.str());
 		DebugPrintWrite(stream.str());
 
 		// Read server response
@@ -157,6 +207,26 @@ std::string XmppConnection::TCPReadUntil(std::string compareStr)
 	}
 
 	return readStr;
+}
+
+void XmppConnection::TCPWriteSome(std::string streamStr)
+{
+	boost::system::error_code error_code;
+	tcp_socket->write_some(boost::asio::buffer(streamStr), error_code);
+	if (error_code)
+	{
+		DebugPrintError(error_code);
+	}
+}
+
+void XmppConnection::SSLWriteSome(std::string streamStr)
+{
+	boost::system::error_code error_code;
+	ssl_socket->write_some(boost::asio::buffer(streamStr), error_code);
+	if (error_code)
+	{
+		DebugPrintError(error_code);
+	}
 }
 
 std::string XmppConnection::SSLReadUntil(std::string compareStr)

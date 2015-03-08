@@ -22,6 +22,8 @@ protected:
 	void SSLHandshake();
 	std::string TCPReadUntil(std::string compareStr);
 	std::string SSLReadUntil(std::string compareStr);
+	void TCPWriteSome(std::string streamStr);
+	void SSLWriteSome(std::string streamStr);
 
 	void DebugPrint(std::string debugStr);
 	void DebugPrintRead(std::string readStr);
