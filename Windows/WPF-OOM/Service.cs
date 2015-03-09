@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -24,13 +28,12 @@ namespace WPF_OOM
         public Facebook()
         {
             Name = "Facebook";
-            BitmapImage bmi = new BitmapImage();
-            bmi.BeginInit();
-            bmi.UriSource = new Uri(@"../../fb.png", UriKind.Relative);
-            bmi.CacheOption = BitmapCacheOption.OnLoad;
-            bmi.EndInit();
-            Logo = bmi;
-            OtherLogo = bmi;
+
+            var fbUri = new Uri(@"/WPF-OOM;component/res/fb.png", UriKind.Relative);
+            Logo = new BitmapImage(fbUri);
+
+            var fbDarkUri = new Uri(@"/WPF-OOM;component/res/fbdark.png", UriKind.Relative);
+            OtherLogo = new BitmapImage(fbDarkUri);
         }
         
     }
@@ -43,18 +46,12 @@ namespace WPF_OOM
         public Steam()
         {
             Name = "Steam";
-            BitmapImage bmi = new BitmapImage();
-            bmi.BeginInit();
-            bmi.UriSource = new Uri(@"../../steam.png", UriKind.Relative);
-            bmi.CacheOption = BitmapCacheOption.OnLoad;
-            bmi.EndInit();
-            BitmapImage bmi2 = new BitmapImage();
-            bmi2.BeginInit();
-            bmi2.UriSource = new Uri(@"../../fb.png", UriKind.Relative);
-            bmi2.CacheOption = BitmapCacheOption.OnLoad;
-            bmi2.EndInit();
-            Logo = bmi;
-            OtherLogo = bmi2;
+
+            var steamUri = new Uri(@"/WPF-OOM;component/res/steam.png", UriKind.Relative);
+            Logo = new BitmapImage(steamUri);
+
+            var steamDarkUri = new Uri(@"/WPF-OOM;component/res/steamdark.png", UriKind.Relative);
+            OtherLogo = new BitmapImage(steamDarkUri);
         }
     }
 
@@ -67,7 +64,15 @@ namespace WPF_OOM
             private set { _service = value; }
         }
 
-        public bool Selected { get; set; }
+        private bool _selected;
+        public bool Selected
+        {
+            get { return _selected; }
+            set
+            {
+                _selected = value;
+            }
+        }
 
         public DraftService(Service s, bool selected)
         {

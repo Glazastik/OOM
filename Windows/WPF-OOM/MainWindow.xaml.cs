@@ -44,7 +44,11 @@ namespace WPF_OOM
             m.Services.Add(steam);
             t.AddMessage(m);
             t.AddMessage(new Message("hej", c, fb));
-            t.AddMessage(new Message("hejhej", Contact.Me, fb));
+            t.AddMessage(new Message("väldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtlångtmeddelande", Contact.Me, fb));
+            t.AddMessage(new Message("väldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtlångtmeddelande", Contact.Me, fb));
+            t.AddMessage(new Message("väldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtlångtmeddelande", Contact.Me, fb));
+            t.AddMessage(new Message("väldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtlångtmeddelande", Contact.Me, fb));
+            t.AddMessage(new Message("väldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtlångtmeddelande", Contact.Me, fb));
             y.AddMessage(new Message("asdasdas", d, fb));
             t.AddMessage(new Message("asdhsadg", c, fb));
 
