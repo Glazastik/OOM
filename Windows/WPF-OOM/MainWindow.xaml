@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         xmlns:local="clr-namespace:WPF_OOM"
-        Title="OOM" Height="350" Width="525">
+        Title="OOM" Height="550" Width="525">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -66,17 +66,21 @@
             </MenuItem>
         </Menu>
         <ListView x:Name="ContactListView" DockPanel.Dock="Left" SelectionChanged="OnSelectContact" Background="Transparent" BorderThickness="0">
-            
+            <ListView.Resources>
+                <ContextMenu x:Key="ItemContextMenu">
+                    <MenuItem Header="Edit details..." Click="EditContact"/>
+                    <Separator />
+                    <MenuItem Header="Delete contact" Click ="DeleteContact"/>
+                </ContextMenu>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}" >
+                    <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
-                        <WrapPanel.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Edit details..." Click="EditContact"/>
-                                <Separator />
-                                <MenuItem Header="Delete contact" Click ="DeleteContact"/>
-                            </ContextMenu>
-                        </WrapPanel.ContextMenu>
                         <TextBlock Text="{Binding FirstName}" Margin="2"/>
                         <TextBlock Text="{Binding NickName}" Margin="2"/>
                         <TextBlock Text="{Binding LastName}" Margin="2"/>
@@ -135,8 +139,7 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <!--GridSplitter Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="5" ResizeBehavior="PreviousAndCurrent" ResizeDirection="Rows"/-->
-                        <Separator Grid.Row="1"></Separator>
+                        <Separator Grid.Row="1"/>
                         <Grid Grid.Row="2" MaxHeight="100" MinHeight="50">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -155,9 +158,9 @@
                                 <ItemsControl x:Name="ServiceItemsControl" Grid.Row="0" ItemsSource="{Binding DraftMessage.Services, diag:PresentationTraceSources.TraceLevel=High}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <WrapPanel Orientation="Horizontal"/>   
+                                            <WrapPanel Orientation="Horizontal"/>
                                         </ItemsPanelTemplate>
-                                     </ItemsControl.ItemsPanel>
+                                    </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <ToggleButton IsChecked="{Binding Path=Selected, diag:PresentationTraceSources.TraceLevel=High}">
@@ -166,14 +169,14 @@
                                                         <Setter Property="Opacity" Value="1"/>
                                                         <Setter Property="Content">
                                                             <Setter.Value>
-                                                                <Image x:Name="LogoI" Source="{Binding Path=Service.Logo}" Width="25" Height="25"/>
+                                                                <Image x:Name="LogoI" Source="{Binding Path=Service.OtherLogo}" Width="25" Height="25"/>
                                                             </Setter.Value>
                                                         </Setter>
                                                         <Style.Triggers>
                                                             <Trigger Property="IsChecked" Value="True">
                                                                 <Setter Property="Content">
                                                                     <Setter.Value>
-                                                                        <Image Source="{Binding Path=Service.OtherLogo}" Width="25" Height="25"/>
+                                                                        <Image Source="{Binding Path=Service.Logo}" Width="25" Height="25"/>
                                                                     </Setter.Value>
                                                                 </Setter>
                                                             </Trigger>
