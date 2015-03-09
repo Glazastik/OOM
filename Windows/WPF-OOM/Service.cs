@@ -32,7 +32,7 @@ namespace WPF_OOM
             Logo = bmi;
             BitmapImage bmi2 = new BitmapImage();
             bmi2.BeginInit();
-            bmi2.UriSource = new Uri(@"../../fb.png", UriKind.Relative);
+            bmi2.UriSource = new Uri(@"../../fbdark.png", UriKind.Relative);
             bmi2.CacheOption = BitmapCacheOption.OnLoad;
             bmi2.EndInit();
             OtherLogo = bmi2;
@@ -55,7 +55,7 @@ namespace WPF_OOM
             bmi.EndInit();
             BitmapImage bmi2 = new BitmapImage();
             bmi2.BeginInit();
-            bmi2.UriSource = new Uri(@"../../fb.png", UriKind.Relative);
+            bmi2.UriSource = new Uri(@"../../steamdark.png", UriKind.Relative);
             bmi2.CacheOption = BitmapCacheOption.OnLoad;
             bmi2.EndInit();
             Logo = bmi;
