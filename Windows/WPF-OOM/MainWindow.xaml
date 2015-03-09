@@ -96,9 +96,9 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" MinHeight="200"/>
                             <RowDefinition Height="5" />
-                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" MinHeight="50" MaxHeight="100"/>
                         </Grid.RowDefinitions>
                         
                         <ItemsControl DockPanel.Dock="Top" ItemsSource="{Binding Path=Messages}" MinHeight="200" Grid.Row="0" Style="{DynamicResource UsersControlStyle}" VerticalAlignment="Stretch">
@@ -111,7 +111,7 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
                                             <RowDefinition Height="10"/>
                                         </Grid.RowDefinitions>
                                         <ItemsControl Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Services}" BorderThickness="0">
@@ -135,7 +135,8 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="5"/>
+                        <!--GridSplitter Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="5" ResizeBehavior="PreviousAndCurrent" ResizeDirection="Rows"/-->
+                        <Separator Grid.Row="1"></Separator>
                         <Grid Grid.Row="2" MaxHeight="100" MinHeight="50">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
