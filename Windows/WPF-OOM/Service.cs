@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -24,18 +28,12 @@ namespace WPF_OOM
         public Facebook()
         {
             Name = "Facebook";
-            BitmapImage bmi = new BitmapImage();
-            bmi.BeginInit();
-            bmi.UriSource = new Uri(@"../../fb.png", UriKind.Relative);
-            bmi.CacheOption = BitmapCacheOption.OnLoad;
-            bmi.EndInit();
-            Logo = bmi;
-            BitmapImage bmi2 = new BitmapImage();
-            bmi2.BeginInit();
-            bmi2.UriSource = new Uri(@"../../fbdark.png", UriKind.Relative);
-            bmi2.CacheOption = BitmapCacheOption.OnLoad;
-            bmi2.EndInit();
-            OtherLogo = bmi2;
+
+            var fbUri = new Uri(@"/WPF-OOM;component/res/fb.png", UriKind.Relative);
+            Logo = new BitmapImage(fbUri);
+
+            var fbDarkUri = new Uri(@"/WPF-OOM;component/res/fbdark.png", UriKind.Relative);
+            OtherLogo = new BitmapImage(fbDarkUri);
         }
         
     }
@@ -48,18 +46,12 @@ namespace WPF_OOM
         public Steam()
         {
             Name = "Steam";
-            BitmapImage bmi = new BitmapImage();
-            bmi.BeginInit();
-            bmi.UriSource = new Uri(@"../../steam.png", UriKind.Relative);
-            bmi.CacheOption = BitmapCacheOption.OnLoad;
-            bmi.EndInit();
-            BitmapImage bmi2 = new BitmapImage();
-            bmi2.BeginInit();
-            bmi2.UriSource = new Uri(@"../../steamdark.png", UriKind.Relative);
-            bmi2.CacheOption = BitmapCacheOption.OnLoad;
-            bmi2.EndInit();
-            Logo = bmi;
-            OtherLogo = bmi2;
+
+            var steamUri = new Uri(@"/WPF-OOM;component/res/steam.png", UriKind.Relative);
+            Logo = new BitmapImage(steamUri);
+
+            var steamDarkUri = new Uri(@"/WPF-OOM;component/res/steamdark.png", UriKind.Relative);
+            OtherLogo = new BitmapImage(steamDarkUri);
         }
     }
 
