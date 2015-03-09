@@ -96,12 +96,12 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="200" />
-                            <RowDefinition Height="5" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         
-                        <ItemsControl DockPanel.Dock="Top" ItemsSource="{Binding Path=Messages}" Height="Auto" Grid.Row="0" Style="{DynamicResource UsersControlStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <ItemsControl DockPanel.Dock="Top" ItemsSource="{Binding Path=Messages}" MinHeight="200" Grid.Row="0" Style="{DynamicResource UsersControlStyle}" VerticalAlignment="Stretch">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -135,13 +135,13 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5"/>
-                        <Grid Grid.Row="2" MaxHeight="200">
+                        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="5"/>
+                        <Grid Grid.Row="2" MaxHeight="100" MinHeight="50">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="100" />
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="ChatBox"  DockPanel.Dock="Bottom" AcceptsReturn="False" KeyUp="ChatBox_OnKeyUp" Height="Auto" Grid.Column="0">
+                            <TextBox x:Name="ChatBox" AcceptsReturn="False" KeyUp="ChatBox_OnKeyUp" Height="Auto" Grid.Column="0" TextWrapping="Wrap">
                                 <TextBox.Text>
                                     <Binding Path="DraftMessage.text" UpdateSourceTrigger="PropertyChanged"/>
                                 </TextBox.Text>
