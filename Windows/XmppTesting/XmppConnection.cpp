@@ -140,6 +140,42 @@ void XmppConnection::Connect()
 		// Read server response
 		readStr = SSLReadUntil("</stream:features>");
 		DebugPrintRead(readStr);
+
+		// Ask server to generate resource identifier
+		stream.str("");
+		stream.clear();
+		stream << "<iq id='1' type='set'>" << std::endl;
+		stream << "<bind xmlns='urn:ietf:params:xml:ns:xmpp-bind'/>" << std::endl;
+		stream << "</iq>" << std::endl;
+
+		SSLWriteSome(stream.str());
+		DebugPrintWrite(stream.str());
+
+		// Read server response
+		readStr = SSLReadUntil("</iq>");
+		DebugPrintRead(readStr);
+
+		// Parse resource identifier
+		std::string jid = ParseElement(readStr, "<jid>");
+		DebugPrint("JID: " + jid + "\n");
+
+		// Send a message
+		stream.str("");
+		stream.clear();
+		stream << "<message from='" << jid << "'" << std::endl;
+		stream << "id='2'" << std::endl;
+		stream << "to='carl@msp.se'" << std::endl;
+		stream << "type='chat'" << std::endl;
+		stream << "xml:lang='en'>" << std::endl;
+		stream << "<body>TEST HEJ</body>" << std::endl;
+		stream << "</message>" << std::endl;
+
+		SSLWriteSome(stream.str());
+		DebugPrintWrite(stream.str());
+
+		// Read server response
+		readStr = SSLReadUntil(">");
+		DebugPrintRead(readStr);
 	}
 	catch (std::exception& exception)
 	{
@@ -251,6 +287,20 @@ std::string XmppConnection::SSLReadUntil(std::string compareStr)
 	}
 
 	return readStr;
+}
+
+std::string XmppConnection::ParseElement(std::string xml, std::string elementType)
+{
+	std::string element;
+	size_t typeStartPos = xml.find(elementType);
+	elementType.insert(1, "/");
+	size_t typeEndPos = xml.find(elementType);
+	if ((typeStartPos != std::string::npos) && (typeEndPos != std::string::npos))
+	{
+		size_t elementStartPos = xml.find(">", typeStartPos);
+		element = xml.substr(elementStartPos + 1, typeEndPos - elementStartPos - 1);
+	}
+	return element;
 }
 
 void XmppConnection::DebugPrint(std::string debugStr)

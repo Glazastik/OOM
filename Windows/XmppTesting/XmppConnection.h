@@ -25,6 +25,8 @@ protected:
 	void TCPWriteSome(std::string streamStr);
 	void SSLWriteSome(std::string streamStr);
 
+	std::string ParseElement(std::string xml, std::string elementType);
+
 	void DebugPrint(std::string debugStr);
 	void DebugPrintRead(std::string readStr);
 	void DebugPrintWrite(std::string writeStr);
