@@ -110,25 +110,15 @@
                                     <RowDefinition Height="40" />
                                     <RowDefinition Height="40" />
                                 </Grid.RowDefinitions>
-                                <ListView x:Name="ServiceListView" Grid.Row="0" ItemsSource="{Binding DraftMessage.Services, diag:PresentationTraceSources.TraceLevel=High}">
-                                    <ListView.ItemsPanel>
+                                <ItemsControl x:Name="ServiceListView" Grid.Row="0" ItemsSource="{Binding DraftMessage.Services, diag:PresentationTraceSources.TraceLevel=High}">
+                                    <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <WrapPanel Orientation="Horizontal"/>   
                                         </ItemsPanelTemplate>
-                                     </ListView.ItemsPanel>
-                                    <ListView.ItemTemplate>
+                                     </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <ToggleButton IsChecked="{Binding Path=Selected, diag:PresentationTraceSources.TraceLevel=High}">
-                                                <!--  Style="{StaticResource CustomToggleButtonStyle}" -->
-                                                <!--ToggleButton.Resources>
-                                                    <Style x:Key="ImageEnabled" TargetType="Image">
-                                                        <Style.Triggers>
-                                                            <Trigger Property="IsEnabled" Value="False">
-                                                                <Setter Property="Opacity" Value="0.25"></Setter>
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </-->
                                                 <ToggleButton.Style>
                                                     <Style TargetType="ToggleButton">
                                                         <Setter Property="Opacity" Value="1"/>
@@ -150,9 +140,9 @@
                                                 </ToggleButton.Style>
                                             </ToggleButton>
                                         </DataTemplate>
-                                    </ListView.ItemTemplate>
+                                    </ItemsControl.ItemTemplate>
                                    
-                                </ListView>
+                                </ItemsControl>
                                 <Button Grid.Row="1" Focusable="False" Click="SendMessageButtonClick" Content="Send message"/>
                             </Grid>
                             
