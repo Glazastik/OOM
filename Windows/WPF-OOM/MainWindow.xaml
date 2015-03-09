@@ -155,7 +155,7 @@
                                     <RowDefinition Height="40" />
                                     <RowDefinition Height="40" />
                                 </Grid.RowDefinitions>
-                                <ItemsControl x:Name="ServiceItemsControl" Grid.Row="0" ItemsSource="{Binding DraftMessage.Services, diag:PresentationTraceSources.TraceLevel=High}">
+                                <ItemsControl x:Name="ServiceItemsControl" Grid.Row="0" ItemsSource="{Binding DraftMessage.Services}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <WrapPanel Orientation="Horizontal"/>
@@ -163,24 +163,25 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <ToggleButton IsChecked="{Binding Path=Selected, diag:PresentationTraceSources.TraceLevel=High}">
+                                            <ToggleButton IsChecked="{Binding Path=Selected}">
+                                                <Image Width="25" Height="25">
+                                                    <Image.Style>
+                                                        <Style TargetType="{x:Type Image}">
+                                                            <Setter Property="Source" Value="{Binding Service.OtherLogo}" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
+                                                                    <Setter Property="Source" Value="{Binding Service.Logo}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Image.Style>
+                                                </Image>
                                                 <ToggleButton.Style>
                                                     <Style TargetType="ToggleButton">
+                                                        <Setter Property="Focusable" Value="False"/>
+                                                        <Setter Property="BorderThickness" Value="0"/>
                                                         <Setter Property="Opacity" Value="1"/>
-                                                        <Setter Property="Content">
-                                                            <Setter.Value>
-                                                                <Image x:Name="LogoI" Source="{Binding Path=Service.OtherLogo}" Width="25" Height="25"/>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                        <Style.Triggers>
-                                                            <Trigger Property="IsChecked" Value="True">
-                                                                <Setter Property="Content">
-                                                                    <Setter.Value>
-                                                                        <Image Source="{Binding Path=Service.Logo}" Width="25" Height="25"/>
-                                                                    </Setter.Value>
-                                                                </Setter>
-                                                            </Trigger>
-                                                        </Style.Triggers>
+                                                        <Setter Property="Background" Value="Transparent"/>
                                                     </Style>
                                                 </ToggleButton.Style>
                                             </ToggleButton>
