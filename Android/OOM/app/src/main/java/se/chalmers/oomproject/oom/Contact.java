@@ -22,6 +22,12 @@ public class Contact {
         this.services.add(service);
     }
 
+    public void setName(String first, String nick, String last){
+        setFirstName(first);
+        setNickName(nick);
+        setLastName(last);
+    }
+
     public String getFirstName() {
         return firstName;
     }
