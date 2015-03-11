@@ -13,7 +13,7 @@ public class DataSingleton {
     private ArrayList<Conversation> conversations;
 
     private static DataSingleton instance;
-    private static DataSingleton getInstance(){
+    public static DataSingleton getInstance(){
         if(instance != null){
             return instance;
         } else {
@@ -46,6 +46,14 @@ public class DataSingleton {
 
     public ArrayList<Conversation> getConversations() {
         return conversations;
+    }
+
+    public String[] getConversationNames(){
+        ArrayList<String> names = new ArrayList<>();
+        for(Conversation c : conversations){
+            names.add(c.getContact().getNickName());
+        }
+        return names.toArray(new String[names.size()]);
     }
 
 
