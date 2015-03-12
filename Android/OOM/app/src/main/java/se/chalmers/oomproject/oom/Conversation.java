@@ -17,6 +17,10 @@ public class Conversation {
         }
     }
 
+    public void addMessage(String m){
+        messages.add(m);
+    }
+
     public ArrayList<String> getMessages(){ return messages; }
     public Contact getContact(){
         return contact;
