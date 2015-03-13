@@ -74,7 +74,6 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 sendMessage();
-                ((TextView)v).setText("");
             }
         });
         return v;
@@ -83,9 +82,11 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
 
     private void sendMessage() {
         String text = chatField.getText().toString().trim();
-        chatField.setText("");
-        conversation.addMessage(text);
-        ((ArrayAdapter<String>) log.getAdapter()).notifyDataSetChanged();
+        if(text.length()!=0) {
+            chatField.setText("");
+            conversation.addMessage(text);
+            ((ArrayAdapter<String>) log.getAdapter()).notifyDataSetChanged();
+        }
     }
 
 
