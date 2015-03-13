@@ -81,8 +81,9 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
     }
 
     private void sendMessage() {
-        String text = chatField.getText().toString().trim();
+        String text = chatField.getText().toString();
         if(text.length()!=0) {
+            text = text.trim();
             chatField.setText("");
             conversation.addMessage(text);
             ((ArrayAdapter<String>) log.getAdapter()).notifyDataSetChanged();
