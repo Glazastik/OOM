@@ -57,7 +57,7 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
         log.setAdapter(new ArrayAdapter<String>(this.getActivity(),
                 android.R.layout.simple_list_item_1,
                 conversation.getMessages()));
-
+        /*
         EditText chatField = (EditText) v.findViewById(R.id.chatField);
         chatField.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -70,6 +70,7 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
             }
 
         });
+        */
         /*
         Button sendButton = (Button) v.findViewById(R.id.chatSendButton);
         sendButton.setOnClickListener(new View.OnClickListener() {
