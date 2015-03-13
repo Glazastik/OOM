@@ -18,8 +18,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/button"
-        android:layout_toStartOf="@+id/button" />
+        android:layout_toLeftOf="@+id/chatSendButton"
+        android:layout_toStartOf="@+id/chatSendButton" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
         android:layout_toRightOf="@+id/section_label"
         android:layout_toEndOf="@+id/section_label"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/editText" />
+        android:layout_above="@+id/chatField" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
