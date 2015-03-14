@@ -37,7 +37,7 @@ std::string Base64::Encode(const char* bindata, const size_t binlen)
 	int bits_collected = 0;
 	unsigned int accumulator = 0;
 
-	for (int i = 0; i < binlen; i++) 
+	for (size_t i = 0; i < binlen; i++)
 	{
 		accumulator = (accumulator << 8) | (bindata[i] & 0xffu);
 		bits_collected += 8;

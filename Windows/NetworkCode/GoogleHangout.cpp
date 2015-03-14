@@ -1,5 +1,6 @@
 #include "GoogleHangout.h"
 #include <boost\array.hpp>
+#include "DebugBuffer.h"
 
 GoogleHangout::GoogleHangout() : ChatService("talk.l.google.com", "5222")
 {
@@ -17,6 +18,9 @@ ServiceType::Type GoogleHangout::GetServiceType()
 
 std::string GoogleHangout::TestConnect()
 {
+	// Dll debug test
+	DebugBuffer::AddLine("TEST LINE 1");
+
 	ConnectSocket();
 
 	std::string message;

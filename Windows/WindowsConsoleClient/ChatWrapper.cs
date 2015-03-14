@@ -28,5 +28,23 @@ namespace WindowsConsoleClient
             getMessage(messageBuffer, messageBuffer.Capacity);
             return messageBuffer.ToString();
         }
+
+        [DllImport("NetworkCode.dll", CallingConvention = CallingConvention.Cdecl)]
+        private extern static void readDebugBufferLine(StringBuilder lineBuffer, int bufferCapacity);
+
+        public static string ReadDebugBufferLine(int capacity)
+        {
+            StringBuilder lineBuffer = new StringBuilder(capacity);
+            readDebugBufferLine(lineBuffer, lineBuffer.Capacity);
+            return lineBuffer.ToString();
+        }
+
+        [DllImport("NetworkCode.dll", CallingConvention = CallingConvention.Cdecl)]
+        private extern static int getDebugBufferSize();
+
+        public static int GetDebugBufferSize()
+        {
+            return getDebugBufferSize();
+        }
     }
 }

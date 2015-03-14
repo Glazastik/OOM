@@ -82,6 +82,7 @@
     <ClInclude Include="ChatInterface.h" />
     <ClInclude Include="ChatModel.h" />
     <ClInclude Include="ChatService.h" />
+    <ClInclude Include="DebugBuffer.h" />
     <ClInclude Include="GoogleHangout.h" />
     <ClInclude Include="ServiceType.h" />
     <ClInclude Include="TokenHandler.h" />
@@ -91,6 +92,7 @@
     <ClCompile Include="ChatInterface.cpp" />
     <ClCompile Include="ChatModel.cpp" />
     <ClCompile Include="ChatService.cpp" />
+    <ClCompile Include="DebugBuffer.cpp" />
     <ClCompile Include="GoogleHangout.cpp" />
     <ClCompile Include="TokenHandler.cpp" />
     <ClCompile Include="WindowsInterface.cpp" />
