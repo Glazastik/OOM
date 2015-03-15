@@ -1,13 +1,16 @@
 package se.chalmers.oomproject.oom;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -87,6 +90,16 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
             chatField.setText("");
             conversation.addMessage(text);
             ((ArrayAdapter<String>) log.getAdapter()).notifyDataSetChanged();
+            hideSoftKeyboard();
+
+        }
+    }
+
+    private void hideSoftKeyboard() {
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 
