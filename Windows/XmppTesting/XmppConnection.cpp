@@ -159,12 +159,68 @@ void XmppConnection::Connect()
 		std::string jid = ParseElement(readStr, "<jid>");
 		DebugPrint("JID: " + jid + "\n");
 
+		// Session
+		stream.str("");
+		stream.clear();
+		stream << "<iq type='set' id='2'>" << std::endl;
+		stream << "<session xmlns='urn:ietf:params:xml:ns:xmpp-session'/>" << std::endl;
+		stream << "</iq>" << std::endl;
+
+		SSLWriteSome(stream.str());
+		DebugPrintWrite(stream.str());
+
+		// Read server response
+		readStr = SSLReadUntil(">");
+		DebugPrintRead(readStr);
+
+		// Disco items
+		stream.str("");
+		stream.clear();
+		stream << "<iq type='get' id='3' to='gmail.com'>" << std::endl;
+		stream << "<query xmlns='http://jabber.org/protocol/disco#items'/>" << std::endl;
+		stream << "</iq>" << std::endl;
+
+		SSLWriteSome(stream.str());
+		DebugPrintWrite(stream.str());
+
+		// Read server response
+		readStr = SSLReadUntil("</iq>");
+		DebugPrintRead(readStr);
+
+		// Disco info
+		stream.str("");
+		stream.clear();
+		stream << "<iq type='get' id='4' to='gmail.com'>" << std::endl;
+		stream << "<query xmlns='http://jabber.org/protocol/disco#info'/>" << std::endl;
+		stream << "</iq>" << std::endl;
+
+		SSLWriteSome(stream.str());
+		DebugPrintWrite(stream.str());
+
+		// Read server response
+		readStr = SSLReadUntil("</iq>");
+		DebugPrintRead(readStr);
+
+		// Get roster
+		stream.str("");
+		stream.clear();
+		stream << "<iq type='get' id='5'>" << std::endl;
+		stream << "<query xmlns='jabber:iq:roster' ext='2'/>" << std::endl;
+		stream << "</iq>" << std::endl;
+
+		SSLWriteSome(stream.str());
+		DebugPrintWrite(stream.str());
+
+		// Read server response
+		readStr = SSLReadUntil("</iq>");
+		DebugPrintRead(readStr);
+
 		// Send a message
 		stream.str("");
 		stream.clear();
 		stream << "<message from='" << jid << "'" << std::endl;
 		stream << "id='2'" << std::endl;
-		stream << "to='carl@msp.se'" << std::endl;
+		stream << "to='1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com'" << std::endl;
 		stream << "type='chat'" << std::endl;
 		stream << "xml:lang='en'>" << std::endl;
 		stream << "<body>TEST HEJ</body>" << std::endl;
