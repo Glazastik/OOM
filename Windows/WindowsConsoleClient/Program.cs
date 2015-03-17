@@ -10,12 +10,15 @@ namespace WindowsConsoleClient
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(ChatWrapper.GetMessage(1024));
-            Console.WriteLine(ChatWrapper.TestConnect(0, 1025));
-
-            // Dll debug test
-            Console.WriteLine("Dll debug test: " + ChatWrapper.ReadDebugBufferLine(1024));
-
+            Console.WriteLine("Connecting to Google Hangout.");
+            ChatWrapper.ConnectService(1337);
+            //Console.WriteLine(ChatWrapper.GetDebugBufferSize());
+            /*
+            while (ChatWrapper.GetDebugBufferSize() > 0)
+            {
+                Console.WriteLine("NetworkCode>" + ChatWrapper.ReadDebugBufferLine(1024));
+            }
+            */
             Console.Write("Press any key to exit...");
             Console.ReadKey();
         }

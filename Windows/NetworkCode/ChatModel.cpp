@@ -1,34 +1,48 @@
 #include "ChatModel.h"
 #include "GoogleHangout.h"
+#include "DebugBuffer.h"
 
 ChatModel::ChatModel()
 {
-	chatServices.push_back(std::make_shared<GoogleHangout>());
+	io_service = std::make_shared<boost::asio::io_service>();
+	chatServices.push_back(std::make_shared<GoogleHangout>(io_service));
 }
 
 ChatModel::~ChatModel()
 {
 }
 
-std::string ChatModel::TestConnect(int serviceType)
+void ChatModel::ConnectService(int serviceType)
 {
-	std::shared_ptr<GoogleHangout> googleHangout = NULL;
+	std::shared_ptr<ChatService> chatService = NULL;
+	for (std::vector<std::shared_ptr<ChatService>>::iterator it = chatServices.begin(); it != chatServices.end(); ++it)
+	{
+		std::shared_ptr<ChatService> service = *it;
+		if (service->GetServiceType() == serviceType)
+		{
+			//chatService = service;
+			//chatService->Connect();
+		}
+	}
+	if (chatService == NULL)
+	{
+		DebugBuffer::AddLine("Error - Couldn't find service: " + serviceType);
+	}
+}
+
+void ChatModel::CloseService(int serviceType)
+{
+	std::shared_ptr<ChatService> chatService = NULL;
 	for (std::vector<std::shared_ptr<ChatService>>::iterator it = chatServices.begin(); it != chatServices.end(); ++it)
 	{
 		std::shared_ptr<ChatService> chatService = *it;
 		if (chatService->GetServiceType() == serviceType)
 		{
-			googleHangout = std::dynamic_pointer_cast<GoogleHangout>(chatService);
-		}
-		if (googleHangout == NULL)
-		{
-			return "Error - Couldn't find a service of given type.";
+			chatService->CloseConnection();
 		}
 	}
-	return googleHangout->TestConnect();
-}
-
-std::string ChatModel::GetMessage()
-{
-	return "Hello World!";
+	if (chatService == NULL)
+	{
+		DebugBuffer::AddLine("Error - Couldn't find service: " + serviceType);
+	}
 }

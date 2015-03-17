@@ -5,10 +5,10 @@
 class ChatInterface
 {
 public:
-	static void TestConnect(int serviceType, char* responseBuffer, int bufferCapacity);
-	static void GetMessage(char* messageBuffer, int bufferCapacity);
 	static void ReadDebugBufferLine(char* lineBuffer, int bufferCapacity);
 	static int GetDebugBufferSize();
+	static void ConnectService(int serviceType);
+	static void CloseService(int serviceType);
 private:
 	static ChatModel chatModel;
 
