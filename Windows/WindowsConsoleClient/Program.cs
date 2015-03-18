@@ -11,8 +11,9 @@ namespace WindowsConsoleClient
         static void Main(string[] args)
         {
             Console.WriteLine("Connecting to Google Hangout.");
-            ChatWrapper.ConnectService(1337);
-            //Console.WriteLine(ChatWrapper.GetDebugBufferSize());
+            //ChatWrapper.ConnectService(1337);
+            Console.WriteLine(ChatWrapper.GetDebugBufferSize());
+            Console.WriteLine("After");
             /*
             while (ChatWrapper.GetDebugBufferSize() > 0)
             {

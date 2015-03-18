@@ -28,7 +28,6 @@ namespace WindowsConsoleClient
         {
             Console.WriteLine("Before");
             return getDebugBufferSize();
-            Console.WriteLine("After");
         }
 
         [DllImport("NetworkCode.dll", CallingConvention = CallingConvention.Cdecl)]
