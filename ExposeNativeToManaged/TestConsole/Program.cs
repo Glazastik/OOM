@@ -21,41 +21,48 @@ namespace TestConsole
             //IntPtr intptr_delegate = Marshal.GetFunctionPointerForDelegate(new TestCallback(Cool));
             //Console.WriteLine(ManagedMessenger.CallingBack(intptr_delegate));
 
-            Test();
+            InitializeMessenger();
             //Test2();
 
             Console.WriteLine("Press <Enter> to quit.");
             Console.ReadLine();
         }
 
-        static void Test()
+        static void InitializeMessenger()
         {
             uint message = 55;
             String message2 = "test";
             int[] message3 = new int[5];
+            char[] namn = new char[256];
+            namn[0] = 't';
+            namn[1] = 'e';
+            namn[2] = 's';
+            namn[3] = 't';
+            namn[4] = '\0';
             message3[0] = 1;
-            //message_t message3;
-           // message3.time = 77;
-            //message_t.test = new int[];
-            //message3.sender = "random";
-            //message3.message = "Hejsan!";
+            Contact to;
+            to.id = 1;
+            to.name = namn;
+            Messenger messeng = Messenger.google;
+            ManagedMessenger messenger = new ManagedMessenger();
+            messenger.AddMessenger(Messenger.google);
+            messenger.AddMessenger(Messenger.irc);
 
+            messenger.WriteMessageInt(Messenger.google, message);
+            messenger.WriteMessageInt(Messenger.irc, message);
 
-            uint _messengerId = ManagedMessenger.CreateMessenger();
-            Console.WriteLine(_messengerId);
+            messenger.SendMessage(Messenger.irc, message2, to);
 
-            ManagedMessenger.WriteMessageInt(_messengerId, message);
-            ManagedMessenger.WriteMessageString(_messengerId, message2);
-            ManagedMessenger.WriteMessageIntArray(_messengerId, message3, 5);
-            //ManagedMessenger.WriteMessageStruct(_messengerId, message3);
+            Console.WriteLine(messenger.GetMessage());
+            /*messenger.WriteMessageString(_messengerId, message2);
 
-            Console.WriteLine(ManagedMessenger.ReadMessageInt(_messengerId));
-            Console.WriteLine(ManagedMessenger.ReadMessageString(_messengerId));
-            Console.WriteLine(ManagedMessenger.ReadMessageCharArray(_messengerId));
-            Console.WriteLine(ManagedMessenger.ReadMessageIntArray(_messengerId)[2]);
-            Console.WriteLine(ManagedMessenger.ReadMessageStruct(_messengerId).test[1]);
+            Console.WriteLine(messenger.ReadMessageInt(_messengerId));
+            Console.WriteLine(messenger.ReadMessageString(_messengerId));
+            Console.WriteLine(messenger.ReadMessageCharArray(_messengerId));
+            Console.WriteLine(messenger.ReadMessageIntArray(_messengerId)[2]);
+            Console.WriteLine(messenger.ReadMessageStruct(_messengerId).test[1]);
 
-            ManagedMessenger.DeleteMessenger(_messengerId);
+            ManagedMessenger.DeleteMessenger(_messengerId); */
         }
 
         public delegate void TestCallback(int arg1);

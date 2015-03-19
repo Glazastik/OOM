@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -8,10 +9,33 @@ struct message_t {
 	int test[5];
 };
 
+struct message_header {
+	int size;
+	int leftOvers;
+	int type;
+};
+
+struct message_body {
+	int id;
+	int index;
+	wchar_t message[256];
+};
+
+struct message_data {
+	wchar_t message[256];
+};
+
+struct contact {
+	int id;
+	int length;
+	wchar_t name[256];
+};
+
 class Messenger
 {
 public:
-	Messenger(string file);
+
+	Messenger(int id, string file);
 	Messenger();
 	~Messenger();
 
@@ -26,8 +50,15 @@ public:
 	message_t ReadMessageStruct(void);
 	const wchar_t * ReadMessageString(void);
 	const int * ReadMessageIntArray(void);
+
+	// Sending and getting messages
+	void _SendMessage(vector<wchar_t> message, contact con);
+
 private:
+
+	int messengerId;
 	string messengerFile;
+
 };
 
 

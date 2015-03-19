@@ -6,23 +6,10 @@
 
 #include "..\NativeLib\Messenger.h"
 
-/*Calling convention
-One of the things that should be taken in consideration when exporting 
-functions that takes some parameters is: Calling Conventions. Generally, 
-it's the way for telling who (the Caller or the Callee) is responsible 
-for cleaning the stack after the function has been finished. The default 
-calling convention for a C++ program is __cdecl. Anyway, we can declare 
-it explicitly (using the __cdecl keyword):*/
+#define IRC 0
+#define GOOGLE 1
 
-/*Keep the function entry point name as the original function name
-Another thing that should be taken in consideration when exporting 
-functions, is the functions' entry-points' names. In order to enable 
-Function Overloading, the C++ compiler performs Name mangling on the 
-functions' names. For preventing the C++ name mangling (and keep the 
-functions entry-points as the original functions' names), we can 
-declare the functions with the extern "C" keyword:*/
-
-extern "C" NATIVEDLL_API unsigned int __cdecl CreateMessenger();
+extern "C" NATIVEDLL_API void __cdecl AddMessenger(unsigned int messengerId);
 extern "C" NATIVEDLL_API void __cdecl DeleteMessenger(unsigned int MessengerId);
 
 extern "C" NATIVEDLL_API void __cdecl WriteMessageInt(unsigned int messengerId, int message);
@@ -41,3 +28,15 @@ extern "C" __declspec(dllexport) bool __cdecl HasMessage(void);
 
 typedef void(__stdcall *FUNCTION)(int arg1);
 extern "C" __declspec(dllexport) bool __cdecl CallingBack(FUNCTION func);
+
+
+extern "C" __declspec(dllexport) void __cdecl SendMessageHeader(unsigned int messengerId, message_header header);
+extern "C" __declspec(dllexport) void __cdecl SendMessageData(unsigned int messengerId, message_body body);
+extern "C" __declspec(dllexport) void __cdecl SendMessageContact(unsigned int messengerId, contact con);
+extern "C" __declspec(dllexport) void __cdecl _SendMessage(unsigned int messengerId);
+
+extern "C" __declspec(dllexport) void __cdecl GetMessageHeader(unsigned int messengerId, message_header *pnt);
+extern "C" __declspec(dllexport) void __cdecl GetMessageData(unsigned int messengerId, message_data *pnt);
+extern "C" __declspec(dllexport) void __cdecl GetMessageContact(unsigned int messengerId, contact *pnt);
+extern "C" __declspec(dllexport) bool __cdecl HasMessageData(unsigned int messengerId);
+extern "C" __declspec(dllexport) void __cdecl _GetMessage(unsigned int messengerId);

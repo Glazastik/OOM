@@ -8,19 +8,54 @@
 
 using namespace std;
 
-Messenger::Messenger(string file) : messengerFile(file)
+Messenger::Messenger(int id, string file) : messengerId(id)
 {
-
+	switch (id)
+	{
+		case 0:
+			messengerFile = "0.txt";
+			break;
+		case 1: 
+			messengerFile = "1.txt";
+			break;
+		case 2:	
+			messengerFile = "2.txt";
+			break;
+		default: 
+			messengerFile = "default.txt";
+	}
+	//messengerFile = to_string(id) + '/' + file;
 }
 
 Messenger::Messenger()
-{
-	messengerFile = "temp.txt";
+{ 
+	messengerId = 0;
+	messengerFile = "default.txt";
 }
 
 
 Messenger::~Messenger()
 {
+
+}
+
+void Messenger::_SendMessage(vector<wchar_t> data, contact con)
+{
+	ofstream textfile;
+	textfile.open(messengerFile, ios::out);
+
+	textfile << "MESSAGE:";
+	textfile << '\n';	
+	for (unsigned int i = 0; i < data.size(); i++) {
+		textfile << (char) data[i];
+	}
+	textfile << '\0';
+	textfile << '\n';
+	textfile << "FROM:";
+	textfile << '\n';
+	textfile << con.name;
+	textfile << '\n';
+	textfile.close();
 }
 
 void Messenger::WriteMessage(unsigned int message)
@@ -50,13 +85,6 @@ void Messenger::WriteMessage(message_t message)
 
 	textfile << message.time;
 	textfile << '\n';
-	/*for (const char *p = message.sender; *p != '\0'; p++) {
-		textfile << *p;
-	}
-	textfile << '\n';*/
-	/*for (const char *p = message.message; *p != '\0'; p++) {
-		textfile << *p;
-	}*/
 	textfile << '\n';
 	textfile.close();
 }

@@ -5,22 +5,70 @@
 #include "NativeDLL.h"
 #include "..\NativeLib\Messenger.h"
 #include <map>
+#include <queue>
+#include <tuple>
 
 using namespace std;
 
 map<unsigned int, Messenger*> g_theMessengers;
+queue<message_body> inbox_messages;
+queue<message_data> outbox_messages;
 
+typedef tuple<contact, message_header, queue<message_data>> message;
+map<unsigned int, message> in_messages;
+map<unsigned int, message> out_messages;
 
-extern "C" NATIVEDLL_API unsigned int __cdecl CreateMessenger()
+//
+// Sending Messages
+//
+extern "C" __declspec(dllexport) void __cdecl SendMessageHeader(unsigned int messengerId, message_header header)
+{
+
+}
+
+extern "C" __declspec(dllexport) void __cdecl SendMessageBody(unsigned int messengerId, message_body body)
+{
+	inbox_messages.push(body);
+}
+
+extern "C" __declspec(dllexport) void __cdecl SendMessageContact(unsigned int messengerId, contact con)
+{
+	
+}
+
+extern "C" __declspec(dllexport) void __cdecl _SendMessage(unsigned int messengerId)
+{
+	vector<wchar_t> data;
+	while (!inbox_messages.empty())
+	{
+		message_body temp;
+		temp = inbox_messages.front();
+		inbox_messages.pop();
+		for (int i = 0; i < 256; i++)
+		{
+			data.push_back(temp.message[i]);
+		}
+	}
+	data.push_back('\0');
+
+	contact con;
+
+	std::map<unsigned int, Messenger*>::iterator it;
+	it = g_theMessengers.find(messengerId);
+	if (it != g_theMessengers.end())
+	{
+		//it->second->_SendMessage(data, con);
+	}
+}
+
+extern "C" NATIVEDLL_API void __cdecl AddMessenger(unsigned int messengerId)
 {
 	static unsigned int s_nextWorkerId = 0;
 
 	unsigned int currWorkerId = s_nextWorkerId;
-	g_theMessengers[currWorkerId] = new Messenger();
+	g_theMessengers[messengerId] = new Messenger(messengerId, "new.txt");
 
 	s_nextWorkerId++;
-
-	return currWorkerId;
 }
 
 extern "C" NATIVEDLL_API void __cdecl DeleteMessenger(unsigned int messengerId)
@@ -147,6 +195,89 @@ extern "C" __declspec(dllexport) void __cdecl ReadMessageStruct(unsigned int mes
 		pnt->test[3] = _pnt.test[3];
 		pnt->test[4] = _pnt.test[4];
 	}
+}
+
+//
+// Getting Messages
+//
+extern "C" __declspec(dllexport) void __cdecl GetMessageData(unsigned int messengerId, message_data *pnt)
+{
+	std::map<unsigned int, message>::iterator it;
+	it = in_messages.find(messengerId);
+	message_data _pnt;
+	if (it != in_messages.end())
+	{
+		message_data _pnt = get<2>(it->second).front();
+		get<2>(it->second).pop();
+		for (int i = 0; i < 256; i++)
+		{
+			pnt->message[i] = _pnt.message[i];
+		}
+	}
+}
+
+extern "C" __declspec(dllexport) void __cdecl GetMessageHeader(unsigned int messengerId, message_header *pnt)
+{
+
+}
+
+extern "C" __declspec(dllexport) void __cdecl GetMessageContact(unsigned int messengerId, contact *pnt)
+{
+
+}
+
+extern "C" __declspec(dllexport) bool __cdecl HasMessageData(unsigned int messengerId)
+{
+	std::map<unsigned int, message>::iterator it;
+	it = in_messages.find(messengerId);
+	if (it != in_messages.end())
+	{
+		return !get<2>(it->second).empty();
+	}
+}
+
+extern "C" __declspec(dllexport) void __cdecl _GetMessage(unsigned int messengerId)
+{
+	message_data pnt;	
+
+	pnt.message[0] = 'T';
+
+	pnt.message[2] = 'i';
+	pnt.message[3] = 's';
+	
+	pnt.message[4] = ' ';
+	pnt.message[5] = 'i';
+	pnt.message[6] = 's';
+	pnt.message[7] = ' ';
+
+	pnt.message[8] = 't';
+	pnt.message[9] = 'e';
+	pnt.message[10] = 's';
+	pnt.message[11] = 't';
+
+	pnt.message[12] = ' ';
+	pnt.message[13] = 'm';
+	pnt.message[14] = 'e';
+	pnt.message[15] = 's';
+	pnt.message[16] = 's';
+	pnt.message[17] = 'a';
+	pnt.message[18] = 'g';
+	pnt.message[19] = 'e'; 
+
+	message_header header;
+	header.size = 0;
+	header.leftOvers = 20;
+	header.type = 0;
+
+	contact con;
+	con.id = 0;
+	con.length = 4;
+	con.name[0] = 't';
+	con.name[1] = 'e';
+	con.name[2] = 's';
+	con.name[3] = 't';
+
+	outbox_messages.push(pnt);
 }
 
 extern "C" __declspec(dllexport) bool __cdecl HasMessage(void)
