@@ -9,9 +9,9 @@ namespace WindowsConsoleClient
 {
     class ChatWrapper
     {
-        const string dllPath = @"NetworkCode.dll";
+        const string dllPath = @"../../../NetworkCode/bin/NetworkCode.dll";
 
-        [DllImport("NetworkCode.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
         private extern static void readDebugBufferLine(StringBuilder lineBuffer, int bufferCapacity);
 
         public static string ReadDebugBufferLine(int capacity)
@@ -21,7 +21,7 @@ namespace WindowsConsoleClient
             return lineBuffer.ToString();
         }
         
-        [DllImport("NetworkCode.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
         private extern static int getDebugBufferSize();
 
         public static int GetDebugBufferSize()
@@ -30,7 +30,7 @@ namespace WindowsConsoleClient
             return getDebugBufferSize();
         }
 
-        [DllImport("NetworkCode.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
         private extern static void connectService(int serviceType);
 
         public static void ConnectService(int serviceType)
@@ -38,7 +38,7 @@ namespace WindowsConsoleClient
             connectService(serviceType);
         }
 
-        [DllImport("NetworkCode.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
         private extern static void closeService(int serviceType);
 
         public static void CloseService(int serviceType)
