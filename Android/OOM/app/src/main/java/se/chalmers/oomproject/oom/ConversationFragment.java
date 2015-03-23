@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,12 +31,14 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
 
     private ListView log;
     private EditText chatField;
+    private static IService.Steam s;
 
 
     /**
      * Returns a new instance of this fragment for the given conversation.
      */
     public static ConversationFragment newInstance(int pos) {
+        s = new IService.Steam();
         ConversationFragment fragment = new ConversationFragment();
         Bundle args = new Bundle();
         args.putInt(CONVERSATION_NUMBER, pos);
@@ -58,7 +61,10 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
         log.setAdapter(new ArrayAdapter<String>(this.getActivity(),
                 android.R.layout.simple_list_item_1,
                 conversation.getMessages()));
+        ImageView myImage = (ImageView) v.findViewById(R.id.imageView);
 
+
+        myImage.setImageDrawable( s.getLogo(getActivity()));
         chatField = (EditText) v.findViewById(R.id.chatField);
         chatField.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -85,9 +91,8 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
     }
 
     private void sendMessage() {
-        String text = chatField.getText().toString();
+        String text = chatField.getText().toString().trim();
         if(text.length()!=0) {
-            text = text.trim();
             chatField.setText("");
             conversation.addMessage(text);
             ((ArrayAdapter<String>) log.getAdapter()).notifyDataSetChanged();
