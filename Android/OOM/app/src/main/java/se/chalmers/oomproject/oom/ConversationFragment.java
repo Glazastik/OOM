@@ -58,8 +58,7 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
         log = (ListView) v.findViewById(R.id.chatLogView);
-        log.setAdapter(new ArrayAdapter<String>(this.getActivity(),
-                android.R.layout.simple_list_item_1,
+        log.setAdapter(new MessageAdapter(this.getActivity(),
                 conversation.getMessages()));
         ImageView myImage = (ImageView) v.findViewById(R.id.imageView);
 

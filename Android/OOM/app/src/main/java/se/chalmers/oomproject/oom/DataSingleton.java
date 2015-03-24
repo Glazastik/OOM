@@ -56,7 +56,7 @@ public class DataSingleton {
         return names.toArray(new String[names.size()]);
     }
 
-    public ArrayList<String> getConversationMessages(int i) {
+    public ArrayList<Message> getConversationMessages(int i) {
         return conversations.get(i).getMessages();
     }
 
