@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/grid_landing"
     android:layout_width="fill_parent"
@@ -13,5 +13,4 @@
     android:stretchMode="columnWidth"
     tools:context=".MainActivity$LandingFragment">
 
-
-</GridLayout>
+</GridView>

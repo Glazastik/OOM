@@ -48,12 +48,12 @@ public class DataSingleton {
         return conversations;
     }
 
-    public String[] getConversationNames(){
+    public ArrayList<String> getConversationNames(){
         ArrayList<String> names = new ArrayList<>();
         for(Conversation c : conversations){
             names.add(c.getContact().getNickName());
         }
-        return names.toArray(new String[names.size()]);
+        return names;
     }
 
     public ArrayList<Message> getConversationMessages(int i) {

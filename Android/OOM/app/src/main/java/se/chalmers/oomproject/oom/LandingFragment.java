@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 
 
 /**
@@ -16,7 +17,7 @@ public class LandingFragment extends android.support.v4.app.Fragment {
     /**
      * Returns a new instance of this fragment for the given conversation.
      */
-    public static LandingFragment newInstance(int pos) {
+    public static LandingFragment newInstance() {
         LandingFragment fragment = new LandingFragment();
         data = DataSingleton.getInstance();
         return fragment;
@@ -29,6 +30,8 @@ public class LandingFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_landing, container, false);
+
+        GridView gv = (GridView) v.findViewById(R.id.grid_landing);
         return v;
     }
 
@@ -37,6 +40,5 @@ public class LandingFragment extends android.support.v4.app.Fragment {
         super.onAttach(activity);
         ((MainActivity) activity).onSectionAttached();
     }
-
 
 }

@@ -58,7 +58,12 @@ public class MainActivity extends ActionBarActivity
         // update the main content by replacing fragments
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if(position >= 0) {
+        if(position == 0) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, LandingFragment.newInstance())
+                    .commit();
+        } else {
+            position--;
             fragmentManager.beginTransaction()
                     .replace(R.id.container, ConversationFragment.newInstance(position))
                     .commit();
@@ -69,7 +74,7 @@ public class MainActivity extends ActionBarActivity
         mTitle = con.getContact().getNickName();
     }
     public void onSectionAttached(){
-        mTitle = "OOM";
+        mTitle = getString(R.string.app_name);
     }
 
     public void restoreActionBar() {
