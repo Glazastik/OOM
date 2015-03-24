@@ -50,19 +50,26 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, ConversationFragment.newInstance(position))
-                .commit();
+        if(position >= 0) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, ConversationFragment.newInstance(position))
+                    .commit();
+        }
     }
 
     public void onSectionAttached(Conversation con) {
         mTitle = con.getContact().getNickName();
+    }
+    public void onSectionAttached(){
+        mTitle = "OOM";
     }
 
     public void restoreActionBar() {

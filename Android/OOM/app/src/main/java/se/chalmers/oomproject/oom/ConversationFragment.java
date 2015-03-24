@@ -49,8 +49,6 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
         return fragment;
     }
 
-    public ConversationFragment() {
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
