@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ListView;
 
 
 /**
@@ -32,7 +33,9 @@ public class LandingFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_landing, container, false);
-
+        ListView log = (ListView) v.findViewById(R.id.list_landing);
+        log.setAdapter(new LandingAdapter(this.getActivity(),
+                data.getConversations()));
         return v;
     }
 
