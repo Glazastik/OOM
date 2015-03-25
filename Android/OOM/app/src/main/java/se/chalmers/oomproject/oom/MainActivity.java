@@ -58,7 +58,6 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         if(position == 0) {
             fragmentManager.beginTransaction()
@@ -72,11 +71,17 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+    public void onSectionAttached(String title, boolean b){
+        mTitle = title;
+        isContact = b;
+    }
+
     public void onSectionAttached(Conversation con) {
         mTitle = con.getContact().getNickName();
         isContact = true;
 
     }
+
     public void onSectionAttached(){
         mTitle = getString(R.string.app_name);
         isContact = false;
