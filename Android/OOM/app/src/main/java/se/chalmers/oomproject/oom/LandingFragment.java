@@ -3,6 +3,8 @@ package se.chalmers.oomproject.oom;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
@@ -32,6 +34,9 @@ public class LandingFragment extends android.support.v4.app.Fragment {
         View v = inflater.inflate(R.layout.fragment_landing, container, false);
 
         GridView gv = (GridView) v.findViewById(R.id.grid_landing);
+
+
+
         return v;
     }
 

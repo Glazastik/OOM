@@ -32,6 +32,8 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    private boolean isContact = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +74,12 @@ public class MainActivity extends ActionBarActivity
 
     public void onSectionAttached(Conversation con) {
         mTitle = con.getContact().getNickName();
+        isContact = true;
+
     }
     public void onSectionAttached(){
         mTitle = getString(R.string.app_name);
+        isContact = false;
     }
 
     public void restoreActionBar() {
@@ -82,6 +87,7 @@ public class MainActivity extends ActionBarActivity
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
+
     }
 
 
@@ -92,10 +98,20 @@ public class MainActivity extends ActionBarActivity
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.main, menu);
+
+            if(!isContactFragment()){
+                //Hide contact configuration if no contact is up.
+                menu.findItem(R.id.action_contact).setVisible(false);
+            }
+
             restoreActionBar();
             return true;
         }
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private boolean isContactFragment() {
+        return isContact;
     }
 
     @Override

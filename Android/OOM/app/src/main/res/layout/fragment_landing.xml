@@ -13,4 +13,6 @@
     android:stretchMode="columnWidth"
     tools:context=".MainActivity$LandingFragment">
 
+
+
 </GridView>
