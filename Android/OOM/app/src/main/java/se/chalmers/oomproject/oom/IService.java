@@ -24,7 +24,7 @@ public interface IService {
         }
         @Override
         public String getName() {
-            return null;
+            return name;
         }
 
         @Override
@@ -35,6 +35,27 @@ public interface IService {
         @Override
         public Drawable getOtherLogo(Context c) {
             return c.getResources().getDrawable(c.getResources().getIdentifier("steamdark", "drawable", c.getPackageName()));
+        }
+    }
+    public class Facebook implements IService{
+        private String name;
+        public Facebook(){
+            this.name = "Facebook";
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public Drawable getLogo(Context c) {
+            return c.getResources().getDrawable(c.getResources().getIdentifier("fb", "drawable", c.getPackageName()));
+        }
+
+        @Override
+        public Drawable getOtherLogo(Context c) {
+            return c.getResources().getDrawable(c.getResources().getIdentifier("fbdark", "drawable", c.getPackageName()));
         }
     }
 }
