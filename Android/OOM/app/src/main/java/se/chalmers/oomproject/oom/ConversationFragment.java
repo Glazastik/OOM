@@ -31,14 +31,12 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
 
     private ListView log;
     private EditText chatField;
-    private static IService.Steam s;
 
 
     /**
      * Returns a new instance of this fragment for the given conversation.
      */
     public static ConversationFragment newInstance(int pos) {
-        s = new IService.Steam();
         ConversationFragment fragment = new ConversationFragment();
         Bundle args = new Bundle();
         args.putInt(CONVERSATION_NUMBER, pos);
@@ -58,10 +56,6 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
         log = (ListView) v.findViewById(R.id.chatLogView);
         log.setAdapter(new MessageAdapter(this.getActivity(),
                 conversation.getMessages()));
-        ImageView myImage = (ImageView) v.findViewById(R.id.imageView);
-
-
-        myImage.setImageDrawable( s.getLogo(getActivity()));
         chatField = (EditText) v.findViewById(R.id.chatField);
         chatField.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {

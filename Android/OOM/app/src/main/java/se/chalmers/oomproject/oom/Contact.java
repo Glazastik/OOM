@@ -8,17 +8,17 @@ import java.util.ArrayList;
 public class Contact {
 
     private String firstName, nickName, lastName;
-    private ArrayList<Service> services;
+    private ArrayList<IService> services;
 
     public Contact(){
-        services = new ArrayList<Service>();
+        services = new ArrayList<IService>();
     }
 
-    public ArrayList<Service> getServices() {
+    public ArrayList<IService> getServices() {
         return services;
     }
 
-    public void addService(Service service) {
+    public void addService(IService service) {
         this.services.add(service);
     }
 
