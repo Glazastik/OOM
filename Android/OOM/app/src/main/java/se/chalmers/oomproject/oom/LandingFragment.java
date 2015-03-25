@@ -33,10 +33,6 @@ public class LandingFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_landing, container, false);
 
-        GridView gv = (GridView) v.findViewById(R.id.grid_landing);
-
-
-
         return v;
     }
 
