@@ -31,7 +31,7 @@ namespace TestConsole
         static void InitializeMessenger()
         {
             uint message = 55;
-            String message2 = "test";
+            String message2 = "haha";
             int[] message3 = new int[5];
             char[] namn = new char[256];
             namn[0] = 't';
@@ -40,20 +40,27 @@ namespace TestConsole
             namn[3] = 't';
             namn[4] = '\0';
             message3[0] = 1;
-            Contact to;
-            to.id = 1;
-            to.name = namn;
+
             Messenger messeng = Messenger.google;
             ManagedMessenger messenger = new ManagedMessenger();
-            messenger.AddMessenger(Messenger.google);
-            messenger.AddMessenger(Messenger.irc);
 
-            messenger.WriteMessageInt(Messenger.google, message);
-            messenger.WriteMessageInt(Messenger.irc, message);
+            Contact to;
+            to.id = 1;
+            to.name = "Test";
 
-            messenger.SendMessage(Messenger.irc, message2, to);
+            Message msg;
+            msg.messenger = Messenger.irc;
+            msg.message = message2;
+            msg.contact = to;
 
-            Console.WriteLine(messenger.GetMessage());
+            LoginData login;
+            login.userName = "testUser";
+            login.password = "qwerty";
+            messenger.Login(Messenger.irc, login);
+
+            messenger.SendMessage(msg);
+            Console.WriteLine(messenger.GetMessage().message);
+            Console.WriteLine(messenger.GetMessage().contact.name);
             /*messenger.WriteMessageString(_messengerId, message2);
 
             Console.WriteLine(messenger.ReadMessageInt(_messengerId));

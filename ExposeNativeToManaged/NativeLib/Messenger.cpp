@@ -53,9 +53,34 @@ void Messenger::_SendMessage(vector<wchar_t> data, contact con)
 	textfile << '\n';
 	textfile << "FROM:";
 	textfile << '\n';
-	textfile << con.name;
+	textfile << (char)con.name[0];
+	textfile << (char)con.name[1];
 	textfile << '\n';
 	textfile.close();
+}
+unsigned int Messenger::_GetMessenger()
+{
+	return 0;
+}
+
+vector<wchar_t> Messenger::_GetMessage()
+{
+	vector<wchar_t> data;
+	data.push_back('h');
+	data.push_back('e');
+	data.push_back('j');
+	return data;
+}
+
+contact Messenger::_GetContact()
+{
+	contact con;
+	con.id = 2;
+	con.length = 2;
+	con.name = new wchar_t[2];
+	con.name[0] = 'a';
+	con.name[1] = 'b';
+	return con;
 }
 
 void Messenger::WriteMessage(unsigned int message)

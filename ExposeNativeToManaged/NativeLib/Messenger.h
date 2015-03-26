@@ -28,7 +28,14 @@ struct message_data {
 struct contact {
 	int id;
 	int length;
-	wchar_t name[256];
+	wchar_t *name;
+};
+
+struct login {
+	int userNameSize;
+	wchar_t *userName;
+	int passwordSize;
+	wchar_t *password;
 };
 
 class Messenger
@@ -53,7 +60,9 @@ public:
 
 	// Sending and getting messages
 	void _SendMessage(vector<wchar_t> message, contact con);
-
+	unsigned int _GetMessenger();
+	vector<wchar_t> _GetMessage();
+	contact _GetContact();
 private:
 
 	int messengerId;
