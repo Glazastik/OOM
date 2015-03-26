@@ -3,6 +3,8 @@ package se.chalmers.oomproject.oom;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,9 +48,6 @@ public class LandingFragment extends android.support.v4.app.Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
-
-
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, ConversationFragment.newInstance(position))
@@ -63,13 +62,14 @@ public class LandingFragment extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, NewContactFragment.newInstance())
+                        .replace(R.id.container, NewContactFragment.newInstance()).addToBackStack("landing")
                         .commit();
 
 
             }
         });
 
+        getActionBar().setTitle(getString(R.string.app_name));
 
         return v;
     }
@@ -79,5 +79,10 @@ public class LandingFragment extends android.support.v4.app.Fragment {
         super.onAttach(activity);
         ((MainActivity) activity).onSectionAttached();
     }
+
+    private ActionBar getActionBar() {
+        return ((ActionBarActivity) getActivity()).getSupportActionBar();
+    }
+
 
 }
