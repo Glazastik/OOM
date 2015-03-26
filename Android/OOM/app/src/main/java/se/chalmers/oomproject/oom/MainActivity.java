@@ -128,7 +128,8 @@ public class MainActivity extends ActionBarActivity
 
         return super.onOptionsItemSelected(item);
     }
-
-
+    public void updateDrawer(){
+        mNavigationDrawerFragment.updateDrawer();
+    }
 
 }

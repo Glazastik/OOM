@@ -100,7 +100,7 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
         if(text.length()!=0) {
             chatField.setText("");
             conversation.addMessage(new Message(text,services,Contact.Me));
-            ((ArrayAdapter<String>) log.getAdapter()).notifyDataSetChanged();
+            ((ArrayAdapter<Message>) log.getAdapter()).notifyDataSetChanged();
             hideSoftKeyboard();
         }
     }

@@ -1,5 +1,6 @@
 package se.chalmers.oomproject.oom;
 
+import android.app.Activity;
 import android.provider.ContactsContract;
 
 import java.util.ArrayList;
@@ -60,4 +61,9 @@ public class DataSingleton {
         return conversations.get(i).getMessages();
     }
 
+    public void addNewContact(Contact c, Activity a) {
+        this.contacts.add(c);
+        this.conversations.add(new Conversation(c));
+        ((MainActivity) a).updateDrawer();
+    }
 }
