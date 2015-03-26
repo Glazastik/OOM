@@ -34,19 +34,17 @@ public class MessageAdapter extends ArrayAdapter<Message> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_message, parent, false);
 
         }
+        LinearLayout serviceList = (LinearLayout) convertView.findViewById(R.id.serviceList);
+        serviceList.removeAllViews();
         for(IService s : message.getServices()){
             ImageView logoView = new ImageView(this.context);
             logoView.setImageDrawable(s.getLogo(this.context));
             logoView.setAdjustViewBounds(true);
             logoView.setMaxHeight(24);
             logoView.setMaxWidth(24);
-            imageList.add(logoView);
+            serviceList.addView(logoView);
         }
-        LinearLayout serviceList = (LinearLayout) convertView.findViewById(R.id.serviceList);
-        serviceList.removeAllViews();
-        for(ImageView i : imageList){
-            serviceList.addView(i);
-        }
+
         TextView tvSender = (TextView) convertView.findViewById(R.id.tvSender);
         TextView tvText = (TextView) convertView.findViewById(R.id.tvText);
         tvSender.setText(message.getSender().getNickName());
