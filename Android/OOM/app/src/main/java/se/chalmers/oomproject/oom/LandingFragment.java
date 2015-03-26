@@ -46,13 +46,14 @@ public class LandingFragment extends android.support.v4.app.Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String title = ((TextView) view.findViewById(R.id.landing_item_name)).getText().toString();
-                ((MainActivity) getActivity()).onSectionAttached(title, true);
+
+
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, ConversationFragment.newInstance(position))
                         .commit();
+
 
             }
         });
@@ -64,6 +65,8 @@ public class LandingFragment extends android.support.v4.app.Fragment {
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, NewContactFragment.newInstance())
                         .commit();
+
+
             }
         });
 

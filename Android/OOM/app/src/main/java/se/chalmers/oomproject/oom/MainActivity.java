@@ -37,7 +37,6 @@ public class MainActivity extends ActionBarActivity
         //Get the singleton
         DataSingleton data = DataSingleton.getInstance();
 
-
         setContentView(R.layout.activity_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)

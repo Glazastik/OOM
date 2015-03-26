@@ -1,8 +1,11 @@
 package se.chalmers.oomproject.oom;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -29,7 +32,6 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
     private static int conID;
     private static DataSingleton data;
     private static Conversation conversation;
-
 
     private ListView log;
     private EditText chatField;
@@ -81,6 +83,10 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
             }
         });
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        String title = conversation.getContact().getNickName();
+        getActionBar().setTitle(title);
+
         return v;
 
     }
@@ -113,6 +119,10 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
         int conID = getArguments().getInt(CONVERSATION_NUMBER);
         Conversation con = data.getConversations().get(conID);
         ((MainActivity) activity).onSectionAttached(con);
+    }
+
+    private ActionBar getActionBar() {
+        return ((ActionBarActivity) getActivity()).getSupportActionBar();
     }
 
 }
