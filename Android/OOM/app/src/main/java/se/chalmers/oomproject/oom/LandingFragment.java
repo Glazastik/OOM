@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,6 +54,16 @@ public class LandingFragment extends android.support.v4.app.Fragment {
                         .replace(R.id.container, ConversationFragment.newInstance(position))
                         .commit();
 
+            }
+        });
+        Button newContact = (Button) v.findViewById(R.id.newContact);
+        newContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, NewContactFragment.newInstance())
+                        .commit();
             }
         });
 
