@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by Anton on 2015-03-11.
  */
@@ -47,6 +49,8 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
         return fragment;
     }
 
+    public ConversationFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,9 +87,12 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
 
     private void sendMessage() {
         String text = chatField.getText().toString().trim();
+        ArrayList<IService> services = new ArrayList<IService>();
+        services.add(new IService.Facebook());
+        services.add(new IService.Steam());
         if(text.length()!=0) {
             chatField.setText("");
-            conversation.addMessage(text);
+            conversation.addMessage(new Message(text,services,Contact.Me));
             ((ArrayAdapter<String>) log.getAdapter()).notifyDataSetChanged();
             hideSoftKeyboard();
 

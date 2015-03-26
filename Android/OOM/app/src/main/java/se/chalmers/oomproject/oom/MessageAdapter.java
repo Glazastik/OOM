@@ -28,25 +28,29 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
         Message message = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
+        ArrayList<ImageView> imageList = new ArrayList<ImageView>();
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_message, parent, false);
-            LinearLayout serviceList = (LinearLayout) convertView.findViewById(R.id.serviceList);
-            for(IService s : message.getServices()){
-                ImageView logoView = new ImageView(this.context);
-                logoView.setImageDrawable(s.getLogo(this.context));
-                logoView.setAdjustViewBounds(true);
-                logoView.setMaxHeight(16);
-                logoView.setMaxWidth(16);
-                serviceList.addView(logoView);
-            }
-            TextView tvSender = (TextView) convertView.findViewById(R.id.tvSender);
-            TextView tvText = (TextView) convertView.findViewById(R.id.tvText);
-            tvSender.setText(message.getSender().getNickName());
-            tvText.setText(message.getText());
+
         }
+        for(IService s : message.getServices()){
+            ImageView logoView = new ImageView(this.context);
+            logoView.setImageDrawable(s.getLogo(this.context));
+            logoView.setAdjustViewBounds(true);
+            logoView.setMaxHeight(24);
+            logoView.setMaxWidth(24);
+            imageList.add(logoView);
+        }
+        LinearLayout serviceList = (LinearLayout) convertView.findViewById(R.id.serviceList);
+        serviceList.removeAllViews();
+        for(ImageView i : imageList){
+            serviceList.addView(i);
+        }
+        TextView tvSender = (TextView) convertView.findViewById(R.id.tvSender);
+        TextView tvText = (TextView) convertView.findViewById(R.id.tvText);
+        tvSender.setText(message.getSender().getNickName());
+        tvText.setText(message.getText());
         return convertView;
     }
 }

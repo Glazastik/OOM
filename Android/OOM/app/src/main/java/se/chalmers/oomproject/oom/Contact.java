@@ -7,6 +7,11 @@ import java.util.ArrayList;
  */
 public class Contact {
 
+    public static Contact Me = new Contact();
+    static {
+        Me.nickName = "Me";
+    }
+
     private String firstName, nickName, lastName;
     private ArrayList<IService> services;
 
@@ -51,7 +56,4 @@ public class Contact {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-
-
 }
