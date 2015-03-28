@@ -12,12 +12,15 @@ namespace WindowsConsoleClient
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Connecting to Google Hangout.");
+            ChatWrapper.Init();
+
+            // Console.WriteLine("Connecting to Google Hangout.");
             //ChatWrapper.ConnectService(1337);
             Console.WriteLine(ChatWrapper.GetDebugBufferSize());
             Console.WriteLine("After");
 
             // Thread test
+            /*
             DebugWorker debugWorker = new DebugWorker();
             Thread debugThread = new Thread(debugWorker.DoWork);
 

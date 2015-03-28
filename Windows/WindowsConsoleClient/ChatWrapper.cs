@@ -12,6 +12,14 @@ namespace WindowsConsoleClient
         const string dllPath = @"../../../NetworkCode/bin/NetworkCode.dll";
 
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
+        private extern static void init();
+
+        public static void Init()
+        {
+            init();
+        }
+
+        [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
         private extern static void readDebugBufferLine(StringBuilder lineBuffer, int bufferCapacity);
 
         public static string ReadDebugBufferLine(int capacity)
@@ -27,7 +35,8 @@ namespace WindowsConsoleClient
         public static int GetDebugBufferSize()
         {
             Console.WriteLine("Before");
-            return getDebugBufferSize();
+            int size = getDebugBufferSize();
+            return size;
         }
 
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]

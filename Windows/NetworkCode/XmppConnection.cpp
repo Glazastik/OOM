@@ -18,15 +18,17 @@ XmppConnection::XmppConnection(std::shared_ptr<boost::asio::io_service> io_servi
 	tcp_socket = std::make_shared<boost::asio::ip::tcp::socket>(*io_service);
 	ssl_context = std::make_shared<boost::asio::ssl::context>(boost::asio::ssl::context::sslv23);
 	ssl_context->set_default_verify_paths();
-	//ssl_socket = std::make_shared<boost::asio::ssl::stream<boost::asio::ip::tcp::socket&>>(*tcp_socket, *ssl_context);
+	ssl_socket = std::make_shared<boost::asio::ssl::stream<boost::asio::ip::tcp::socket&>>(*tcp_socket, *ssl_context);
 
-	///*
-	//* Using verify_none for the time being since I don't want to mess with certificate verification right now.
-	//*/
-	//ssl_socket->set_verify_mode(boost::asio::ssl::verify_none);
-	////ssl_socket->set_verify_mode(boost::asio::ssl::verify_peer);
+	int i = 1 + 1;
 
-	//ssl_socket->set_verify_callback(boost::asio::ssl::rfc2818_verification(hostName));
+	/*
+	* Using verify_none for the time being since I don't want to mess with certificate verification right now.
+	*/
+	ssl_socket->set_verify_mode(boost::asio::ssl::verify_none);
+	ssl_socket->set_verify_mode(boost::asio::ssl::verify_peer);
+
+	ssl_socket->set_verify_callback(boost::asio::ssl::rfc2818_verification(hostName));
 }
 
 XmppConnection::~XmppConnection()

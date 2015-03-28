@@ -5,12 +5,13 @@
 class ChatInterface
 {
 public:
+	static void Init();
 	static void ReadDebugBufferLine(char* lineBuffer, int bufferCapacity);
 	static int GetDebugBufferSize();
 	static void ConnectService(int serviceType);
 	static void CloseService(int serviceType);
 private:
-	static ChatModel chatModel;
+	static std::shared_ptr<ChatModel> chatModel;
 
 	ChatInterface();
 	~ChatInterface();

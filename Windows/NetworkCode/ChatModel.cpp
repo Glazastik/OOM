@@ -20,8 +20,8 @@ void ChatModel::ConnectService(int serviceType)
 		std::shared_ptr<ChatService> service = *it;
 		if (service->GetServiceType() == serviceType)
 		{
-			//chatService = service;
-			//chatService->Connect();
+			chatService = service;
+			chatService->Connect();
 		}
 	}
 	if (chatService == NULL)
