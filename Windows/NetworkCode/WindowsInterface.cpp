@@ -8,9 +8,9 @@ __declspec(dllexport) void init()
 	ChatInterface::Init();
 }
 
-__declspec(dllexport) void readDebugBufferLine(char* lineBuffer, int bufferCapacity)
+__declspec(dllexport) void readDebugBufferLine(int lineNum, char* lineBuffer, int bufferCapacity)
 {
-	ChatInterface::ReadDebugBufferLine(lineBuffer, bufferCapacity);
+	ChatInterface::ReadDebugBufferLine(lineNum, lineBuffer, bufferCapacity);
 }
 
 __declspec(dllexport) int getDebugBufferSize()

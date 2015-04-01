@@ -9,9 +9,9 @@ void ChatInterface::Init()
 	chatModel = std::make_shared<ChatModel>();
 }
 
-void ChatInterface::ReadDebugBufferLine(char* lineBuffer, int bufferCapacity)
+void ChatInterface::ReadDebugBufferLine(int lineNum, char* lineBuffer, int bufferCapacity)
 {
-	std::string line = DebugBuffer::ReadLine();
+	std::string line = DebugBuffer::ReadLine(lineNum);
 	strcpy_s(lineBuffer, bufferCapacity, line.c_str());
 }
 

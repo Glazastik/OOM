@@ -20,12 +20,12 @@ namespace WindowsConsoleClient
         }
 
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
-        private extern static void readDebugBufferLine(StringBuilder lineBuffer, int bufferCapacity);
+        private extern static void readDebugBufferLine(int lineNum, StringBuilder lineBuffer, int bufferCapacity);
 
-        public static string ReadDebugBufferLine(int capacity)
+        public static string ReadDebugBufferLine(int lineNum, int capacity)
         {
             StringBuilder lineBuffer = new StringBuilder(capacity);
-            readDebugBufferLine(lineBuffer, lineBuffer.Capacity);
+            readDebugBufferLine(lineNum, lineBuffer, lineBuffer.Capacity);
             return lineBuffer.ToString();
         }
         
@@ -34,7 +34,6 @@ namespace WindowsConsoleClient
 
         public static int GetDebugBufferSize()
         {
-            Console.WriteLine("Before");
             int size = getDebugBufferSize();
             return size;
         }

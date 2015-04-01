@@ -14,36 +14,32 @@ namespace WindowsConsoleClient
         {
             ChatWrapper.Init();
 
-            // Console.WriteLine("Connecting to Google Hangout.");
-            //ChatWrapper.ConnectService(1337);
-            Console.WriteLine(ChatWrapper.GetDebugBufferSize());
-            Console.WriteLine("After");
-
             // Thread test
-            /*
             DebugWorker debugWorker = new DebugWorker();
             Thread debugThread = new Thread(debugWorker.DoWork);
 
+            DebugPrint("Starting debug thread.");
             debugThread.Start();
-            Console.WriteLine("main thread: Starting debug thread.");
 
+            // Wait for the debug thread to start
             while(!debugThread.IsAlive);
 
-            Thread.Sleep(5);
+            DebugPrint("Connecting to Google Hangout (0).");
+            ChatWrapper.ConnectService(0);
+
+            Thread.Sleep(60000);
 
             debugWorker.StopWorking();
             debugThread.Join();
-            Console.WriteLine("main thread: Debug thread has terminated.");
-
-            /*
-            while (ChatWrapper.GetDebugBufferSize() > 0)
-            {
-                Console.WriteLine("NetworkCode>" + ChatWrapper.ReadDebugBufferLine(1024));
-            }
-            */
+            DebugPrint("Debug thread has terminated.");
 
             Console.Write("Press any key to exit...");
             Console.ReadKey();
+        }
+
+        static private void DebugPrint(string debugLine)
+        {
+            Console.WriteLine("Main thread> " + debugLine);
         }
     }
 }

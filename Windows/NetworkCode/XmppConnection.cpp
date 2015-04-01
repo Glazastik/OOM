@@ -20,13 +20,11 @@ XmppConnection::XmppConnection(std::shared_ptr<boost::asio::io_service> io_servi
 	ssl_context->set_default_verify_paths();
 	ssl_socket = std::make_shared<boost::asio::ssl::stream<boost::asio::ip::tcp::socket&>>(*tcp_socket, *ssl_context);
 
-	int i = 1 + 1;
-
 	/*
 	* Using verify_none for the time being since I don't want to mess with certificate verification right now.
 	*/
 	ssl_socket->set_verify_mode(boost::asio::ssl::verify_none);
-	ssl_socket->set_verify_mode(boost::asio::ssl::verify_peer);
+	//ssl_socket->set_verify_mode(boost::asio::ssl::verify_peer);
 
 	ssl_socket->set_verify_callback(boost::asio::ssl::rfc2818_verification(hostName));
 }
@@ -55,7 +53,7 @@ void XmppConnection::Connect()
 
 		TCPWriteSome(stream.str());
 		DebugPrintWrite(stream.str());
-
+		
 		// Read server response
 		readStr = TCPReadUntil("</stream:features>");
 		DebugPrintRead(readStr);
@@ -72,7 +70,7 @@ void XmppConnection::Connect()
 		// Read server response
 		readStr = TCPReadUntil("<proceed xmlns=\"urn:ietf:params:xml:ns:xmpp-tls\"/>");
 		DebugPrintRead(readStr);
-
+		
 		// Perform SSL Handshake
 		DebugPrint("PERFORMING SSL HANDSHAKE\n");
 		SSLHandshake();
@@ -93,7 +91,7 @@ void XmppConnection::Connect()
 		// Read server response
 		readStr = SSLReadUntil("</stream:features>");
 		DebugPrintRead(readStr);
-
+		
 		// SASL authentication
 		std::string authzid = "";
 		std::string authid = "kandidattest2015@gmail.com";
@@ -126,7 +124,7 @@ void XmppConnection::Connect()
 		// Read server response
 		readStr = SSLReadUntil(">");
 		DebugPrintRead(readStr);
-
+		
 		// Initiate xml stream to server
 		stream.str("");
 		stream.clear();
@@ -143,7 +141,7 @@ void XmppConnection::Connect()
 		// Read server response
 		readStr = SSLReadUntil("</stream:features>");
 		DebugPrintRead(readStr);
-
+		
 		// Ask server to generate resource identifier
 		stream.str("");
 		stream.clear();
@@ -161,7 +159,7 @@ void XmppConnection::Connect()
 		// Parse resource identifier
 		std::string jid = ParseElement(readStr, "<jid>");
 		DebugPrint("JID: " + jid + "\n");
-
+		
 		// Session
 		stream.str("");
 		stream.clear();
@@ -175,7 +173,7 @@ void XmppConnection::Connect()
 		// Read server response
 		readStr = SSLReadUntil(">");
 		DebugPrintRead(readStr);
-
+		
 		// Disco items
 		stream.str("");
 		stream.clear();
@@ -189,7 +187,7 @@ void XmppConnection::Connect()
 		// Read server response
 		readStr = SSLReadUntil("</iq>");
 		DebugPrintRead(readStr);
-
+		
 		// Disco info
 		stream.str("");
 		stream.clear();
@@ -203,7 +201,7 @@ void XmppConnection::Connect()
 		// Read server response
 		readStr = SSLReadUntil("</iq>");
 		DebugPrintRead(readStr);
-
+		
 		// Get roster
 		stream.str("");
 		stream.clear();
@@ -217,7 +215,7 @@ void XmppConnection::Connect()
 		// Read server response
 		readStr = SSLReadUntil("</iq>");
 		DebugPrintRead(readStr);
-
+		
 		// Send a message
 		stream.str("");
 		stream.clear();
@@ -233,8 +231,8 @@ void XmppConnection::Connect()
 		DebugPrintWrite(stream.str());
 
 		// Read server response
-		readStr = SSLReadUntil(">");
-		DebugPrintRead(readStr);
+		//readStr = SSLReadUntil(">");
+		//DebugPrintRead(readStr);
 	}
 	catch (std::exception& exception)
 	{

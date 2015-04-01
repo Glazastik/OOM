@@ -8,25 +8,38 @@ namespace WindowsConsoleClient
 {
     class DebugWorker
     {
+        private const int buffer_size = 1024;
+
         private volatile bool isWorking;
+        private int currentLine;
 
         public DebugWorker()
         {
             isWorking = true;
+            currentLine = 0;
         }
 
         public void DoWork()
         {
             while (isWorking)
             {
-                Console.WriteLine("Debug thread: doing work...");
+                if (ChatWrapper.GetDebugBufferSize() > currentLine)
+                {
+                    DebugPrint(ChatWrapper.ReadDebugBufferLine(currentLine, buffer_size));
+                    currentLine++;
+                }
             }
-            Console.WriteLine("Debug thread: exiting gracefully.");
+            DebugPrint("Exiting gracefully.");
         }
 
         public void StopWorking()
         {
             isWorking = false;
+        }
+
+        private void DebugPrint(string debugLine)
+        {
+            Console.WriteLine("Debug thread>\n" + debugLine);
         }
     }
 }
