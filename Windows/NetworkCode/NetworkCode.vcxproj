@@ -81,6 +81,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Account.h" />
     <ClInclude Include="Base64.h" />
     <ClInclude Include="ChatInterface.h" />
     <ClInclude Include="ChatModel.h" />
@@ -88,12 +89,14 @@
     <ClInclude Include="DebugBuffer.h" />
     <ClInclude Include="GoogleHangout.h" />
     <ClInclude Include="GoogleHangoutConnection.h" />
+    <ClInclude Include="Person.h" />
     <ClInclude Include="ServiceType.h" />
     <ClInclude Include="TokenHandler.h" />
     <ClInclude Include="WindowsInterface.h" />
     <ClInclude Include="XmppConnection.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Account.cpp" />
     <ClCompile Include="Base64.cpp" />
     <ClCompile Include="ChatInterface.cpp" />
     <ClCompile Include="ChatModel.cpp" />
@@ -101,6 +104,7 @@
     <ClCompile Include="DebugBuffer.cpp" />
     <ClCompile Include="GoogleHangout.cpp" />
     <ClCompile Include="GoogleHangoutConnection.cpp" />
+    <ClCompile Include="Person.cpp" />
     <ClCompile Include="TokenHandler.cpp" />
     <ClCompile Include="WindowsInterface.cpp" />
     <ClCompile Include="XmppConnection.cpp" />

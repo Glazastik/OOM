@@ -6,6 +6,7 @@
 #include <boost/archive/iterators/ostream_iterator.hpp>
 #include "Base64.h"
 #include "DebugBuffer.h"
+#include "boost/log/trivial.hpp"
 
 const int XmppConnection::bufferSize = 1024;
 
@@ -362,7 +363,7 @@ std::string XmppConnection::ParseElement(std::string xml, std::string elementTyp
 
 void XmppConnection::DebugPrint(std::string debugStr)
 {
-	DebugBuffer::AddLine(debugStr);
+	BOOST_LOG_TRIVIAL(debug) << "\n" << debugStr;
 }
 
 void XmppConnection::DebugPrintRead(std::string readStr)

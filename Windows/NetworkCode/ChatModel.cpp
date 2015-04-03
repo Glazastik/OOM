@@ -2,6 +2,7 @@
 #include "GoogleHangout.h"
 #include "DebugBuffer.h"
 #include "boost/lexical_cast.hpp"
+#include "boost/log/trivial.hpp"
 
 ChatModel::ChatModel()
 {
@@ -27,8 +28,7 @@ void ChatModel::ConnectService(int serviceType)
 	}
 	if (chatService == NULL)
 	{
-		std::string errorMsg = "Error> ChatModel::ConnectService - Couldn't find service: " + boost::lexical_cast<std::string>(serviceType);
-		DebugBuffer::AddLine(errorMsg);
+		BOOST_LOG_TRIVIAL(debug) << "Error> ChatModel::ConnectService - Couldn't find service: " << boost::lexical_cast<std::string>(serviceType);
 	}
 }
 
@@ -45,7 +45,6 @@ void ChatModel::CloseService(int serviceType)
 	}
 	if (chatService == NULL)
 	{
-		std::string errorMsg = "Error> ChatModel::ConnectService - Couldn't find service: " + boost::lexical_cast<std::string>(serviceType);
-		DebugBuffer::AddLine(errorMsg);
+		BOOST_LOG_TRIVIAL(debug) << "Error> ChatModel::CloseService - Couldn't find service: " << boost::lexical_cast<std::string>(serviceType);
 	}
 }
