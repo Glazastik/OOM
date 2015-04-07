@@ -30,8 +30,6 @@ namespace TestConsole
 
         static void InitializeMessenger()
         {
-            uint message = 55;
-            String message2 = "haha";
             int[] message3 = new int[5];
             char[] namn = new char[256];
             namn[0] = 't';
@@ -41,17 +39,18 @@ namespace TestConsole
             namn[4] = '\0';
             message3[0] = 1;
 
-            Messenger messeng = Messenger.google;
             ManagedMessenger messenger = new ManagedMessenger();
 
             Contact to;
-            to.id = 1;
+            to.id = "cid";
             to.name = "Test";
+
+            String data = "data";
 
             Message msg;
             msg.messenger = Messenger.irc;
-            msg.message = message2;
-            msg.contact = to;
+            msg.data = data;
+            msg.cid = "cid";
 
             LoginData login;
             login.userName = "testUser";
@@ -59,24 +58,17 @@ namespace TestConsole
             messenger.Login(Messenger.irc, login);
 
             messenger.SendMessage(msg);
-            Console.WriteLine(messenger.GetMessage().message);
-            Console.WriteLine(messenger.GetMessage().contact.name);
-            /*messenger.WriteMessageString(_messengerId, message2);
-
-            Console.WriteLine(messenger.ReadMessageInt(_messengerId));
-            Console.WriteLine(messenger.ReadMessageString(_messengerId));
-            Console.WriteLine(messenger.ReadMessageCharArray(_messengerId));
-            Console.WriteLine(messenger.ReadMessageIntArray(_messengerId)[2]);
-            Console.WriteLine(messenger.ReadMessageStruct(_messengerId).test[1]);
-
-            ManagedMessenger.DeleteMessenger(_messengerId); */
+            Console.WriteLine(messenger.GetMessage().data);
+            
+            List<Contact> contacts = messenger.GetContacts(Messenger.irc);
+            Console.WriteLine(contacts[1].id);
         }
 
         public delegate void TestCallback(int arg1);
 
         public static void Cool(int i)
         {
-            Console.WriteLine("it works u fagget");
+            Console.WriteLine("it works");
             heh[i].OnReceivedMessage(EventArgs.Empty);
         }
 

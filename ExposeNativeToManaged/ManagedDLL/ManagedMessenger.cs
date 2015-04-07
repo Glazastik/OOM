@@ -62,17 +62,23 @@ namespace ManagedDLL
         public char[] name;
     }
 
+
+
+    /*
+     * fix !!!!!!!!!!! 
+     */
+
     public struct Contact
     {
-        public int id;
+        public String id;               // public String contactId;
         public String name;
     }
 
     public struct Message
     {
         public Messenger messenger;
-        public String message;
-        public Contact contact;
+        public String data;
+        public String cid;     // public String contactId;
     }
 
     public struct LoginData
@@ -80,6 +86,10 @@ namespace ManagedDLL
         public String userName;
         public String password;
     }
+
+
+
+
 
     // this is the way, with malloc and copy
     // the same to do with contacts
@@ -95,7 +105,6 @@ namespace ManagedDLL
 
     public class ManagedMessenger
     {
-
         #region NativeDLL imports
 
         //
@@ -104,8 +113,8 @@ namespace ManagedDLL
         [DllImport("NativeDLL.dll", EntryPoint = "AddMessenger", CallingConvention = CallingConvention.Cdecl)]
         protected static extern uint _AddMessenger(uint messengerId);
 
-        [DllImport("NativeDLL.dll", EntryPoint = "DeleteMessenger", CallingConvention = CallingConvention.Cdecl)]
-        protected static extern void _DeleteMessenger(uint messengerId);
+        /*[DllImport("NativeDLL.dll", EntryPoint = "DeleteMessenger", CallingConvention = CallingConvention.Cdecl)]
+        protected static extern void _DeleteMessenger(uint messengerId); */
 
         //
         // Writing data
@@ -134,8 +143,11 @@ namespace ManagedDLL
         [DllImport("NativeDLL", EntryPoint = "ReadMessageIntArray", CallingConvention = CallingConvention.Cdecl)]
         public static extern void _ReadMessageIntArray(uint messengerId, IntPtr pnt, int capacity);
 
+        /*[DllImport("NativeDLL", EntryPoint = "ReadMessageCharArray", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void _ReadMessageCharArray(uint messengerId, IntPtr pnt, int capacity);     */
+
         [DllImport("NativeDLL", EntryPoint = "ReadMessageCharArray", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void _ReadMessageCharArray(uint messengerId, IntPtr pnt, int capacity);
+        public static extern void _ReadMessageCharArray(uint messengerId, char[] pnt, int capacity);
 
         [DllImport("NativeDLL", EntryPoint = "ReadMessageStruct", CallingConvention = CallingConvention.Cdecl)]
         public static extern void _ReadMessageStruct(uint messengerId, IntPtr pnt);
@@ -148,6 +160,9 @@ namespace ManagedDLL
 
         [DllImport("NativeDLL", EntryPoint = "SendMessageData", CallingConvention = CallingConvention.Cdecl)]
         public static extern void _SendMessageData(IntPtr data, int size);
+
+        [DllImport("NativeDLL", EntryPoint = "SendMessageCid", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void _SendMessageCid(IntPtr name, int length);
 
         /*
          * Old version of _SendMessageData
@@ -167,37 +182,64 @@ namespace ManagedDLL
         //
         // Getting messages
         //
+        [DllImport("NativeDLL", EntryPoint = "HasMessage", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool _HasMessage();
+
         [DllImport("NativeDLL", EntryPoint = "_GetMessage", CallingConvention = CallingConvention.Cdecl)]
         public static extern void _GetMessage();
 
         [DllImport("NativeDLL", EntryPoint = "GetMessageMessenger", CallingConvention = CallingConvention.Cdecl)]
         public static extern uint _GetMessageMessenger();
 
-        [DllImport("NativeDLL", EntryPoint = "GetMessageSize", CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint _GetMessageSize();
+        [DllImport("NativeDLL", EntryPoint = "GetMessageDataSize", CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint _GetMessageDataSize();
 
         [DllImport("NativeDLL", EntryPoint = "GetMessageData", CallingConvention = CallingConvention.Cdecl)]
         public static extern void _GetMessageData(IntPtr data);
 
-        [DllImport("NativeDLL", EntryPoint = "GetMessageContactNameSize", CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint _GetMessageContactNameSize();
+        [DllImport("NativeDLL", EntryPoint = "GetMessageCidSize", CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint _GetMessageCidSize();
 
-        [DllImport("NativeDLL", EntryPoint = "GetMessageContact", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void _GetMessageContact(IntPtr contact);
+        [DllImport("NativeDLL", EntryPoint = "GetMessageCid", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void _GetMessageCid(IntPtr cid);
 
-        [DllImport("NativeDLL", EntryPoint = "GetMessageContactName", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void _GetMessageContactName(IntPtr contactName);
+        //
+        // Get contacts
+        //
+        [DllImport("NativeDLL", EntryPoint = "GetContacts", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void _GetContacts(Messenger messenger);
 
+        [DllImport("NativeDLL", EntryPoint = "HasContact", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool _HasContact(Messenger messenger);
 
+       /* [DllImport("NativeDLL", EntryPoint = "GetContact", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void _GetContact(IntPtr contact); */
+
+        [DllImport("NativeDLL", EntryPoint = "GetContact", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void _GetContact(Messenger messenger);
+
+        [DllImport("NativeDLL", EntryPoint = "GetContactIdSize", CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint _GetContactIdSize();
+
+        [DllImport("NativeDLL", EntryPoint = "GetContactId", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void _GetContactId(IntPtr id);
+
+        [DllImport("NativeDLL", EntryPoint = "GetContactNameSize", CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint _GetContactNameSize();
+
+        [DllImport("NativeDLL", EntryPoint = "GetContactName", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void _GetContactName(IntPtr name);
         //
         // Other functions
         //
         [DllImport("NativeDLL", EntryPoint = "Initiliaze", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool _Initiliaze();
 
-        [DllImport("NativeDLL", EntryPoint = "HasMessage", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool _HasMessage();
+        [DllImport("NativeDLL.dll", EntryPoint = "DeleteMessenger", CallingConvention = CallingConvention.Cdecl)]
+        protected static extern void _DeleteMessenger();
+
 
         [DllImport("NativeDLL", EntryPoint = "CallingBack", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
@@ -238,10 +280,15 @@ namespace ManagedDLL
             _AddMessenger((uint)messenger); 
         }
 
-        public void DeleteMessenger(Messenger messenger)
+        public void DeleteMessenger()
+        {
+            _DeleteMessenger();
+        }
+        /*public void DeleteMessenger(Messenger messenger)
         {
             _DeleteMessenger((uint)messenger);
-        }
+        } */
+
 
         //
         // Login
@@ -251,7 +298,7 @@ namespace ManagedDLL
             return LoginAllocator((uint)messenger, login);
         }
 
-        // This approach or contact approach
+        // This approach or message approach
         private bool LoginAllocator(uint messenger, LoginData login)
         {
             // Initialize unmanged memory to hold the array.
@@ -298,8 +345,8 @@ namespace ManagedDLL
         public void SendMessage(Message message)
         {
             SendMessageMessenger(message.messenger);
-            SendMessageData(message.message.ToCharArray());
-            SendMessageContact(message.contact);
+            SendMessageData(message.data.ToCharArray());
+            SendMessageCid(message.cid.ToCharArray());
             _SendMessage();
         }
 
@@ -310,65 +357,14 @@ namespace ManagedDLL
 
         private void SendMessageData(char[] data)
         {
-            // Initialize unmanged memory to hold the array.
             SendCharData(new SendData(ManagedMessenger._SendMessageData),
                                         CharDataAllocator(data.Length), data);
         }
 
-        private void SendMessageData2(char[] data)
+        private void SendMessageCid(char[] cid)
         {
-            // Initialize unmanged memory to hold the array.
-            int size = (sizeof(char) * data.Length);
-            IntPtr pnt = Marshal.AllocHGlobal(size);
-            try
-            {
-                // Copy the managed array to unmanaged memory.
-                Marshal.Copy(data, 0, pnt, data.Length);
-                ManagedMessenger._SendMessageData(pnt, data.Length);
-            }
-            finally
-            {
-                // Free the unmanaged memory.
-                Marshal.FreeHGlobal(pnt);
-            }
-        }
-
-        private void SendMessageContact(Contact contact)
-        {
-            // Initialize unmanged memory to hold the array.
-            char[] name = contact.name.ToCharArray();
-            IntPtr internalName = CharDataAllocator(name.Length);
-            SendCharData(new SendData(ManagedMessenger._SendMessageContactName), internalName, name);
-
-            IntPtr pnt = Marshal.AllocHGlobal(sizeof(int) + sizeof(int) + sizeof(int));
-
-            try
-            {
-                // Copy the managed array to unmanaged memory.
-                Marshal.WriteInt32(pnt, sizeof(int) * 0, contact.id);
-                Marshal.WriteInt32(pnt, sizeof(int) * 1, name.Length);
-                Marshal.WriteIntPtr(pnt, sizeof(int) * 2, (IntPtr)0);   // Dummy null-pointer
-                ManagedMessenger._SendMessageContact(pnt);
-            }
-            finally
-            {
-                // Free the unmanaged memory.
-                Marshal.FreeHGlobal(pnt);
-            }
-        }
-
-        private internal_contact toInternalContact(Contact contact)
-        {
-            internal_contact temp;
-            temp.id = contact.id;
-            temp.length = contact.name.Length;
-            temp.name = new char[256];
-            char[] name = contact.name.ToCharArray();
-            for (int i = 0; i < name.Length; i++ )
-            {
-                temp.name[i] = name[i];
-            }
-            return temp;
+            SendCharData(new SendData(ManagedMessenger._SendMessageCid),
+                                        CharDataAllocator(cid.Length), cid);
         }
 
         //
@@ -380,15 +376,10 @@ namespace ManagedDLL
 
             Message message;
             message.messenger = GetMessageMessenger();
-            message.contact = GetMessageContact(); 
-            message.message = GetMessageString();
-                
+            message.data = GetMessageData();
+            message.cid = GetMessageCid(); 
+        
             return message;
-        }
-
-        private String GetMessageString()
-        {
-            return new String(GetMessageData((int)_GetMessageSize()));
         }
 
         private Messenger GetMessageMessenger()
@@ -396,6 +387,79 @@ namespace ManagedDLL
             return (Messenger)_GetMessageMessenger();
         }
 
+        private String GetMessageData()
+        {
+            return new String(GetMessageData((int)_GetMessageDataSize()));
+        }
+
+        private char[] GetMessageData(int capacity)
+        {
+            return GetCharData(new GetData(ManagedMessenger._GetMessageData),
+                                                    CharDataAllocator(capacity), capacity);
+        }
+
+        private String GetMessageCid()
+        {
+            return new String(GetMessageCid((int)_GetMessageCidSize()));
+        }
+
+        private char[] GetMessageCid(int capacity)
+        {
+            return GetCharData(new GetData(ManagedMessenger._GetMessageCid),
+                                                    CharDataAllocator(capacity), capacity);
+        }
+
+        //
+        // Get Contacts
+        //
+        public List<Contact> GetContacts(Messenger messenger)
+        {
+            _GetContacts(messenger);
+            List<Contact> contacts = new List<Contact>();
+            while(_HasContact(messenger))
+            {
+                contacts.Add(GetContact(messenger));
+            }
+            return contacts;
+        }
+
+        private Contact GetContact(Messenger messenger)
+        {
+            _GetContact(messenger);
+
+            Contact contact;
+
+            contact.id = GetContactId();
+            contact.name = GetContactName();
+
+            return contact;
+        }
+
+        private String GetContactId()
+        {
+            return new String(GetContactId((int)_GetContactIdSize()));
+        }
+
+        private char[] GetContactId(int capacity)
+        {
+            return GetCharData(new GetData(ManagedMessenger._GetContactId),
+                                                    CharDataAllocator(capacity), capacity);
+        }
+
+        private String GetContactName()
+        {
+            return new String(GetContactName((int)_GetContactNameSize()));
+        }
+
+        private char[] GetContactName(int capacity)
+        {
+            return GetCharData(new GetData(ManagedMessenger._GetContactName),
+                                                    CharDataAllocator(capacity), capacity);
+        }
+
+        //
+        // Allocators and GET/SEND
+        //
         private IntPtr ByteDataAllocator(int capacity)
         {
             int size = (sizeof(byte) * capacity);
@@ -417,16 +481,17 @@ namespace ManagedDLL
             return pnt;
         }
 
+        // Get and Send, DLL functions
         private delegate void GetData(IntPtr pnt);
         private delegate void SendData(IntPtr pnt, int length);
 
-        private void SendCharData(SendData sendData, IntPtr pnt, char[] data)
+        private void SendByteData(SendData sendData, IntPtr pnt, byte[] data)
         {
-            // Initialize unmanged memory to hold the array.
             try
             {
                 // Copy the managed array to unmanaged memory.
                 Marshal.Copy(data, 0, pnt, data.Length);
+                // Call the send data function in unmanaged code.
                 sendData(pnt, data.Length);
             }
             finally
@@ -434,6 +499,60 @@ namespace ManagedDLL
                 // Free the unmanaged memory.
                 Marshal.FreeHGlobal(pnt);
             }
+        }
+
+        private void SendCharData(SendData sendData, IntPtr pnt, char[] data)
+        {
+            try
+            {
+                // Copy the managed array to unmanaged memory.
+                Marshal.Copy(data, 0, pnt, data.Length);
+                // Call the send data function in unmanaged code.
+                sendData(pnt, data.Length);
+            }
+            finally
+            {
+                // Free the unmanaged memory.
+                Marshal.FreeHGlobal(pnt);
+            }
+        }
+
+        private void SendIntData(SendData sendData, IntPtr pnt, int[] data)
+        {
+            try
+            {
+                // Copy the managed array to unmanaged memory.
+                Marshal.Copy(data, 0, pnt, data.Length);
+                // Call the send data function in unmanaged code.
+                sendData(pnt, data.Length);
+            }
+            finally
+            {
+                // Free the unmanaged memory.
+                Marshal.FreeHGlobal(pnt);
+            }
+        }
+
+        private byte[] GetByteData(GetData getData, IntPtr pnt, int capacity)
+        {
+            byte[] data = new byte[capacity];
+
+            try
+            {
+                // Call the get data function in unmanaged code.
+                getData(pnt);
+                // Copy the unmanaged array back to managed array.
+                for (int i = 0; i < data.Length; i++)
+                {
+                    data[i] = (byte)Marshal.ReadByte(pnt, i * sizeof(byte));
+                }
+            }
+            finally
+            {
+                // Free the unmanaged memory.
+                Marshal.FreeHGlobal(pnt);
+            }
+            return data;
         }
 
         private char[] GetCharData(GetData getData, IntPtr pnt, int capacity)
@@ -444,7 +563,7 @@ namespace ManagedDLL
             {
                 // Call the get data function in unmanaged code.
                 getData(pnt);
-                // Copy the unmanaged array back to another managed array.
+                // Copy the unmanaged array back to managed array.
                 for (int i = 0; i < data.Length; i++)
                 {
                     data[i] = (char)Marshal.ReadInt16(pnt, i * sizeof(char));
@@ -458,15 +577,53 @@ namespace ManagedDLL
             return data;
         }
 
-        private char[] GetMessageData(int capacity)
+        private int[] GetIntData(GetData getData, IntPtr pnt, int capacity)
         {
-            return GetCharData(new GetData(ManagedMessenger._GetMessageData), CharDataAllocator(capacity), capacity); 
+            int[] data = new int[capacity];
+
+            try
+            {
+                // Call the get data function in unmanaged code.
+                getData(pnt);
+                // Copy the unmanaged array back to managed array.
+                for (int i = 0; i < data.Length; i++)
+                {
+                    data[i] = (int)Marshal.ReadInt32(pnt, i * sizeof(int));
+                }
+            }
+            finally
+            {
+                // Free the unmanaged memory.
+                Marshal.FreeHGlobal(pnt);
+            }
+            return data;
         }
 
-        private Contact GetMessageContact()
-        {
-            // Initialize unmanged memory to hold the array.
-            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
+         * 
+         *             // Initialize unmanged memory to hold the array.   
             IntPtr pnt = IntDataAllocator(3);
             IntPtr internalName = CharDataAllocator((int)_GetMessageContactNameSize());
             Contact contact;
@@ -478,8 +635,8 @@ namespace ManagedDLL
                 contact.id = Marshal.ReadInt32(pnt, 0);
                 contact.name = new String(GetCharData(
                                     new GetData(ManagedMessenger._GetMessageContactName), 
-                                                internalName, 
-                                                  (int)_GetMessageContactNameSize()));
+                                                internalName, (int)_GetMessageContactNameSize())
+                                                );
             }
             finally
             {
@@ -487,8 +644,7 @@ namespace ManagedDLL
                 Marshal.FreeHGlobal(pnt);
             }
             return contact;
-        }
-
+         * 
         private Contact toContact(internal_contact contact)
         {
             Contact temp;
@@ -496,45 +652,82 @@ namespace ManagedDLL
             temp.name = new String(contact.name, 0, contact.length);
             return temp;
         }
+         * 
+       private void SendMessageData2(char[] data)
+       {
+           // Initialize unmanged memory to hold the array.
+           int size = (sizeof(char) * data.Length);
+           IntPtr pnt = Marshal.AllocHGlobal(size);
+           try
+           {
+               // Copy the managed array to unmanaged memory.
+               Marshal.Copy(data, 0, pnt, data.Length);
+               ManagedMessenger._SendMessageData(pnt, data.Length);
+           }
+           finally
+           {
+               // Free the unmanaged memory.
+               Marshal.FreeHGlobal(pnt);
+           }
+       }
 
 
+       private void SendMessageContact(Contact contact)
+       {
+           // Initialize unmanged memory to hold the array.
+           char[] name = contact.name.ToCharArray();
+           IntPtr internalName = CharDataAllocator(name.Length);
+           SendCharData(new SendData(ManagedMessenger._SendMessageContactName), internalName, name);
 
-         /*
+           IntPtr pnt = Marshal.AllocHGlobal(sizeof(int) + sizeof(int) + sizeof(int));
+
+           try
+           {
+               // Copy the managed array to unmanaged memory.
+               Marshal.WriteInt32(pnt, sizeof(int) * 0, contact.cid.Length);
+               Marshal.WriteInt32(pnt, sizeof(int) * 1, name.Length);
+               Marshal.WriteIntPtr(pnt, sizeof(int) * 2, (IntPtr)0);   // Dummy null-pointer
+               ManagedMessenger._SendMessageContact(pnt);
+           }
+           finally
+           {
+               // Free the unmanaged memory.
+               Marshal.FreeHGlobal(pnt);
+           }
+       }
+
+       private Contact ReadMessageContact()
+       {
+           // Initialize unmanged memory to hold the array.
+           char[] name = new char[_GetMessageContactSize()];
+           IntPtr internalName = Marshal.AllocHGlobal(sizeof(char) * name.Length);
+           IntPtr pnt = Marshal.AllocHGlobal(sizeof(int) + sizeof(int) + sizeof(int));
+
+           Contact managedStruct;
+           try
+           {
+               // Set the pointer to chars
+               Marshal.WriteIntPtr(pnt, sizeof(int) * 2, internalName);
+               ManagedMessenger._GetMessageContact(pnt);
 
 
-
-        private Contact ReadMessageContact()
-        {
-            // Initialize unmanged memory to hold the array.
-            char[] name = new char[_GetMessageContactSize()];
-            IntPtr internalName = Marshal.AllocHGlobal(sizeof(char) * name.Length);
-            IntPtr pnt = Marshal.AllocHGlobal(sizeof(int) + sizeof(int) + sizeof(int));
-
-            Contact managedStruct;
-            try
-            {
-                // Set the pointer to chars
-                Marshal.WriteIntPtr(pnt, sizeof(int) * 2, internalName);
-                ManagedMessenger._GetMessageContact(pnt);
-
-
-                managedStruct.id = Marshal.ReadInt32(pnt, 0);
-                // Copy the unmanaged array back to another managed array.
-                for (int i = 0; i < internalArray.Length; i++)
-                {
-                    internalArray[i] = (char)Marshal.ReadInt16(pnt, (i + 4) * 2);
-                }
-                managedStruct.id = id;
-                managedStruct.length = length;
-                managedStruct.name = internalArray;
-            }
-            finally
-            {
-                // Free the unmanaged memory.
-                Marshal.FreeHGlobal(pnt);
-            }
-            return managedStruct;
-        }*/
+               managedStruct.id = Marshal.ReadInt32(pnt, 0);
+               // Copy the unmanaged array back to another managed array.
+               for (int i = 0; i < internalArray.Length; i++)
+               {
+                   internalArray[i] = (char)Marshal.ReadInt16(pnt, (i + 4) * 2);
+               }
+               managedStruct.id = id;
+               managedStruct.length = length;
+               managedStruct.name = internalArray;
+           }
+           finally
+           {
+               // Free the unmanaged memory.
+               Marshal.FreeHGlobal(pnt);
+           }
+           return managedStruct;
+       }*/
 
 
 
@@ -615,25 +808,25 @@ namespace ManagedDLL
         {
             int capacity = 32;
             // Create a managed array.
-            char[] managedArray = new char[4];
+            char[] managedArray = new char[5];
             // Initialize unmanged memory to hold the array.
-            int size = sizeof(char) * 4;
-            IntPtr pnt = Marshal.AllocHGlobal(size);
+            //int size = sizeof(char) * 4;
+            //IntPtr pnt = Marshal.AllocHGlobal(size);
 
-            try
-            {
+            //try
+            //{
 
-                ManagedMessenger._ReadMessageCharArray(_messengerId, pnt, capacity);
+                ManagedMessenger._ReadMessageCharArray(_messengerId, managedArray, capacity);
                 // Copy the unmanaged array back to another managed array.
-                for (int i = 0; i < 4; i++)
-                    managedArray[i] = (char) Marshal.ReadInt16(pnt, i * sizeof(char));
+                /*for (int i = 0; i < 4; i++)
+                    managedArray[i] = (char) Marshal.ReadInt16(pnt, i * sizeof(char));  */
 
-            }
-            finally
-            {
+            //}
+            //finally
+            //{
                 // Free the unmanaged memory.
-                Marshal.FreeHGlobal(pnt);
-            }
+              //  Marshal.FreeHGlobal(pnt);
+            //}
             return managedArray;
         }
 

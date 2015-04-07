@@ -10,11 +10,54 @@
 #define GOOGLE 1
 
 typedef unsigned int uint;
+typedef uint messenger;
 
+// CONSTRUCT AND DESTRUCT
 extern "C" NATIVEDLL_API void __cdecl Initiliaze(void);
+extern "C" NATIVEDLL_API void __cdecl DeleteMessenger();
 
+// SEND MESSAGE
+extern "C" __declspec(dllexport) void __cdecl SendMessageMessenger(uint messengerId);
+extern "C" __declspec(dllexport) void __cdecl SendMessageData(const wchar_t *pnt, int length);
+extern "C" __declspec(dllexport) void __cdecl SendMessageContact(const contact *con);
+extern "C" __declspec(dllexport) void __cdecl SendMessageContactName(const wchar_t *pnt, int length);
+extern "C" __declspec(dllexport) void __cdecl SendMessageCid(const wchar_t *pnt, int length);
+extern "C" __declspec(dllexport) void __cdecl _SendMessage();
+
+// GET MESSAGE
+extern "C" __declspec(dllexport) bool __cdecl HasMessage(void);
+extern "C" __declspec(dllexport) void __cdecl _GetMessage();
+extern "C" __declspec(dllexport) uint __cdecl GetMessageMessenger();
+extern "C" __declspec(dllexport) uint __cdecl GetMessageDataSize();
+extern "C" __declspec(dllexport) void __cdecl GetMessageData(wchar_t *pnt);
+extern "C" __declspec(dllexport) uint __cdecl GetMessageCidSize();
+extern "C" __declspec(dllexport) void __cdecl GetMessageCid(wchar_t *pnt);
+
+// GET CONTACTS
+extern "C" __declspec(dllexport) bool __cdecl HasContact(messenger msgr);
+extern "C" __declspec(dllexport) void __cdecl GetContacts(messenger msgr);
+extern "C" __declspec(dllexport) void __cdecl GetContact(messenger msgr);
+extern "C" __declspec(dllexport) uint __cdecl GetContactIdSize();
+extern "C" __declspec(dllexport) void __cdecl GetContactId(wchar_t *pnt);
+extern "C" __declspec(dllexport) uint __cdecl GetContactNameSize();
+extern "C" __declspec(dllexport) void __cdecl GetContactName(wchar_t *pnt);
+
+
+
+// LOGIN
+extern "C" __declspec(dllexport) bool __cdecl Login(uint messengerId, login *log);
+
+// OTHERS
+typedef void(__stdcall *FUNCTION)(int arg1);
+extern "C" __declspec(dllexport) bool __cdecl CallingBack(FUNCTION func);
+
+
+
+
+
+// OBSOLETE
 extern "C" NATIVEDLL_API void __cdecl AddMessenger(uint messengerId);
-extern "C" NATIVEDLL_API void __cdecl DeleteMessenger(uint MessengerId);
+//extern "C" NATIVEDLL_API void __cdecl DeleteMessenger(uint MessengerId);
 
 extern "C" NATIVEDLL_API void __cdecl WriteMessageInt(uint messengerId, int message);
 extern "C" NATIVEDLL_API void __cdecl WriteMessageString(uint messengerId, const char *message);
@@ -26,27 +69,3 @@ extern "C" __declspec(dllexport) void __cdecl ReadMessageString(uint messengerId
 extern "C" __declspec(dllexport) void __cdecl ReadMessageCharArray(uint messengerId, wchar_t *pnt, int capacity);
 extern "C" __declspec(dllexport) void __cdecl ReadMessageIntArray(uint messengerId, int *pnt, int capacity);
 extern "C" __declspec(dllexport) void __cdecl ReadMessageStruct(uint messengerId, message_t *pnt, int size);
-
-
-extern "C" __declspec(dllexport) bool __cdecl HasMessage(void);
-
-typedef void(__stdcall *FUNCTION)(int arg1);
-extern "C" __declspec(dllexport) bool __cdecl CallingBack(FUNCTION func);
-
-
-extern "C" __declspec(dllexport) void __cdecl SendMessageMessenger(uint messengerId);
-extern "C" __declspec(dllexport) void __cdecl SendMessageData(const wchar_t *str, uint length);
-extern "C" __declspec(dllexport) void __cdecl SendMessageContact(contact *con);
-extern "C" __declspec(dllexport) void __cdecl SendMessageContactName(wchar_t *pnt, int length);
-extern "C" __declspec(dllexport) void __cdecl _SendMessage();
-
-
-extern "C" __declspec(dllexport) uint __cdecl GetMessageSize();
-extern "C" __declspec(dllexport) uint __cdecl GetMessageMessenger();
-extern "C" __declspec(dllexport) void __cdecl GetMessageData(wchar_t *pnt);
-extern "C" __declspec(dllexport) void __cdecl GetMessageContact(contact *pnt);
-extern "C" __declspec(dllexport) uint __cdecl GetMessageContactNameSize();
-extern "C" __declspec(dllexport) void __cdecl GetMessageContactName(wchar_t *pnt);
-extern "C" __declspec(dllexport) void __cdecl _GetMessage();
-
-extern "C" __declspec(dllexport) bool __cdecl Login(uint messengerId, login *log);

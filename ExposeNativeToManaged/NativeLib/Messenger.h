@@ -25,9 +25,27 @@ struct message_data {
 	wchar_t message[256];
 };
 
+// MESSENGERS
+#define IRC 0
+#define GOOGLE 1
+#define FACEBOOK 2
+
+typedef unsigned int uint;
+typedef uint messenger;
+struct message {
+	messenger msgr;
+	int data_length;
+	wchar_t *data;
+	int cid_length;
+	wchar_t *cid;
+	/*vector < wchar_t > data;
+	vector < wchar_t > cid;	*/
+};
+
 struct contact {
-	int id;
-	int length;
+	int id_length;
+	wchar_t *id;
+	int name_length;
 	wchar_t *name;
 };
 
@@ -59,10 +77,15 @@ public:
 	const int * ReadMessageIntArray(void);
 
 	// Sending and getting messages
-	void _SendMessage(vector<wchar_t> message, contact con);
-	unsigned int _GetMessenger();
+	void _SendMessage(message msg);
+	/*unsigned int _GetMessenger();
 	vector<wchar_t> _GetMessage();
 	contact _GetContact();
+	*/
+	message _GetMessage();
+
+	vector<contact> GetContacts(messenger);
+
 private:
 
 	int messengerId;
