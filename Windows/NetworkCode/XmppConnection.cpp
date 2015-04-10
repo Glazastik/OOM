@@ -5,8 +5,9 @@
 #include <boost/archive/iterators/transform_width.hpp>
 #include <boost/archive/iterators/ostream_iterator.hpp>
 #include "Base64.h"
-#include "DebugBuffer.h"
 #include "boost/log/trivial.hpp"
+#include "MessageBuffer.h"
+#include "Message.h"
 
 const int XmppConnection::bufferSize = 1024;
 
@@ -232,8 +233,12 @@ void XmppConnection::Connect()
 		DebugPrintWrite(stream.str());
 
 		// Read server response
-		//readStr = SSLReadUntil(">");
-		//DebugPrintRead(readStr);
+		readStr = SSLReadUntil(">");
+		DebugPrintRead(readStr);
+		std::string payload = ParseElement(readStr, "<body>");
+		int accountId = 0;
+		std::shared_ptr<Message> message = std::make_shared<Message>(accountId, payload);
+		MessageBuffer::AddMessage(message);
 	}
 	catch (std::exception& exception)
 	{

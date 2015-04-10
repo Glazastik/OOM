@@ -9,14 +9,14 @@ __declspec(dllexport) void init()
 	ChatInterface::Init();
 }
 
-__declspec(dllexport) void readDebugBufferLine(int lineNum, char* lineBuffer, int bufferCapacity)
+__declspec(dllexport) int readMessage(size_t messageNum, char* messageBuffer, int bufferCapacity)
 {
-	ChatInterface::ReadDebugBufferLine(lineNum, lineBuffer, bufferCapacity);
+	return ChatInterface::ReadMessage(messageNum, messageBuffer, bufferCapacity);
 }
 
-__declspec(dllexport) int getDebugBufferSize()
+__declspec(dllexport) int getNumMessages()
 {
-	return ChatInterface::GetDebugBufferSize();
+	return ChatInterface::GetNumMessages();
 }
 
 __declspec(dllexport) void connectService(int serviceType)

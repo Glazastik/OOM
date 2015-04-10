@@ -1,5 +1,5 @@
 #include "ChatInterface.h"
-#include "DebugBuffer.h"
+#include "MessageBuffer.h"
 
 std::shared_ptr<ChatModel> ChatInterface::chatModel;
 
@@ -9,15 +9,19 @@ void ChatInterface::Init()
 	chatModel = std::make_shared<ChatModel>();
 }
 
-void ChatInterface::ReadDebugBufferLine(int lineNum, char* lineBuffer, int bufferCapacity)
+// Return value is the account id of the message sender
+int ChatInterface::ReadMessage(size_t messageNum, char* messageBuffer, int bufferCapacity)
 {
-	std::string line = DebugBuffer::ReadLine(lineNum);
-	strcpy_s(lineBuffer, bufferCapacity, line.c_str());
+	std::shared_ptr<Message> message = MessageBuffer::ReadMessage(messageNum);
+	std::string payload = message->GetPayload();
+	int senderId = message->GetSenderId();
+	strcpy_s(messageBuffer, bufferCapacity, payload.c_str());
+	return senderId;
 }
 
-int ChatInterface::GetDebugBufferSize()
+int ChatInterface::GetNumMessages()
 {
-	return DebugBuffer::GetNumLines();
+	return MessageBuffer::GetNumMessages();
 }
 
 void ChatInterface::ConnectService(int serviceType)

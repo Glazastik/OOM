@@ -20,22 +20,21 @@ namespace WindowsConsoleClient
         }
 
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
-        private extern static void readDebugBufferLine(int lineNum, StringBuilder lineBuffer, int bufferCapacity);
+        private extern static int readMessage(uint messageNum, StringBuilder messageBuffer, int bufferCapacity);
 
-        public static string ReadDebugBufferLine(int lineNum, int capacity)
+        public static int ReadMessage(uint messageNum, ref StringBuilder payloadBuffer)
         {
-            StringBuilder lineBuffer = new StringBuilder(capacity);
-            readDebugBufferLine(lineNum, lineBuffer, lineBuffer.Capacity);
-            return lineBuffer.ToString();
+            int senderId = readMessage(messageNum, payloadBuffer, payloadBuffer.Capacity);
+            return senderId;
         }
-        
-        [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
-        private extern static int getDebugBufferSize();
 
-        public static int GetDebugBufferSize()
+        [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
+        private extern static int getNumMessages();
+
+        public static int GetNumMessages()
         {
-            int size = getDebugBufferSize();
-            return size;
+            int numMessages = getNumMessages();
+            return numMessages;
         }
 
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]

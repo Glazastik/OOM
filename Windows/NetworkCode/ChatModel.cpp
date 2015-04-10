@@ -1,6 +1,5 @@
 #include "ChatModel.h"
 #include "GoogleHangout.h"
-#include "DebugBuffer.h"
 #include "boost/lexical_cast.hpp"
 #include "boost/log/trivial.hpp"
 

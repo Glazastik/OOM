@@ -1,6 +1,5 @@
 #include "GoogleHangout.h"
 #include <boost\array.hpp>
-#include "DebugBuffer.h"
 
 GoogleHangout::GoogleHangout(std::shared_ptr<boost::asio::io_service> io_service) : ChatService(), googleHangoutConnection(io_service)
 {

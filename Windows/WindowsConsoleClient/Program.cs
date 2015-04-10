@@ -15,23 +15,23 @@ namespace WindowsConsoleClient
             ChatWrapper.Init();
 
             // Thread test
-            DebugWorker debugWorker = new DebugWorker();
-            Thread debugThread = new Thread(debugWorker.DoWork);
+            MessageWorker messageWorker = new MessageWorker();
+            Thread messageThread = new Thread(messageWorker.DoWork);
 
-            DebugPrint("Starting debug thread.");
-            debugThread.Start();
+            DebugPrint("Starting message thread.");
+            messageThread.Start();
 
             // Wait for the debug thread to start
-            while(!debugThread.IsAlive);
+            while(!messageThread.IsAlive);
 
             DebugPrint("Connecting to Google Hangout (0).");
             ChatWrapper.ConnectService(0);
 
             Thread.Sleep(60000);
 
-            debugWorker.StopWorking();
-            debugThread.Join();
-            DebugPrint("Debug thread has terminated.");
+            messageWorker.StopWorking();
+            messageThread.Join();
+            DebugPrint("Message thread has terminated.");
 
             Console.Write("Press any key to exit...");
             Console.ReadKey();

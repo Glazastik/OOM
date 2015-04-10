@@ -6,27 +6,29 @@ using System.Threading.Tasks;
 
 namespace WindowsConsoleClient
 {
-    class DebugWorker
+    class MessageWorker
     {
         private const int buffer_size = 1024;
 
         private volatile bool isWorking;
-        private int currentLine;
+        private uint nextMessage;
 
-        public DebugWorker()
+        public MessageWorker()
         {
             isWorking = true;
-            currentLine = 0;
+            nextMessage = 0;
         }
 
         public void DoWork()
         {
             while (isWorking)
             {
-                if (ChatWrapper.GetDebugBufferSize() > currentLine)
+                if (ChatWrapper.GetNumMessages() > nextMessage)
                 {
-                    DebugPrint(ChatWrapper.ReadDebugBufferLine(currentLine, buffer_size));
-                    currentLine++;
+                    StringBuilder payloadBuffer = new StringBuilder(buffer_size);
+                    int senderId = ChatWrapper.ReadMessage(nextMessage, ref payloadBuffer);
+                    DebugPrint("Message from id:" + senderId + ">\"" + payloadBuffer.ToString() + "\"");
+                    nextMessage++;
                 }
             }
             DebugPrint("Exiting gracefully.");
@@ -39,7 +41,7 @@ namespace WindowsConsoleClient
 
         private void DebugPrint(string debugLine)
         {
-            Console.WriteLine("Debug thread>\n" + debugLine);
+            Console.WriteLine("Message thread>\n" + debugLine);
         }
     }
 }

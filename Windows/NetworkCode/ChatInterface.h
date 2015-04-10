@@ -6,8 +6,8 @@ class ChatInterface
 {
 public:
 	static void Init();
-	static void ReadDebugBufferLine(int lineNum, char* lineBuffer, int bufferCapacity);
-	static int GetDebugBufferSize();
+	static int ReadMessage(size_t messageNum, char* messageBuffer, int bufferCapacity);
+	static int GetNumMessages();
 	static void ConnectService(int serviceType);
 	static void CloseService(int serviceType);
 private:
