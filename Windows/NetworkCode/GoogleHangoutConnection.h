@@ -7,6 +7,6 @@
 class GoogleHangoutConnection : public XmppConnection
 {
 public:
-	GoogleHangoutConnection(std::shared_ptr<boost::asio::io_service> io_service);
+	GoogleHangoutConnection(std::shared_ptr<boost::asio::io_service> io_service, std::string authid, std::string password);
 	~GoogleHangoutConnection();
 };

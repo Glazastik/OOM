@@ -20,6 +20,22 @@ namespace WindowsConsoleClient
         }
 
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
+        private extern static void connectService(int serviceType);
+
+        public static void ConnectService(int serviceType)
+        {
+            connectService(serviceType);
+        }
+
+        [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
+        private extern static void closeService(int serviceType);
+
+        public static void CloseService(int serviceType)
+        {
+            closeService(serviceType);
+        }
+
+        [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
         private extern static int readMessage(uint messageNum, StringBuilder messageBuffer, int bufferCapacity);
 
         public static int ReadMessage(uint messageNum, ref StringBuilder payloadBuffer)
@@ -38,19 +54,27 @@ namespace WindowsConsoleClient
         }
 
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
-        private extern static void connectService(int serviceType);
+        private extern static void addPerson(int id, string name);
 
-        public static void ConnectService(int serviceType)
+        public static void AddPerson(int id, string name)
         {
-            connectService(serviceType);
+            addPerson(id, name);
         }
 
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
-        private extern static void closeService(int serviceType);
+        private extern static void addAccountToPerson(int personId, int accountId, int serviceType, string address);
 
-        public static void CloseService(int serviceType)
+        public static void AddAccountToPerson(int personId, int accountId, int serviceType, string address)
         {
-            closeService(serviceType);
+            addAccountToPerson(personId, accountId, serviceType, address);
+        }
+
+        [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
+        private extern static void sendChatMessage(int accountId, string message);
+
+        public static void SendChatMessage(int accountId, string message)
+        {
+            sendChatMessage(accountId, message);
         }
     }
 }

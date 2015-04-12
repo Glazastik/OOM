@@ -6,13 +6,16 @@
 class XmppConnection
 {
 public:
-	XmppConnection(std::shared_ptr<boost::asio::io_service> io_service, std::string hostName, int portNumber);
+	XmppConnection(std::shared_ptr<boost::asio::io_service> io_service, std::string hostName, int portNumber, std::string authid, std::string password);
 	~XmppConnection();
 	void Connect();
 	void CloseConnection();
+	void SendChatMessage(std::string address, std::string message);
 protected:
 	std::string hostName;
 	int portNumber;
+	std::string authid;
+	std::string password;
 	std::shared_ptr<boost::asio::io_service> io_service;
 	std::shared_ptr<boost::asio::ip::tcp::socket> tcp_socket;
 	std::shared_ptr<boost::asio::ssl::context> ssl_context;

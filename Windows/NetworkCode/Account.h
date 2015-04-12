@@ -1,16 +1,18 @@
 #pragma once
 #include "ServiceType.h"
+#include <iostream>
 
 class Account
 {
 public:
-	Account(ServiceType serviceType);
+	Account(int id, ServiceType::Type serviceType, std::string address);
 	~Account();
 	int GetId();
-	ServiceType GetServiceType();
+	ServiceType::Type GetServiceType();
+	std::string GetAddress();
 private:
-	static int next_id;
 	int id;
-	ServiceType serviceType;
+	ServiceType::Type serviceType;
+	std::string address;
 };
 

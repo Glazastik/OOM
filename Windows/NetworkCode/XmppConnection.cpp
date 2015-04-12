@@ -12,11 +12,13 @@
 const int XmppConnection::bufferSize = 1024;
 
 // Public
-XmppConnection::XmppConnection(std::shared_ptr<boost::asio::io_service> io_service, std::string hostName, int portNumber)
+XmppConnection::XmppConnection(std::shared_ptr<boost::asio::io_service> io_service, std::string hostName, int portNumber, std::string authid, std::string password)
 {
 	this->io_service = io_service;
 	this->hostName = hostName;
 	this->portNumber = portNumber;
+	this->authid = authid;
+	this->password = password;
 	tcp_socket = std::make_shared<boost::asio::ip::tcp::socket>(*io_service);
 	ssl_context = std::make_shared<boost::asio::ssl::context>(boost::asio::ssl::context::sslv23);
 	ssl_context->set_default_verify_paths();
@@ -233,12 +235,12 @@ void XmppConnection::Connect()
 		DebugPrintWrite(stream.str());
 
 		// Read server response
-		readStr = SSLReadUntil(">");
+		/*readStr = SSLReadUntil(">");
 		DebugPrintRead(readStr);
 		std::string payload = ParseElement(readStr, "<body>");
 		int accountId = 0;
 		std::shared_ptr<Message> message = std::make_shared<Message>(accountId, payload);
-		MessageBuffer::AddMessage(message);
+		MessageBuffer::AddMessage(message);*/
 	}
 	catch (std::exception& exception)
 	{
@@ -255,6 +257,12 @@ void XmppConnection::CloseConnection()
 		DebugPrintError(error_code);
 	}
 	tcp_socket->close();
+}
+
+void XmppConnection::SendChatMessage(std::string address, std::string message)
+{
+	// TODO
+	DebugPrint("XmppConnection::SendChatMessage - TODO");
 }
 
 // Protected

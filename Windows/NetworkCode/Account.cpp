@@ -1,12 +1,10 @@
 #include "Account.h"
 
-int Account::next_id = 0;
-
-Account::Account(ServiceType serviceType)
+Account::Account(int id, ServiceType::Type serviceType, std::string address)
 {
-	id = next_id;
-	next_id++;
+	this->id = id;
 	this->serviceType = serviceType;
+	this->address = address;
 }
 
 Account::~Account()
@@ -18,7 +16,12 @@ int Account::GetId()
 	return id;
 }
 
-ServiceType Account::GetServiceType()
+ServiceType::Type Account::GetServiceType()
 {
 	return serviceType;
+}
+
+std::string Account::GetAddress()
+{
+	return address;
 }

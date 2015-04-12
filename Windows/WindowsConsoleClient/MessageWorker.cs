@@ -39,9 +39,9 @@ namespace WindowsConsoleClient
             isWorking = false;
         }
 
-        private void DebugPrint(string debugLine)
+        private void DebugPrint(string message)
         {
-            Console.WriteLine("Message thread>\n" + debugLine);
+            Console.WriteLine("Message thread> " + message);
         }
     }
 }
