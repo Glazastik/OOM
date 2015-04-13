@@ -1,4 +1,4 @@
-package com.example.alexander.myapplication;
+package se.chalmers.oomproject.oom;
 /**
  * Created by Alexander on 2015-04-10.
  */
@@ -26,17 +26,17 @@ public class ManagedCode {
 	public native void SetByteArrayMethod(byte[] byteArray);	
 	
 	// object methods
-	public native Contact getContact();
-	public native void setContact(Contact contact);
-	public native Contact[] getContacts();
+	//public native Contact getContact();
+	//public native void setContact(Contact contact);
+	//public native Contact[] getContacts();
 	
 	// C# functions
 	public native void initiliaze();
 	public native void deleteMessenger();
 	public native boolean hasMessage(int msgr);
-	public native Message getMessage(int msgr);
-	public native void sendMessage(int msgr, Message msg);	
-	public native Contact[] getContacts(int msgr);
+	//public native Message getMessage(int msgr);
+	//public native void sendMessage(int msgr, Message msg);
+	//public native Contact[] getContacts(int msgr);
 	
 	public ManagedCode() {
 		
