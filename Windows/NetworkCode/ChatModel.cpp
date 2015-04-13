@@ -81,7 +81,11 @@ std::shared_ptr<Account> ChatModel::GetAccount(int id)
 void ChatModel::SendChatMessage(int accountId, std::string message)
 {
 	std::shared_ptr<Account> account = GetAccount(accountId);
-	if (account != NULL)
+	if (account == NULL)
+	{
+		BOOST_LOG_TRIVIAL(error) << "ChatModel::SendChatMessage - Account with specified id does not exist.";
+	}
+	else
 	{
 		ServiceType::Type serviceType = account->GetServiceType();
 		std::string address = account->GetAddress();
@@ -112,6 +116,22 @@ void ChatModel::Cleanup()
 	}
 	io_service->stop();
 	worker_threads.join_all();
+}
+
+int ChatModel::GetServiceType(int accountId)
+{
+
+	std::shared_ptr<Account> account = GetAccount(accountId);
+	if (account == NULL)
+	{
+		BOOST_LOG_TRIVIAL(error) << "ChatModel::SendChatMessage - Account with specified id does not exist.";
+	}
+	else
+	{
+		ServiceType::Type serviceType = account->GetServiceType();
+		return (int)serviceType;
+	}
+	return -1;
 }
 
 // Private

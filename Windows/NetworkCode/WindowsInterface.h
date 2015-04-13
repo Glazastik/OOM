@@ -8,4 +8,5 @@ extern "C"
 	__declspec(dllexport) void addPerson(int id, const char* name);
 	__declspec(dllexport) void addAccountToPerson(int personId, int accountId, int serviceType, const char* address);
 	__declspec(dllexport) void sendChatMessage(int accountId, const char* message);
+	__declspec(dllexport) int getServiceType(int accountId);
 }

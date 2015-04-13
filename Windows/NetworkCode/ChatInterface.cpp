@@ -53,6 +53,11 @@ void ChatInterface::SendChatMessage(int accountId, const char* message)
 	chatModel->SendChatMessage(accountId, message);
 }
 
+int ChatInterface::GetServiceType(int accountId)
+{
+	return chatModel->GetServiceType(accountId);
+}
+
 // Private
 ChatInterface::ChatInterface()
 {

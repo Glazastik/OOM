@@ -13,6 +13,7 @@ public:
 	static void AddPerson(int id, const char* name);
 	static void AddAccountToPerson(int personId, int accountId, int serviceType, const char* address);
 	static void SendChatMessage(int accountId, const char* message);
+	static int GetServiceType(int accountId);
 private:
 	static std::shared_ptr<ChatModel> chatModel;
 

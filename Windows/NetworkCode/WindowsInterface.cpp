@@ -43,3 +43,8 @@ __declspec(dllexport) void sendChatMessage(int accountId, const char* message)
 {
 	ChatInterface::SendChatMessage(accountId, message);
 }
+
+__declspec(dllexport) int getServiceType(int accountId)
+{
+	return ChatInterface::GetServiceType(accountId);
+}

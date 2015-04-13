@@ -18,6 +18,7 @@ public:
 	std::shared_ptr<Account> GetAccount(int id);
 	void SendChatMessage(int accountId, std::string message);
 	void Cleanup();
+	int GetServiceType(int accountId);
 private:
 	std::shared_ptr<boost::asio::io_service> io_service;
 	std::shared_ptr<boost::asio::io_service::work> work;
