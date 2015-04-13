@@ -16,6 +16,7 @@ namespace WPF_OOM
 
     public partial class MainWindow : Window
     {
+
         public static ObservableCollection<Contact> ContactList { get; private set; }
         public static ObservableCollection<Conversation> conversations { get; private set; }
         private Service fb;
@@ -35,9 +36,7 @@ namespace WPF_OOM
             c.LastName = "Svensson";
             d.FirstName = "Kalle";
             d.LastName = "Karlsson";
-            c.addService(steam, "sven_1337");
-            d.addService(fb, "Kalle_Karlsson");
-            d.addService(steam, "l33thax0r");
+            c.addService(steam, new Account(0, 1, "1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com"));
             Conversation t = new Conversation(c);
             Conversation y = new Conversation(d);
             Message m = new Message("this has logo", c, fb);

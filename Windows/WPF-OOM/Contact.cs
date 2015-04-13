@@ -24,14 +24,14 @@ namespace WPF_OOM
         public string LastName { get; set; }
         public string NickName { get; set; }
         public ObservableCollection<Service> Services { get; private set; }
-        public Dictionary<Service, String> Accounts { get; private set; } 
+        public Dictionary<Service, Account> Accounts { get; private set; } 
         public Contact()
         {
             Services = new ObservableCollection<Service>();
-            Accounts = new Dictionary<Service, string>();
+            Accounts = new Dictionary<Service, Account>();
         }
 
-        public void addService(Service s, String acc)
+        public void addService(Service s, Account acc)
         {
             Services.Add(s);
             Accounts.Add(s,acc);
