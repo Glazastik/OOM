@@ -12,7 +12,7 @@ extern "C" {
  * Method:    intMethod
  * Signature: (I)I
  */
-JNIEXPORT jint JNICALL Java_com_example_alexander_myapplication_ManagedCode_intMethod
+JNIEXPORT jint JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_intMethod
   (JNIEnv *, jobject, jint);
 
 /*
@@ -20,7 +20,7 @@ JNIEXPORT jint JNICALL Java_com_example_alexander_myapplication_ManagedCode_intM
  * Method:    booleanMethod
  * Signature: (Z)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_example_alexander_myapplication_ManagedCode_booleanMethod
+JNIEXPORT jboolean JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_booleanMethod
   (JNIEnv *, jobject, jboolean);
 
 /*
@@ -28,7 +28,7 @@ JNIEXPORT jboolean JNICALL Java_com_example_alexander_myapplication_ManagedCode_
  * Method:    intArrayMethod
  * Signature: ([I)I
  */
-JNIEXPORT jint JNICALL Java_com_example_alexander_myapplication_ManagedCode_intArrayMethod
+JNIEXPORT jint JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_intArrayMethod
   (JNIEnv *, jobject, jintArray);
 
 /*
@@ -36,7 +36,7 @@ JNIEXPORT jint JNICALL Java_com_example_alexander_myapplication_ManagedCode_intA
  * Method:    charArrayMethod
  * Signature: ([C)I
  */
-JNIEXPORT jint JNICALL Java_com_example_alexander_myapplication_ManagedCode_charArrayMethod
+JNIEXPORT jint JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_charArrayMethod
   (JNIEnv *, jobject, jcharArray);
 
 /*
@@ -44,7 +44,7 @@ JNIEXPORT jint JNICALL Java_com_example_alexander_myapplication_ManagedCode_char
  * Method:    VoidIntArrayMethod
  * Signature: ([I)V
  */
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_VoidIntArrayMethod
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_VoidIntArrayMethod
   (JNIEnv *, jobject, jintArray);
 
 /*
@@ -52,7 +52,7 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_Void
  * Method:    VoidCharArrayMethod
  * Signature: ([C)V
  */
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_VoidCharArrayMethod
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_VoidCharArrayMethod
   (JNIEnv *, jobject, jcharArray);
 
 /*
@@ -60,7 +60,7 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_Void
  * Method:    VoidByteArrayMethod
  * Signature: ([B)V
  */
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_VoidByteArrayMethod
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_VoidByteArrayMethod
   (JNIEnv *, jobject, jbyteArray);
 
 /*
@@ -68,7 +68,7 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_Void
  * Method:    GetIntArrayMethod
  * Signature: (I)[I
  */
-JNIEXPORT jintArray JNICALL Java_com_example_alexander_myapplication_ManagedCode_GetIntArrayMethod
+JNIEXPORT jintArray JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_GetIntArrayMethod
   (JNIEnv *, jobject, jint);
 
 /*
@@ -76,7 +76,7 @@ JNIEXPORT jintArray JNICALL Java_com_example_alexander_myapplication_ManagedCode
  * Method:    GetCharArrayMethod
  * Signature: (I)[C
  */
-JNIEXPORT jcharArray JNICALL Java_com_example_alexander_myapplication_ManagedCode_GetCharArrayMethod
+JNIEXPORT jcharArray JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_GetCharArrayMethod
   (JNIEnv *, jobject, jint);
 
 /*
@@ -84,7 +84,7 @@ JNIEXPORT jcharArray JNICALL Java_com_example_alexander_myapplication_ManagedCod
  * Method:    GetByteArrayMethod
  * Signature: (I)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_example_alexander_myapplication_ManagedCode_GetByteArrayMethod
+JNIEXPORT jbyteArray JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_GetByteArrayMethod
   (JNIEnv *, jobject, jint);
 
 /*
@@ -92,7 +92,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_example_alexander_myapplication_ManagedCod
  * Method:    SetIntArrayMethod
  * Signature: ([I)V
  */
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_SetIntArrayMethod
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_SetIntArrayMethod
   (JNIEnv *, jobject, jintArray);
 
 /*
@@ -100,7 +100,7 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_SetI
  * Method:    SetCharArrayMethod
  * Signature: ([C)V
  */
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_SetCharArrayMethod
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_SetCharArrayMethod
   (JNIEnv *, jobject, jcharArray);
 
 /*
@@ -108,7 +108,7 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_SetC
  * Method:    SetByteArrayMethod
  * Signature: ([B)V
  */
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_SetByteArrayMethod
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_SetByteArrayMethod
   (JNIEnv *, jobject, jbyteArray);
 
 /*
@@ -116,7 +116,7 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_SetB
  * Method:    getContact
  * Signature: ()LContact;
  */
-JNIEXPORT jobject JNICALL Java_com_example_alexander_myapplication_ManagedCode_getContact
+JNIEXPORT jobject JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_getContact
   (JNIEnv *, jobject);
 
 /*
@@ -124,7 +124,7 @@ JNIEXPORT jobject JNICALL Java_com_example_alexander_myapplication_ManagedCode_g
  * Method:    setContact
  * Signature: (LContact;)V
  */
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_setContact
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_setContact
   (JNIEnv *, jobject, jobject);
 
 /*
@@ -132,30 +132,30 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_setC
  * Method:    getContacts
  * Signature: ()[LContact;
  */
-/*JNIEXPORT jobjectArray JNICALL Java_com_example_alexander_myapplication_ManagedCode_getContacts
+/*JNIEXPORT jobjectArray JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_getContacts
   (JNIEnv *, jobject);*/
   
 // ................
 
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_initiliaze
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_initiliaze
     (JNIEnv *, jobject);
 
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_deleteMessenger
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_deleteMessenger
     (JNIEnv *, jobject);
 	
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_login
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_login
     (JNIEnv *, jobject, jobject);
 	
-JNIEXPORT jboolean JNICALL Java_com_example_alexander_myapplication_ManagedCode_hasMessage
+JNIEXPORT jboolean JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_hasMessage
     (JNIEnv *, jobject, jint);
 
-JNIEXPORT jobject JNICALL Java_com_example_alexander_myapplication_ManagedCode_getMessage
+JNIEXPORT jobject JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_getMessage
     (JNIEnv *, jobject, jint);
 	
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_sendMessage
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_sendMessage
 	(JNIEnv *, jobject, jint, jobject); 
  
-JNIEXPORT jobjectArray JNICALL Java_com_example_alexander_myapplication_ManagedCode_getContacts
+JNIEXPORT jobjectArray JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_getContacts
   (JNIEnv *, jobject, jint);
 
 #ifdef __cplusplus

@@ -12,13 +12,13 @@ Messenger* g_theMessenger;
 //
 // CONSTRUCT AND DESTRUCT
 //
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_initiliaze
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_initiliaze
     (JNIEnv *env, jobject obj)
 {
 	g_theMessenger = new Messenger();
 }
 
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_deleteMessenger
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_deleteMessenger
     (JNIEnv *env, jobject obj)
 {
 	delete g_theMessenger;
@@ -27,7 +27,7 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_dele
 //
 // Login
 //
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_login
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_login
     (JNIEnv *env, jobject obj, jobject loginData)
 {
 
@@ -36,13 +36,13 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_logi
 //
 // Getting Messages
 //
-JNIEXPORT jboolean JNICALL Java_com_example_alexander_myapplication_ManagedCode_hasMessage
+JNIEXPORT jboolean JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_hasMessage
     (JNIEnv *env, jobject obj, jint msgr)
 {
 	return g_theMessenger->HasMessage(msgr);
 }
 
-JNIEXPORT jobject JNICALL Java_com_example_alexander_myapplication_ManagedCode_getMessage
+JNIEXPORT jobject JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_getMessage
     (JNIEnv *env, jobject obj, jint msgr)
 {
 	message msg = g_theMessenger->_GetMessage(msgr);
@@ -87,7 +87,7 @@ JNIEXPORT jobject JNICALL Java_com_example_alexander_myapplication_ManagedCode_g
 //
 // Sending Messages
 //
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_sendMessage
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_sendMessage
 	(JNIEnv *env, jobject obj, jint msgr, jobject messageObject) 
 {
 		jclass messageClass = env->GetObjectClass(messageObject);
@@ -127,7 +127,7 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_send
 //
 //	Contact functions
 //
-JNIEXPORT jobjectArray JNICALL Java_com_example_alexander_myapplication_ManagedCode_getContacts
+JNIEXPORT jobjectArray JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_getContacts
   (JNIEnv *env, jobject obj, jint msgr) {
 	  
 	jclass contactClass = env->FindClass("com/example/alexander/myapplication/Contact");
@@ -187,17 +187,17 @@ JNIEXPORT jobjectArray JNICALL Java_com_example_alexander_myapplication_ManagedC
 //
 // OTHER FUNCTIONS
 //	
-JNIEXPORT jint JNICALL Java_com_example_alexander_myapplication_ManagedCode_intMethod
+JNIEXPORT jint JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_intMethod
   (JNIEnv *env, jobject obj, jint num) {
    return num * num;
 }
 
-JNIEXPORT jboolean JNICALL Java_com_example_alexander_myapplication_ManagedCode_booleanMethod
+JNIEXPORT jboolean JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_booleanMethod
    (JNIEnv *env, jobject obj, jboolean boolean) {
     return !boolean;
 }
 
-JNIEXPORT jint JNICALL Java_com_example_alexander_myapplication_ManagedCode_intArrayMethod
+JNIEXPORT jint JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_intArrayMethod
    (JNIEnv *env, jobject obj, jintArray array) {
      int i, sum = 0;
      
@@ -214,7 +214,7 @@ JNIEXPORT jint JNICALL Java_com_example_alexander_myapplication_ManagedCode_intA
      return sum;
 }
 
-JNIEXPORT jint JNICALL Java_com_example_alexander_myapplication_ManagedCode_charArrayMethod
+JNIEXPORT jint JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_charArrayMethod
    (JNIEnv *env, jobject obj, jcharArray array) {
     int i, sum = 0;
      
@@ -234,7 +234,7 @@ JNIEXPORT jint JNICALL Java_com_example_alexander_myapplication_ManagedCode_char
 
 // Detta sättet är likt C#
 
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_VoidIntArrayMethod
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_VoidIntArrayMethod
    (JNIEnv *env, jobject obj, jintArray array) {
 	 
 	jsize len = env->GetArrayLength(array);
@@ -247,7 +247,7 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_Void
 	env->ReleaseIntArrayElements(array, body, 0);
 }
 
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_VoidCharArrayMethod
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_VoidCharArrayMethod
    (JNIEnv *env, jobject obj, jcharArray array) {
     int i = 0;
 	 
@@ -261,7 +261,7 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_Void
 	env->ReleaseCharArrayElements(array, body, 0);
 }
 
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_VoidByteArrayMethod
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_VoidByteArrayMethod
    (JNIEnv *env, jobject obj, jbyteArray array) {
     int i = 0;
 	 
@@ -280,7 +280,7 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_Void
 // GETTERS
 
 
-JNIEXPORT jintArray JNICALL Java_com_example_alexander_myapplication_ManagedCode_GetIntArrayMethod
+JNIEXPORT jintArray JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_GetIntArrayMethod
    (JNIEnv *env, jobject obj, jint size) {
 		jintArray result;
 		result = env->NewIntArray(size);
@@ -297,7 +297,7 @@ JNIEXPORT jintArray JNICALL Java_com_example_alexander_myapplication_ManagedCode
 		return result;
 }
 
-JNIEXPORT jcharArray JNICALL Java_com_example_alexander_myapplication_ManagedCode_GetCharArrayMethod
+JNIEXPORT jcharArray JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_GetCharArrayMethod
    (JNIEnv *env, jobject obj, jint size) {
 		jcharArray result;
 		result = env->NewCharArray(size);
@@ -314,7 +314,7 @@ JNIEXPORT jcharArray JNICALL Java_com_example_alexander_myapplication_ManagedCod
 		return result;
 }
 
-JNIEXPORT jbyteArray JNICALL Java_com_example_alexander_myapplication_ManagedCode_GetByteArrayMethod
+JNIEXPORT jbyteArray JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_GetByteArrayMethod
    (JNIEnv *env, jobject obj, jint size) {
 		jbyteArray result;
 		result = env->NewByteArray(size);
@@ -334,7 +334,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_example_alexander_myapplication_ManagedCod
 
  // SETTERS
 
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_SetByteArrayMethod
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_SetByteArrayMethod
    (JNIEnv *env, jobject obj, jbyteArray array) {
 	 
 	jsize len = env->GetArrayLength(array);
@@ -348,7 +348,7 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_SetB
 	env->ReleaseByteArrayElements(array, body, 0);
 }
 
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_SetCharArrayMethod
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_SetCharArrayMethod
    (JNIEnv *env, jobject obj, jcharArray array) {
 	 
 	jsize len = env->GetArrayLength(array);
@@ -362,7 +362,7 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_SetC
 	env->ReleaseCharArrayElements(array, body, 0);
 }
 
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_SetIntArrayMethod
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_SetIntArrayMethod
    (JNIEnv *env, jobject obj, jintArray array) {
 	 
 	jsize len = env->GetArrayLength(array);
@@ -378,7 +378,7 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_SetI
 
 // GET OBJECT
 
-JNIEXPORT jobject JNICALL Java_com_example_alexander_myapplication_ManagedCode_getContact
+JNIEXPORT jobject JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_getContact
   (JNIEnv *env, jobject obj) {
     jclass contactClass = env->FindClass("com/example/alexander/myapplication/Contact");
     jmethodID midConstructor = env->GetMethodID(contactClass, "<init>", "()V");
@@ -407,7 +407,7 @@ JNIEXPORT jobject JNICALL Java_com_example_alexander_myapplication_ManagedCode_g
     return contactObject;
 }
 
-JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_setContact
+JNIEXPORT void JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_setContact
 	(JNIEnv *env, jobject obj, jobject contactObject) {
 		jclass contactClass = env->GetObjectClass(contactObject);
 		jmethodID midGetId = env->GetMethodID(contactClass, "getId", "()I");
@@ -428,7 +428,7 @@ JNIEXPORT void JNICALL Java_com_example_alexander_myapplication_ManagedCode_setC
 		env->ReleaseCharArrayElements(array, body, 0);
 }
 
-/*JNIEXPORT jobjectArray JNICALL Java_com_example_alexander_myapplication_ManagedCode_getContacts
+/*JNIEXPORT jobjectArray JNICALL Java_se_chalmers_oomproject_oom_ManagedCode_getContacts
   (JNIEnv *env, jobject obj) {
 	  
 	jclass contactClass = env->FindClass("com/example/alexander/myapplication/Contact");
