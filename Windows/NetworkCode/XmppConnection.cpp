@@ -8,17 +8,24 @@
 #include "boost/log/trivial.hpp"
 #include "MessageBuffer.h"
 #include "Message.h"
+#include "boost/bind.hpp"
+#include <algorithm>
 
-const int XmppConnection::bufferSize = 1024;
+const int XmppConnection::bufferSize = 4096;
 
 // Public
-XmppConnection::XmppConnection(std::shared_ptr<boost::asio::io_service> io_service, std::string hostName, int portNumber, std::string authid, std::string password)
+XmppConnection::XmppConnection(std::shared_ptr<boost::asio::io_service> io_service, std::string hostName, int portNumber, std::string authid, std::string password,
+	std::shared_ptr<std::vector<std::shared_ptr<Person>>> persons)
 {
 	this->io_service = io_service;
 	this->hostName = hostName;
 	this->portNumber = portNumber;
 	this->authid = authid;
 	this->password = password;
+	this->persons = persons;
+	readBuffer.resize(bufferSize + 1);
+	readBufferIndex = 0;
+	nextId = 1;
 	tcp_socket = std::make_shared<boost::asio::ip::tcp::socket>(*io_service);
 	ssl_context = std::make_shared<boost::asio::ssl::context>(boost::asio::ssl::context::sslv23);
 	ssl_context->set_default_verify_paths();
@@ -98,8 +105,6 @@ void XmppConnection::Connect()
 		
 		// SASL authentication
 		std::string authzid = "";
-		std::string authid = "kandidattest2015@gmail.com";
-		std::string password = "test2015";
 
 		char buffer[1024];
 		int offset = 0;
@@ -149,9 +154,10 @@ void XmppConnection::Connect()
 		// Ask server to generate resource identifier
 		stream.str("");
 		stream.clear();
-		stream << "<iq id='1' type='set'>" << std::endl;
+		stream << "<iq id='" << nextId << "' type='set'>" << std::endl;
 		stream << "<bind xmlns='urn:ietf:params:xml:ns:xmpp-bind'/>" << std::endl;
 		stream << "</iq>" << std::endl;
+		nextId++;
 
 		SSLWriteSome(stream.str());
 		DebugPrintWrite(stream.str());
@@ -161,15 +167,16 @@ void XmppConnection::Connect()
 		DebugPrintRead(readStr);
 
 		// Parse resource identifier
-		std::string jid = ParseElement(readStr, "<jid>");
+		jid = ParseElement(readStr, "<jid>");
 		DebugPrint("JID: " + jid + "\n");
 		
 		// Session
 		stream.str("");
 		stream.clear();
-		stream << "<iq type='set' id='2'>" << std::endl;
+		stream << "<iq type='set' id='" << nextId << "'>" << std::endl;
 		stream << "<session xmlns='urn:ietf:params:xml:ns:xmpp-session'/>" << std::endl;
 		stream << "</iq>" << std::endl;
+		nextId++;
 
 		SSLWriteSome(stream.str());
 		DebugPrintWrite(stream.str());
@@ -181,9 +188,10 @@ void XmppConnection::Connect()
 		// Disco items
 		stream.str("");
 		stream.clear();
-		stream << "<iq type='get' id='3' to='gmail.com'>" << std::endl;
+		stream << "<iq type='get' id='" << nextId << "' to='gmail.com'>" << std::endl;
 		stream << "<query xmlns='http://jabber.org/protocol/disco#items'/>" << std::endl;
 		stream << "</iq>" << std::endl;
+		nextId++;
 
 		SSLWriteSome(stream.str());
 		DebugPrintWrite(stream.str());
@@ -195,9 +203,10 @@ void XmppConnection::Connect()
 		// Disco info
 		stream.str("");
 		stream.clear();
-		stream << "<iq type='get' id='4' to='gmail.com'>" << std::endl;
+		stream << "<iq type='get' id='" << nextId << "' to='gmail.com'>" << std::endl;
 		stream << "<query xmlns='http://jabber.org/protocol/disco#info'/>" << std::endl;
 		stream << "</iq>" << std::endl;
+		nextId++;
 
 		SSLWriteSome(stream.str());
 		DebugPrintWrite(stream.str());
@@ -209,9 +218,10 @@ void XmppConnection::Connect()
 		// Get roster
 		stream.str("");
 		stream.clear();
-		stream << "<iq type='get' id='5'>" << std::endl;
+		stream << "<iq type='get' id='" << nextId << "'>" << std::endl;
 		stream << "<query xmlns='jabber:iq:roster' ext='2'/>" << std::endl;
 		stream << "</iq>" << std::endl;
+		nextId++;
 
 		SSLWriteSome(stream.str());
 		DebugPrintWrite(stream.str());
@@ -219,20 +229,17 @@ void XmppConnection::Connect()
 		// Read server response
 		readStr = SSLReadUntil("</iq>");
 		DebugPrintRead(readStr);
-		
-		// Send a message
-		stream.str("");
+
+		// Presence
+		/*stream.str("");
 		stream.clear();
-		stream << "<message from='" << jid << "'" << std::endl;
-		stream << "id='2'" << std::endl;
-		stream << "to='1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com'" << std::endl;
-		stream << "type='chat'" << std::endl;
-		stream << "xml:lang='en'>" << std::endl;
-		stream << "<body>TEST HEJ</body>" << std::endl;
-		stream << "</message>" << std::endl;
+		stream << "<presence to='1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com' type='subscribe'/>" << std::endl;
 
 		SSLWriteSome(stream.str());
-		DebugPrintWrite(stream.str());
+		DebugPrintWrite(stream.str());*/
+
+		// Send a message
+		//SendChatMessage("1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com", "TEST");
 
 		// Read server response
 		/*readStr = SSLReadUntil(">");
@@ -241,6 +248,8 @@ void XmppConnection::Connect()
 		int accountId = 0;
 		std::shared_ptr<Message> message = std::make_shared<Message>(accountId, payload);
 		MessageBuffer::AddMessage(message);*/
+
+		StartAsyncReading();
 	}
 	catch (std::exception& exception)
 	{
@@ -252,17 +261,23 @@ void XmppConnection::CloseConnection()
 {
 	boost::system::error_code error_code;
 	tcp_socket->shutdown(boost::asio::ip::tcp::socket::shutdown_both, error_code);
-	if (error_code)
-	{
-		DebugPrintError(error_code);
-	}
-	tcp_socket->close();
+	tcp_socket->close(error_code);
 }
 
 void XmppConnection::SendChatMessage(std::string address, std::string message)
 {
-	// TODO
-	DebugPrint("XmppConnection::SendChatMessage - TODO");
+	std::stringstream stream;
+	stream << "<message from='" << jid << "'" << std::endl;
+	stream << "id='" << nextId << "'" << std::endl;
+	stream << "to='" << address << "'" << std::endl;
+	stream << "type='chat'" << std::endl;
+	stream << "xml:lang='en'>" << std::endl;
+	stream << "<body>" << message << "</body>" << std::endl;
+	stream << "</message>" << std::endl;
+	nextId++;
+
+	SSLWriteSome(stream.str());
+	DebugPrintWrite(stream.str());
 }
 
 // Protected
@@ -358,6 +373,72 @@ std::string XmppConnection::SSLReadUntil(std::string compareStr)
 	}
 
 	return readStr;
+}
+
+void XmppConnection::StartAsyncReading()
+{
+	ssl_socket->async_read_some(boost::asio::buffer(&readBuffer[readBufferIndex], bufferSize - readBufferIndex),
+		boost::bind(&XmppConnection::ReadHandler, this, _1, _2));
+}
+
+void XmppConnection::ReadHandler(const boost::system::error_code& error_code, size_t bytes_transfered)
+{
+	if (error_code)
+	{
+		DebugPrintError(error_code);
+	}
+	else
+	{
+		readBufferIndex += bytes_transfered;
+
+		std::string readStr;
+		readStr += readBuffer.data();
+		if (readStr.find("</message>") != std::string::npos)
+		{
+			readBuffer[bytes_transfered] = '\0';
+
+			// Parse address
+			int startPos = readStr.find("\"") + 1;;
+			int length = readStr.find("\/") - startPos;
+			std::string address = readStr.substr(startPos, length);
+
+			std::string payload = ParseElement(readStr, "<body>");
+			
+			// Find account with correct address
+			std::shared_ptr<Account> account = NULL;
+			for (std::vector<std::shared_ptr<Person>>::iterator it = persons->begin(); it != persons->end(); ++it)
+			{
+				std::shared_ptr<Person> person = *it;
+				std::vector<int> accountIds = person->GetAccountIds();
+				for (std::vector<int>::iterator idIt = accountIds.begin(); idIt != accountIds.end(); ++idIt)
+				{
+					int id = *idIt;
+					std::shared_ptr<Account> acc = person->GetAccount(id);
+					if (acc->GetAddress().compare(address) == 0)
+					{
+						account = acc;
+					}
+				}
+			}
+			if (account == NULL)
+			{
+				DebugPrint("Received message from unknown account address.");
+			}
+			else
+			{
+				std::shared_ptr<Message> message = std::make_shared<Message>(account->GetId(), payload);
+				MessageBuffer::AddMessage(message);
+			}
+
+			// Buffer cleanup
+			std::fill_n(readBuffer.begin(), readBuffer.size() - 1, '\0');
+			readBufferIndex = 0;
+		}
+
+		DebugPrint(readStr);
+
+		StartAsyncReading();
+	}
 }
 
 std::string XmppConnection::ParseElement(std::string xml, std::string elementType)

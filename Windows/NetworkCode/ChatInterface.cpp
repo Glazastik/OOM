@@ -10,14 +10,14 @@ void ChatInterface::Init()
 	chatModel = std::make_shared<ChatModel>();
 }
 
+void ChatInterface::Stop()
+{
+	chatModel->Cleanup();
+}
+
 void ChatInterface::ConnectService(int serviceType)
 {
 	chatModel->ConnectService(serviceType);
-}
-
-void ChatInterface::CloseService(int serviceType)
-{
-	chatModel->CloseService(serviceType);
 }
 
 // Return value is the account id of the message sender

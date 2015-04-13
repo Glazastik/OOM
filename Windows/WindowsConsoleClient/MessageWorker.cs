@@ -8,7 +8,7 @@ namespace WindowsConsoleClient
 {
     class MessageWorker
     {
-        private const int buffer_size = 1024;
+        private const int buffer_size = 4096;
 
         private volatile bool isWorking;
         private uint nextMessage;
@@ -41,7 +41,7 @@ namespace WindowsConsoleClient
 
         private void DebugPrint(string message)
         {
-            Console.WriteLine("Message thread> " + message);
+            Console.WriteLine("\nMessage thread> " + message + "\n");
         }
     }
 }

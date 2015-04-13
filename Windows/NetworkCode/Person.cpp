@@ -39,7 +39,7 @@ std::shared_ptr<Account> Person::GetAccount(int id)
 	}
 	if (account == NULL)
 	{
-		BOOST_LOG_TRIVIAL(debug) << "Error> Person::GetAccount - Account with specified id does not exist.";
+		BOOST_LOG_TRIVIAL(error) << "Person::GetAccount - Account with specified id does not exist.";
 	}
 	return account;
 }

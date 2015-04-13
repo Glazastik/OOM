@@ -2,11 +2,16 @@
 #include "GoogleHangout.h"
 #include "boost/lexical_cast.hpp"
 #include "boost/log/trivial.hpp"
+#include "boost/bind.hpp"
 
+// Public
 ChatModel::ChatModel()
 {
 	io_service = std::make_shared<boost::asio::io_service>();
-	chatServices.push_back(std::make_shared<GoogleHangout>(io_service, "kandidattest2015@gmail.com", "test2015"));
+	work = std::make_shared<boost::asio::io_service::work>(*io_service);
+	persons = std::make_shared<std::vector<std::shared_ptr<Person>>>();
+	chatServices.push_back(std::make_shared<GoogleHangout>(io_service, "kandidattest2015@gmail.com", "test2015", persons));
+	InitThreads(1);
 }
 
 ChatModel::~ChatModel()
@@ -31,33 +36,15 @@ void ChatModel::ConnectService(int serviceType)
 	}
 }
 
-void ChatModel::CloseService(int serviceType)
-{
-	std::shared_ptr<ChatService> chatService = NULL;
-	for (std::vector<std::shared_ptr<ChatService>>::iterator it = chatServices.begin(); it != chatServices.end(); ++it)
-	{
-		std::shared_ptr<ChatService> service = *it;
-		if (service->GetServiceType() == serviceType)
-		{
-			chatService = service;
-			chatService->CloseConnection();
-		}
-	}
-	if (chatService == NULL)
-	{
-		BOOST_LOG_TRIVIAL(error) << "ChatModel::CloseService - Couldn't find service: " << boost::lexical_cast<std::string>(serviceType);
-	}
-}
-
 void ChatModel::AddPerson(std::shared_ptr<Person> person)
 {
-	persons.push_back(person);
+	persons->push_back(person);
 }
 
 std::shared_ptr<Person> ChatModel::GetPerson(int id)
 {
 	std::shared_ptr<Person> person = NULL;
-	for (std::vector<std::shared_ptr<Person>>::iterator it = persons.begin(); it < persons.end(); ++it)
+	for (std::vector<std::shared_ptr<Person>>::iterator it = persons->begin(); it != persons->end(); ++it)
 	{
 		std::shared_ptr<Person> p = *it;
 		if (p->GetId() == id)
@@ -75,7 +62,7 @@ std::shared_ptr<Person> ChatModel::GetPerson(int id)
 std::shared_ptr<Account> ChatModel::GetAccount(int id)
 {
 	std::shared_ptr<Account> account = NULL;
-	for (std::vector<std::shared_ptr<Person>>::iterator it = persons.begin(); it < persons.end(); ++it)
+	for (std::vector<std::shared_ptr<Person>>::iterator it = persons->begin(); it != persons->end(); ++it)
 	{
 		std::shared_ptr<Person> p = *it;
 		std::vector<int> accountIds = p->GetAccountIds();
@@ -114,4 +101,31 @@ void ChatModel::SendChatMessage(int accountId, std::string message)
 			BOOST_LOG_TRIVIAL(error) << "ChatModel::SendChatMessage - Account has a ServiceType that does not exist: " << boost::lexical_cast<std::string>(serviceType);
 		}
 	}
+}
+
+void ChatModel::Cleanup()
+{
+	for (std::vector<std::shared_ptr<ChatService>>::iterator it = chatServices.begin(); it != chatServices.end(); ++it)
+	{
+		std::shared_ptr<ChatService> service = *it;
+		service->CloseConnection();
+	}
+	io_service->stop();
+	worker_threads.join_all();
+}
+
+// Private
+void ChatModel::InitThreads(int numThreads)
+{
+	for (int i = 0; i < numThreads; ++i)
+	{
+		worker_threads.create_thread(boost::bind(&ChatModel::WorkerThread, this));
+	}
+}
+
+void ChatModel::WorkerThread()
+{
+	BOOST_LOG_TRIVIAL(debug) << "Thread" << "[" << boost::this_thread::get_id() << "]" << " Start";
+	io_service->run();
+	BOOST_LOG_TRIVIAL(debug) << "Thread" << "[" << boost::this_thread::get_id() << "]" << " Stop";
 }

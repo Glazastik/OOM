@@ -5,7 +5,7 @@
 class GoogleHangout : public ChatService
 {
 public:
-	GoogleHangout(std::shared_ptr<boost::asio::io_service> io_service, std::string authid, std::string password);
+	GoogleHangout(std::shared_ptr<boost::asio::io_service> io_service, std::string authid, std::string password, std::shared_ptr<std::vector<std::shared_ptr<Person>>> persons);
 	~GoogleHangout();
 	ServiceType::Type GetServiceType();
 	void Connect();

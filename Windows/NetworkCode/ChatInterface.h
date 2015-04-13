@@ -6,8 +6,8 @@ class ChatInterface
 {
 public:
 	static void Init();
+	static void Stop();
 	static void ConnectService(int serviceType);
-	static void CloseService(int serviceType);
 	static int ReadMessage(size_t messageNum, char* messageBuffer, int bufferCapacity);
 	static int GetNumMessages();
 	static void AddPerson(int id, const char* name);

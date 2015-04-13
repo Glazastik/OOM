@@ -20,19 +20,19 @@ namespace WindowsConsoleClient
         }
 
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
+        private extern static void stop();
+
+        public static void Stop()
+        {
+            stop();
+        }
+
+        [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
         private extern static void connectService(int serviceType);
 
         public static void ConnectService(int serviceType)
         {
             connectService(serviceType);
-        }
-
-        [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
-        private extern static void closeService(int serviceType);
-
-        public static void CloseService(int serviceType)
-        {
-            closeService(serviceType);
         }
 
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
@@ -56,17 +56,17 @@ namespace WindowsConsoleClient
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
         private extern static void addPerson(int id, string name);
 
-        public static void AddPerson(int id, string name)
+        public static void AddPerson(Person person)
         {
-            addPerson(id, name);
+            addPerson(person.GetId(), person.GetName());
         }
 
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
         private extern static void addAccountToPerson(int personId, int accountId, int serviceType, string address);
 
-        public static void AddAccountToPerson(int personId, int accountId, int serviceType, string address)
+        public static void AddAccountToPerson(int personId, Account account)
         {
-            addAccountToPerson(personId, accountId, serviceType, address);
+            addAccountToPerson(personId, account.GetId(), account.GetServiceType(), account.GetAddress());
         }
 
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]

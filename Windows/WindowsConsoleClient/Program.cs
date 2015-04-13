@@ -31,7 +31,7 @@ namespace WindowsConsoleClient
 
             TestLoop();
 
-            ChatWrapper.CloseService(0);
+            ChatWrapper.Stop();
             messageWorker.StopWorking();
             messageThread.Join();
             DebugPrintLine("Message thread has terminated.");
@@ -53,13 +53,22 @@ namespace WindowsConsoleClient
         static private void TestLoop()
         {
             List<Person> persons = new List<Person>();
+            // Add Kandidattestelina test account
+            Person testPerson = new Person(nextPersonId, "Testelina");
+            nextPersonId++;
+            persons.Add(testPerson);
+            ChatWrapper.AddPerson(testPerson);
+            Account account = new Account(nextAccountId, 0, "1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com");
+            nextAccountId++;
+            testPerson.AddAccount(account);
+            ChatWrapper.AddAccountToPerson(testPerson.GetId(), account);
 
             int choice;
             bool isRunning = true;
             while (isRunning)
             {
                 PrintChoices();
-                DebugPrint("Enter number:");
+                DebugPrintLine("Enter number:");
                 string input = Console.ReadLine();
                 if (Int32.TryParse(input, out choice))
                 {
@@ -132,17 +141,17 @@ namespace WindowsConsoleClient
 
         static private void AddPerson(List<Person> persons)
         {
-            DebugPrint("Enter name:");
+            DebugPrintLine("Enter name:");
             string input = Console.ReadLine();
             Person person = new Person(nextPersonId, input);
             nextPersonId++;
             persons.Add(person);
-            ChatWrapper.AddPerson(person.GetId(), person.GetName());
+            ChatWrapper.AddPerson(person);
         }
 
         static private void AddAccountToPerson(List<Person> persons)
         {
-            DebugPrint("Enter Person id:");
+            DebugPrintLine("Enter Person id:");
             string input = Console.ReadLine();
             int id;
             if (Int32.TryParse(input, out id))
@@ -152,17 +161,17 @@ namespace WindowsConsoleClient
                     int personId = person.GetId();
                     if (personId == id)
                     {
-                        DebugPrint("Enter Account ServiceType:");
+                        DebugPrintLine("Enter Account ServiceType:");
                         input = Console.ReadLine();
                         int serviceType;
                         if (Int32.TryParse(input, out serviceType))
                         {
-                            DebugPrint("Enter Account Address:");
+                            DebugPrintLine("Enter Account Address:");
                             input = Console.ReadLine();
                             Account account = new Account(nextAccountId, serviceType, input);
                             nextAccountId++;
                             person.AddAccount(account);
-                            ChatWrapper.AddAccountToPerson(personId, account.GetId(), account.GetServiceType(), account.GetAddress());
+                            ChatWrapper.AddAccountToPerson(personId, account);
                             return;
                         }
                     }
@@ -173,12 +182,12 @@ namespace WindowsConsoleClient
 
         static private void SendMessage()
         {
-            DebugPrint("Enter account id:");
+            DebugPrintLine("Enter account id:");
             string input = Console.ReadLine();
             int accountId;
             if (Int32.TryParse(input, out accountId))
             {
-                DebugPrint("Enter Message:");
+                DebugPrintLine("Enter Message:");
                 input = Console.ReadLine();
                 ChatWrapper.SendChatMessage(accountId, input);
                 return;

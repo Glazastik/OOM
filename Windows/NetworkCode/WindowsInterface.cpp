@@ -9,14 +9,14 @@ __declspec(dllexport) void init()
 	ChatInterface::Init();
 }
 
+__declspec(dllexport) void stop()
+{
+	ChatInterface::Stop();
+}
+
 __declspec(dllexport) void connectService(int serviceType)
 {
 	ChatInterface::ConnectService(serviceType);
-}
-
-__declspec(dllexport) void closeService(int serviceType)
-{
-	ChatInterface::CloseService(serviceType);
 }
 
 __declspec(dllexport) int readMessage(size_t messageNum, char* messageBuffer, int bufferCapacity)
