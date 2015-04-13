@@ -1,40 +1,25 @@
 // NativeDLL.cpp : Defines the exported functions for the DLL application.
 //
-
 #include "stdafx.h"
 #include "NativeDLL.h"
 #include "..\NativeLib\Messenger.h"
 #include <map>
 #include <queue>
 #include <tuple>
-
 #include <iostream>
-
 #include <string>
 #include <fstream>
 
 using namespace std;
 
-// OBSOLETE
-map<unsigned int, Messenger*> g_theMessengers;
-queue<message_body> inbox_messages;
-queue<message_data> outbox_messages;
-
-/*map<unsigned int, message> in_messages;
-map<unsigned int, message> out_messages;*/
-
-// ACTIVE
-
-
-//typedef tuple<messenger, vector<wchar_t>, contact> message;	  //Ska ändras till struct
-
 Messenger* g_theMessenger;
 message in_message;
 message out_message;
 
-map<messenger, vector<contact>> list_of_contacts;     // Fixa implementation
+map<messenger, vector<contact>> list_of_contacts; 
 contact buffer_contact;
-vector<contact> buffer_contacts;		  //for multi threading
+vector<contact> buffer_contacts;
+
 //
 // CONSTRUCT AND DESTRUCT
 //
@@ -49,66 +34,25 @@ extern "C" NATIVEDLL_API void __cdecl DeleteMessenger()
 }
 
 //
-// OBSOLETE
-//
-/*extern "C" NATIVEDLL_API void __cdecl AddMessenger(unsigned int messengerId)
-{
-	static unsigned int s_nextWorkerId = 0;
-
-	unsigned int currWorkerId = s_nextWorkerId;
-	g_theMessengers[messengerId] = new Messenger(messengerId, "new.txt");
-
-	s_nextWorkerId++;
-}
-
-extern "C" NATIVEDLL_API void __cdecl DeleteMessenger(unsigned int messengerId)
-{
-	std::map<unsigned int, Messenger*>::iterator it;
-	it = g_theMessengers.find(messengerId);
-	if (it != g_theMessengers.end())
-	{
-		delete it->second;
-		g_theMessengers.erase(it);
-	}
-}	 */
-
- // CHANGE GET MESSAGE TO TAKE INTEGER AS PARAMETER FOR WHICH MESSENGER TO GET FROM
-
-//
 // Getting Messages
 //
-extern "C" __declspec(dllexport) bool __cdecl HasMessage(void)
+extern "C" __declspec(dllexport) bool __cdecl HasMessage(messenger msgr)
 {
-	return true;
+	return g_theMessenger->HasMessage(msgr);
 }
 
-extern "C" __declspec(dllexport) void __cdecl _GetMessage()
+extern "C" __declspec(dllexport) void __cdecl _GetMessage(messenger msgr)
 {
-	//messenger msgr = g_theMessenger->_GetMessenger();
-	//vector<wchar_t> data = g_theMessenger->_GetMessage();
-	//contact con = g_theMessenger->_GetContact();
-	//in_message = make_tuple(msgr, data, con);
-	in_message = g_theMessenger->_GetMessage();
-}
-
-extern "C" __declspec(dllexport) uint __cdecl GetMessageMessenger()
-{
-	//return get<0>(in_message);
-	return in_message.msgr;
+	in_message = g_theMessenger->_GetMessage(msgr);
 }
 
 extern "C" __declspec(dllexport) uint __cdecl GetMessageDataSize()
 {
-	//return get<1>(in_message).size();
 	return in_message.data_length;
 }
 
 extern "C" __declspec(dllexport) void __cdecl GetMessageData(wchar_t *pnt)
 {
-	/*for (uint i = 0; i < get<1>(in_message).size(); i++, pnt++)
-	{
-		*pnt = get<1>(in_message)[i];
-	}*/
 	for (int i = 0; i < in_message.data_length; i++, pnt++)
 	{
 		*pnt = in_message.data[i];
@@ -117,7 +61,6 @@ extern "C" __declspec(dllexport) void __cdecl GetMessageData(wchar_t *pnt)
 
 extern "C" __declspec(dllexport) uint __cdecl GetMessageCidSize()
 {
-	//return get<1>(in_message).size();
 	return in_message.cid_length;
 }
 
@@ -132,10 +75,6 @@ extern "C" __declspec(dllexport) void __cdecl GetMessageCid(wchar_t *pnt)
 //
 // Sending Messages
 //
-extern "C" __declspec(dllexport) void __cdecl SendMessageMessenger(messenger msgr)
-{
-	out_message.msgr = msgr;
-}
 
 extern "C" __declspec(dllexport) void __cdecl SendMessageData(const wchar_t *data, int length)
 {
@@ -157,9 +96,9 @@ extern "C" __declspec(dllexport) void __cdecl SendMessageCid(const wchar_t *cid,
 	}
 }
 
-extern "C" __declspec(dllexport) void __cdecl _SendMessage()
+extern "C" __declspec(dllexport) void __cdecl _SendMessage(messenger msgr)
 {
-	g_theMessenger->_SendMessage(out_message);
+	g_theMessenger->_SendMessage(msgr, out_message);
 }
 
 //
@@ -239,8 +178,6 @@ extern "C" __declspec(dllexport) bool __cdecl Login(uint messengerId, login *log
 //
 // Other functions
 //
-
-
 extern "C" __declspec(dllexport) bool __cdecl CallingBack(FUNCTION func)
 {
 	int i = 0;
@@ -248,10 +185,46 @@ extern "C" __declspec(dllexport) bool __cdecl CallingBack(FUNCTION func)
 	return true;
 }
 
+/* - - - - - - - - - - - - - - - - - - ------------ - - - - -- - - - -- - - -- - - - -- - - - - - */
+/* - - - - - - - - - - - - - - - - - - DONT CARE! OBSOLETE! -- - - - -- - - -- - - - -- - - - - - */
+/* - - - - - - - - - - - - - - - - - - ------------ - - - - -- - - - -- - - -- - - - -- - - - - - */
 
-/* -  - - - - - - - - - - -- - - - - - - ----------  -- - - - - -- - - - -- -  --  - - -- - - - - -*/
-/* -  - - - - - - - - - - -- - - - - - - DONT CARE!  -- - - - - -- - - - -- -  --  - - -- - - - - -*/
-/* -  - - - - - - - - - - -- - - - - - - ----------  -- - - - - -- - - - -- -  --  - - -- - - - - -*/
+// OBSOLETE
+map<unsigned int, Messenger*> g_theMessengers;
+queue<message_body> inbox_messages;
+queue<message_data> outbox_messages;
+
+/*map<unsigned int, message> in_messages;
+map<unsigned int, message> out_messages;*/
+
+// ACTIVE
+
+//typedef tuple<messenger, vector<wchar_t>, contact> message;	  //Ska ändras till struct
+
+
+//
+// OBSOLETE
+//
+/*extern "C" NATIVEDLL_API void __cdecl AddMessenger(unsigned int messengerId)
+{
+static unsigned int s_nextWorkerId = 0;
+
+unsigned int currWorkerId = s_nextWorkerId;
+g_theMessengers[messengerId] = new Messenger(messengerId, "new.txt");
+
+s_nextWorkerId++;
+}
+
+extern "C" NATIVEDLL_API void __cdecl DeleteMessenger(unsigned int messengerId)
+{
+std::map<unsigned int, Messenger*>::iterator it;
+it = g_theMessengers.find(messengerId);
+if (it != g_theMessengers.end())
+{
+delete it->second;
+g_theMessengers.erase(it);
+}
+}	 */
 
 extern "C" NATIVEDLL_API void __cdecl WriteMessageInt(unsigned int messengerId, int message)
 {

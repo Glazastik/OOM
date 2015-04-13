@@ -39,7 +39,7 @@ Messenger::~Messenger()
 
 }
 
-void Messenger::_SendMessage(message msg)
+void Messenger::_SendMessage(messenger msgr, message msg)
 {
 	ofstream textfile;
 	textfile.open(messengerFile, ios::out);
@@ -60,11 +60,9 @@ void Messenger::_SendMessage(message msg)
 	textfile.close();
 }
 
-message Messenger::_GetMessage()
+message Messenger::_GetMessage(messenger msgr)
 {
 	message temp;
-
-	temp.msgr = IRC;
 
 	temp.data_length = 3;
 	temp.data = new wchar_t[3];
@@ -117,6 +115,10 @@ vector<contact> Messenger::GetContacts(messenger msgr)
 	v.push_back(d);
 
 	return v;
+}
+bool Messenger::HasMessage(messenger msgr)
+{
+	return true;
 }
 
 /*unsigned int Messenger::_GetMessenger()

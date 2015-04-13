@@ -10,7 +10,6 @@ namespace TestConsole
 {
     class Program
     {
-
         static void Main(string[] args)
         {
             Console.Title = "Test";
@@ -48,7 +47,6 @@ namespace TestConsole
             String data = "data";
 
             Message msg;
-            msg.messenger = Messenger.irc;
             msg.data = data;
             msg.cid = "cid";
 
@@ -57,8 +55,8 @@ namespace TestConsole
             login.password = "qwerty";
             messenger.Login(Messenger.irc, login);
 
-            messenger.SendMessage(msg);
-            Console.WriteLine(messenger.GetMessage().data);
+            messenger.SendMessage(Messenger.irc, msg);
+            Console.WriteLine(messenger.GetMessage(Messenger.irc).data);
             
             List<Contact> contacts = messenger.GetContacts(Messenger.irc);
             Console.WriteLine(contacts[1].id);
@@ -85,12 +83,12 @@ namespace TestConsole
             if (ReceivedMessage != null)
                 ReceivedMessage(this, e);
         }
+
         public void MessageReceived(Object sender, EventArgs e)
         {
             Console.WriteLine("Message Received");
         }
 
         static Program[] heh = new Program[1];
-
     }
 }

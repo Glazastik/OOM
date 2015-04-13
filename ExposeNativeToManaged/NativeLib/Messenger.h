@@ -33,13 +33,10 @@ struct message_data {
 typedef unsigned int uint;
 typedef uint messenger;
 struct message {
-	messenger msgr;
 	int data_length;
 	wchar_t *data;
 	int cid_length;
 	wchar_t *cid;
-	/*vector < wchar_t > data;
-	vector < wchar_t > cid;	*/
 };
 
 struct contact {
@@ -77,13 +74,11 @@ public:
 	const int * ReadMessageIntArray(void);
 
 	// Sending and getting messages
-	void _SendMessage(message msg);
-	/*unsigned int _GetMessenger();
-	vector<wchar_t> _GetMessage();
-	contact _GetContact();
-	*/
-	message _GetMessage();
+	void _SendMessage(messenger msgr, message msg);
+	bool HasMessage(messenger msgr);
+	message _GetMessage(messenger msgr);
 
+	// Getting contacts
 	vector<contact> GetContacts(messenger);
 
 private:
