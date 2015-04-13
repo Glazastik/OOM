@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="119dp">
+
+        <Button
+            android:id="@+id/newContact"
+            android:layout_width="0.0dp" android:layout_height="fill_parent"
+            android:text="@string/landing_button1"
+            android:layout_weight="1.0"
+            android:background="?android:attr/selectableItemBackground"/>
+
+        <Button
+            android:id="@+id/landing_button2"
+            android:layout_width="0.0dp" android:layout_height="fill_parent"
+            android:text="@string/landing_button2"
+            android:layout_weight="1.0"
+            android:background="?android:attr/selectableItemBackground"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/list_landing"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+</LinearLayout>

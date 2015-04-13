@@ -1,5 +1,7 @@
 package se.chalmers.oomproject.oom;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -7,17 +9,24 @@ import java.util.ArrayList;
  */
 public class Conversation {
     private Contact contact;
-    private ArrayList<String> messages;
+    private ArrayList<Message> messages;
 
     public Conversation(Contact c){
         contact = c;
         messages = new ArrayList<>();
+        ArrayList<IService> services = new ArrayList<IService>();
+        services.add(new IService.Steam());
         for(int i = 0; i < 6; i++){
-            messages.add("This is message " + (int) (29 * Math.random()));
+            messages.add(new Message("This is message " + (int) (29 * Math.random()),services,c));
         }
     }
 
-    public ArrayList<String> getMessages(){ return messages; }
+    public void addMessage(Message m){
+        //TODO: Validation
+        messages.add(m);
+    }
+
+    public ArrayList<Message> getMessages(){ return messages; }
     public Contact getContact(){
         return contact;
     }

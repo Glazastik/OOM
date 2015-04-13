@@ -7,18 +7,23 @@ import java.util.ArrayList;
  */
 public class Contact {
 
-    private String firstName, nickName, lastName;
-    private ArrayList<Service> services;
-
-    public Contact(){
-        services = new ArrayList<Service>();
+    public static Contact Me = new Contact();
+    static {
+        Me.nickName = "Me";
     }
 
-    public ArrayList<Service> getServices() {
+    private String firstName, nickName, lastName;
+    private ArrayList<IService> services;
+
+    public Contact(){
+        services = new ArrayList<IService>();
+    }
+
+    public ArrayList<IService> getServices() {
         return services;
     }
 
-    public void addService(Service service) {
+    public void addService(IService service) {
         this.services.add(service);
     }
 
@@ -51,7 +56,4 @@ public class Contact {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-
-
 }
