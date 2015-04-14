@@ -55,8 +55,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Account.cs" />
+    <Compile Include="ChatWrapper.cs" />
     <Compile Include="Controls\ASGridView.cs" />
     <Compile Include="Controls\ASListView.cs" />
+    <Compile Include="MessageWorker.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Service.cs" />
     <Page Include="ContactEditWindow.xaml">
       <SubType>Designer</SubType>

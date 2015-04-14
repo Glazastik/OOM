@@ -76,5 +76,12 @@ namespace WPF_OOM
         {
             sendChatMessage(accountId, message);
         }
+            [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
+        private extern static int getServiceType(int accountId);
+
+        public static int GetServiceType(int accountId)
+        {
+            return getServiceType(accountId);
+        }
     }
 }
