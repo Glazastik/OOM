@@ -34,7 +34,7 @@ namespace WPF_OOM
         void PersonAccountChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             var s = (ObservableCollection<Account>) sender;
-            DraftMessage dm = new DraftMessage(s,DraftMessage.GetServices());
+            DraftMessage dm = new DraftMessage(s,DraftMessage.GetSelectedServices());
             this.DraftMessage = dm;
         }
 
@@ -54,11 +54,12 @@ namespace WPF_OOM
 
         public void SendMessage()
         {
-            if (!string.IsNullOrEmpty(DraftMessage.text) && DraftMessage.GetServices().Count != 0)
+            if (!string.IsNullOrEmpty(DraftMessage.text) && DraftMessage.GetSelectedServices().Count != 0)
             {
                 this.Messages.Add(DraftMessage.ToMessage());
+                ChatWrapper.SendChatMessage(DraftMessage);
                 DraftMessage dm = DraftMessage;
-                this.DraftMessage = new DraftMessage(Person.Accounts, dm.GetServices());
+                this.DraftMessage = new DraftMessage(Person.Accounts, dm.GetSelectedServices());
             }
         }
         

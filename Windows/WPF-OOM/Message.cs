@@ -50,25 +50,25 @@ namespace WPF_OOM
         public DraftMessage(ObservableCollection<Account> accounts, ObservableCollection<Service> selectedServices )
         {
             Services = new ObservableCollection<DraftService>();
-            List<Service> serviceList = new List<Service>();
+            Dictionary<Service,Account> sd = new Dictionary<Service, Account>();
             foreach (Account acc in accounts)
             {
-                serviceList.Add(ChatWrapper.GetServiceByServiceType(ChatWrapper.GetServiceType(acc.GetId())));
+                sd.Add(ChatWrapper.GetServiceByServiceType(ChatWrapper.GetServiceType(acc.GetId())),acc);
             }
-            foreach (Service s in serviceList)
+            foreach (var i in sd)
             {
-                Services.Add(selectedServices.Contains(s) ? new DraftService(s, true) : new DraftService(s, false));
+                Services.Add(selectedServices.Contains(i.Key) ? new DraftService(i.Key, true, i.Value) : new DraftService(i.Key, false, i.Value));
             }
         }
 
         public Message ToMessage()
         {
             
-            return new Message(text, Contact.Me, this.GetServices() );
+            return new Message(text, Contact.Me, this.GetSelectedServices());
 
         }
 
-        public ObservableCollection<Service> GetServices()
+        public ObservableCollection<Service> GetSelectedServices()
         {
             ObservableCollection<Service> services = new ObservableCollection<Service>();
             foreach (DraftService s in Services)
