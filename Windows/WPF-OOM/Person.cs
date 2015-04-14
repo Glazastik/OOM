@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WPF_OOM
 {
-    class Person
+    public class Person
     {
         private int id;
         private string name;
