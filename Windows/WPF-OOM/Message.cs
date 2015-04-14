@@ -50,7 +50,12 @@ namespace WPF_OOM
         public DraftMessage(ObservableCollection<Account> accounts, ObservableCollection<Service> selectedServices )
         {
             Services = new ObservableCollection<DraftService>();
-            foreach (Service s in services)
+            List<Service> serviceList = new List<Service>();
+            foreach (Account acc in accounts)
+            {
+                serviceList.Add(ChatWrapper.GetServiceByServiceType(ChatWrapper.GetServiceType(acc.GetId())));
+            }
+            foreach (Service s in serviceList)
             {
                 Services.Add(selectedServices.Contains(s) ? new DraftService(s, true) : new DraftService(s, false));
             }
