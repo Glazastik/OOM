@@ -12,26 +12,26 @@ namespace WPF_OOM
     public interface IMessage
     {
         string text { get; set; }
-        Contact sender { get; }
+        Person sender { get; }
         ObservableCollection<Account> Accounts { get; }
     }
     public class Message : IMessage
     {
         public string text { get; set; }
-        public Contact sender { get; private set; }
+        public Person sender { get; private set; }
         public ObservableCollection<Account> Accounts { get; private set; }
-        public Message(String s, Contact c, Account account)
+        public Message(String s, Person p, Account account)
         {
             Accounts = new ObservableCollection<Account>();
             Accounts.Add(account);
-            sender = c;
+            sender = p;
             text = s;
         }
 
-        public Message(String s, Contact c, ObservableCollection<Account> accounts)
+        public Message(String s, Person p, ObservableCollection<Account> accounts)
         {
             Accounts = accounts;
-            sender = c;
+            sender = p;
             text = s;
         }
     }
@@ -59,7 +59,7 @@ namespace WPF_OOM
         public Message ToMessage()
         {
             
-            return new Message(text, Contact.Me, this.GetSelectedAccounts());
+            return new Message(text, Person.Me, this.GetSelectedAccounts());
 
         }
 
