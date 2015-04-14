@@ -83,5 +83,18 @@ namespace WPF_OOM
         {
             return getServiceType(accountId);
         }
+
+        public static Service GetServiceByServiceType(int serviceType)
+        {
+            switch (serviceType)
+            {
+                case 0:
+                    return new GoogleHangouts();
+                case 1:
+                    return new IRC();
+            }
+            return null;
+
+        }
     }
 }
