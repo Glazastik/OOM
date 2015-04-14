@@ -27,14 +27,14 @@ namespace WPF_OOM
             Person = p;
             Messages = new ObservableCollection<Message>();
             //TODO: Change 2nd c.Services to new OC.
-            DraftMessage = new DraftMessage(Person.Accounts, new ObservableCollection<Service>());
+            DraftMessage = new DraftMessage(Person.Accounts, new ObservableCollection<Account>());
             Person.Accounts.CollectionChanged += PersonAccountChanged;
         }
 
         void PersonAccountChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             var s = (ObservableCollection<Account>) sender;
-            DraftMessage dm = new DraftMessage(s,DraftMessage.GetSelectedServices());
+            DraftMessage dm = new DraftMessage(s,DraftMessage.GetSelectedAccounts());
             this.DraftMessage = dm;
         }
 
@@ -54,12 +54,16 @@ namespace WPF_OOM
 
         public void SendMessage()
         {
-            if (!string.IsNullOrEmpty(DraftMessage.text) && DraftMessage.GetSelectedServices().Count != 0)
+            if (!string.IsNullOrEmpty(DraftMessage.text) && DraftMessage.GetSelectedAccounts().Count != 0)
             {
                 this.Messages.Add(DraftMessage.ToMessage());
-                ChatWrapper.SendChatMessage(DraftMessage);
+                foreach (Account acc in DraftMessage.GetSelectedAccounts())
+                {
+                    ChatWrapper.SendChatMessage(acc.GetId(), DraftMessage.text);
+                }
+                
                 DraftMessage dm = DraftMessage;
-                this.DraftMessage = new DraftMessage(Person.Accounts, dm.GetSelectedServices());
+                this.DraftMessage = new DraftMessage(Person.Accounts, dm.GetSelectedAccounts());
             }
         }
         
