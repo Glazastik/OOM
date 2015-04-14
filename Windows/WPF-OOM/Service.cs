@@ -18,6 +18,7 @@ namespace WPF_OOM
         string Name { get; }
         ImageSource Logo { get; }
         ImageSource OtherLogo { get; }
+
     }
     public class Facebook : Service
     {
@@ -54,10 +55,45 @@ namespace WPF_OOM
             OtherLogo = new BitmapImage(steamDarkUri);
         }
     }
+    public class GoogleHangouts : Service
+    {
+        public string Name { get; private set; }
+        public ImageSource Logo { get; private set; }
+        public ImageSource OtherLogo { get; private set; }
+
+        public GoogleHangouts()
+        {
+            Name = "Google Hangouts";
+
+            var steamUri = new Uri(@"/WPF-OOM;component/res/steam.png", UriKind.Relative);
+            Logo = new BitmapImage(steamUri);
+
+            var steamDarkUri = new Uri(@"/WPF-OOM;component/res/steamdark.png", UriKind.Relative);
+            OtherLogo = new BitmapImage(steamDarkUri);
+        }
+    }
+    public class IRC : Service
+    {
+        public string Name { get; private set; }
+        public ImageSource Logo { get; private set; }
+        public ImageSource OtherLogo { get; private set; }
+
+        public IRC()
+        {
+            Name = "IRC";
+
+            var steamUri = new Uri(@"/WPF-OOM;component/res/steam.png", UriKind.Relative);
+            Logo = new BitmapImage(steamUri);
+
+            var steamDarkUri = new Uri(@"/WPF-OOM;component/res/steamdark.png", UriKind.Relative);
+            OtherLogo = new BitmapImage(steamDarkUri);
+        }
+    }
 
     public class DraftService
     {
         private Service _service;
+        private Account account;
         public Service Service
         {
             get { return _service; }
@@ -80,5 +116,5 @@ namespace WPF_OOM
             this.Selected = selected;
         }
     }
-
+    
 }
