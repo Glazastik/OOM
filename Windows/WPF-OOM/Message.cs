@@ -13,24 +13,24 @@ namespace WPF_OOM
     {
         string text { get; set; }
         Contact sender { get; }
-        ObservableCollection<Service> Services { get; }
+        ObservableCollection<Account> Accounts { get; }
     }
     public class Message : IMessage
     {
         public string text { get; set; }
         public Contact sender { get; private set; }
-        public ObservableCollection<Service> Services { get; private set; }
-        public Message(String s, Contact c, Service service)
+        public ObservableCollection<Account> Accounts { get; private set; }
+        public Message(String s, Contact c, Account account)
         {
-            Services = new ObservableCollection<Service>();
-            Services.Add(service);
+            Accounts = new ObservableCollection<Account>();
+            Accounts.Add(account);
             sender = c;
             text = s;
         }
 
-        public Message(String s, Contact c, ObservableCollection<Service> services)
+        public Message(String s, Contact c, ObservableCollection<Account> accounts)
         {
-            Services = services;
+            Accounts = accounts;
             sender = c;
             text = s;
         }
