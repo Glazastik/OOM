@@ -14,9 +14,11 @@ namespace WPF_OOM
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string NickName { get; set; }
-        public ObservableCollection<Account> Accounts; 
+        public ObservableCollection<Account> Accounts;
+        public Conversation Conversation;
         public Person(int id, string name)
         {
+            this.Conversation = new Conversation(this);
             this.Accounts = new ObservableCollection<Account>();
             this.NickName = name;
             this.id = id;

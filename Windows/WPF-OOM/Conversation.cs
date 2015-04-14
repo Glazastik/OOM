@@ -7,7 +7,7 @@ namespace WPF_OOM
     
     public class Conversation : INotifyPropertyChanged
     {
-        public Contact Contact { get; private set; }
+        public Person Person { get; private set; }
         public ObservableCollection<Message> Messages { get; private set; }
         public event PropertyChangedEventHandler PropertyChanged;
         private DraftMessage _draftMessage;
@@ -22,13 +22,13 @@ namespace WPF_OOM
             }
         }
 
-        public Conversation(Contact c)
+        public Conversation(Person p)
         {
-            Contact = c;
+            Person = p;
             Messages = new ObservableCollection<Message>();
             //TODO: Change 2nd c.Services to new OC.
-            DraftMessage = new DraftMessage(c.Services, new ObservableCollection<Service>());
-            Contact.Services.CollectionChanged += ContactServicesChanged;
+            DraftMessage = new DraftMessage(Person.Accounts, new ObservableCollection<Service>());
+            Person.Accounts.CollectionChanged += ContactServicesChanged;
         }
 
         void ContactServicesChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -58,7 +58,7 @@ namespace WPF_OOM
             {
                 this.Messages.Add(DraftMessage.ToMessage());
                 DraftMessage dm = DraftMessage;
-                this.DraftMessage = new DraftMessage(Contact.Services, dm.GetServices());
+                this.DraftMessage = new DraftMessage(Person.Accounts, dm.GetServices());
             }
         }
         
