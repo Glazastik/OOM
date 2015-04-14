@@ -28,12 +28,12 @@ namespace WPF_OOM
             Messages = new ObservableCollection<Message>();
             //TODO: Change 2nd c.Services to new OC.
             DraftMessage = new DraftMessage(Person.Accounts, new ObservableCollection<Service>());
-            Person.Accounts.CollectionChanged += ContactServicesChanged;
+            Person.Accounts.CollectionChanged += PersonAccountChanged;
         }
 
-        void ContactServicesChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        void PersonAccountChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            var s = (ObservableCollection<Service>) sender;
+            var s = (ObservableCollection<Account>) sender;
             DraftMessage dm = new DraftMessage(s,DraftMessage.GetServices());
             this.DraftMessage = dm;
         }
