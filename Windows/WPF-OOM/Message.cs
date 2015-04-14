@@ -42,43 +42,38 @@ namespace WPF_OOM
 
         public Contact sender { get; private set; }
 
-        public ObservableCollection<DraftService> Services { get; private set; }
+        public ObservableCollection<Account.DraftAccount> Accounts { get; private set; }
 
         //Creates a new draft message and with a list of services and a list that should be a subset of those services.
         //If a service is in the subset, but not the whole set it will not be added.
         //If a service is in both it will be selected, if it is in just the set it will not be selected.
-        public DraftMessage(ObservableCollection<Account> accounts, ObservableCollection<Service> selectedServices )
+        public DraftMessage(ObservableCollection<Account> accounts, ObservableCollection<Account> selectedAccounts )
         {
-            Services = new ObservableCollection<DraftService>();
-            Dictionary<Service,Account> sd = new Dictionary<Service, Account>();
-            foreach (Account acc in accounts)
+            Accounts = new ObservableCollection<Account.DraftAccount>();
+            foreach (var acc in accounts)
             {
-                sd.Add(ChatWrapper.GetServiceByServiceType(ChatWrapper.GetServiceType(acc.GetId())),acc);
-            }
-            foreach (var i in sd)
-            {
-                Services.Add(selectedServices.Contains(i.Key) ? new DraftService(i.Key, true, i.Value) : new DraftService(i.Key, false, i.Value));
+                Accounts.Add(new Account.DraftAccount(acc, selectedAccounts.Contains(acc)));
             }
         }
 
         public Message ToMessage()
         {
             
-            return new Message(text, Contact.Me, this.GetSelectedServices());
+            return new Message(text, Contact.Me, this.GetSelectedAccounts());
 
         }
 
-        public ObservableCollection<Service> GetSelectedServices()
+        public ObservableCollection<Account> GetSelectedAccounts()
         {
-            ObservableCollection<Service> services = new ObservableCollection<Service>();
-            foreach (DraftService s in Services)
+            ObservableCollection<Account> accounts = new ObservableCollection<Account>();
+            foreach (Account.DraftAccount s in Accounts)
             {
                 if (s.Selected)
                 {
-                    services.Add(s.Service);
+                    accounts.Add(s.Account);
                 }
             }
-            return services;
+            return accounts;
         } 
     }
 }
