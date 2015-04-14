@@ -20,7 +20,7 @@ namespace WPF_OOM
         {
             this.Conversation = new Conversation(this);
             this.Accounts = new ObservableCollection<Account>();
-            this.NickName = name;
+            this.FirstName = name;
             this.id = id;
             this.name = name;
         }
@@ -69,5 +69,16 @@ namespace WPF_OOM
             }
             return account;
         }
+
+        private static Person _me;
+        public static Person Me { get {
+                if (_me == null)
+                {
+                    _me = new Person(-1, "Me");
+                }
+                return _me;
+            }
+        }
     }
+    
 }
