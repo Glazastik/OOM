@@ -28,6 +28,8 @@ namespace WPF_OOM
             nextPersonID = 0;
             nextAccountID = 0;
             this.Closing += this.HideWindow;
+            PersonList = new ObservableCollection<Person>();
+            conversations = new ObservableCollection<Conversation>();
 
             Person testPerson = new Person(nextPersonID, "Testelina");
             nextPersonID++;
@@ -38,8 +40,6 @@ namespace WPF_OOM
             nextAccountID++;
             testPerson.AddAccount(account);
             ChatWrapper.AddAccountToPerson(testPerson.GetId(), account);
-  
-            conversations = new ObservableCollection<Conversation>();
 
             Conversation t = new Conversation(testPerson);
 
