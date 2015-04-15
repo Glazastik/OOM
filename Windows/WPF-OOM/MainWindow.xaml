@@ -65,12 +65,12 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <ListView x:Name="ContactListView" DockPanel.Dock="Left" SelectionChanged="OnSelectContact" Background="Transparent" BorderThickness="0">
+        <ListView x:Name="ContactListView" DockPanel.Dock="Left" SelectionChanged="OnSelectPerson" Background="Transparent" BorderThickness="0">
             <ListView.Resources>
                 <ContextMenu x:Key="ItemContextMenu">
-                    <MenuItem Header="Edit details..." Click="EditContact"/>
+                    <MenuItem Header="Edit details..." Click="EditPerson"/>
                     <Separator />
-                    <MenuItem Header="Delete contact" Click ="DeleteContact"/>
+                    <MenuItem Header="Delete contact" Click ="DeletePerson"/>
                 </ContextMenu>
             </ListView.Resources>
             <ListView.ItemContainerStyle>
@@ -118,7 +118,7 @@
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="10"/>
                                         </Grid.RowDefinitions>
-                                        <ItemsControl Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Services}" BorderThickness="0">
+                                        <ItemsControl Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Accounts}" BorderThickness="0">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <StackPanel Orientation="Horizontal"></StackPanel>
@@ -155,7 +155,7 @@
                                     <RowDefinition Height="40" />
                                     <RowDefinition Height="40" />
                                 </Grid.RowDefinitions>
-                                <ItemsControl x:Name="ServiceItemsControl" Grid.Row="0" ItemsSource="{Binding DraftMessage.Services}">
+                                <ItemsControl x:Name="ServiceItemsControl" Grid.Row="0" ItemsSource="{Binding DraftMessage.Accounts}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <WrapPanel Orientation="Horizontal"/>
@@ -167,10 +167,10 @@
                                                 <Image Width="25" Height="25">
                                                     <Image.Style>
                                                         <Style TargetType="{x:Type Image}">
-                                                            <Setter Property="Source" Value="{Binding Service.OtherLogo}" />
+                                                            <Setter Property="Source" Value="{Binding Account.OtherLogo}" />
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
-                                                                    <Setter Property="Source" Value="{Binding Service.Logo}" />
+                                                                    <Setter Property="Source" Value="{Binding Account.Logo}" />
                                                                 </DataTrigger>
                                                             </Style.Triggers>
                                                         </Style>
