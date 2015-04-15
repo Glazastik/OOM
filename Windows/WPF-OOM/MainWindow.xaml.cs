@@ -85,7 +85,7 @@ namespace WPF_OOM
             if (sender is MenuItem)
             {
                 Person p = (Person)ContactListView.SelectedItem;
-                new ContactEditWindow(p, false);
+                new PersonEditWindow(p, false);
             }
         }
 

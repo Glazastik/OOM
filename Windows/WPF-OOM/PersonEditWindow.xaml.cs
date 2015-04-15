@@ -8,18 +8,18 @@ namespace WPF_OOM
     /// <summary>
     /// Interaction logic for ContactEditWindow.xaml
     /// </summary>
-    public partial class ContactEditWindow : Window
+    public partial class PersonEditWindow : Window
     {
-        private Contact contact;
-        private bool newContact;
-        public ContactEditWindow(Contact c, bool NewContact)
+        private Person person;
+        private bool newPerson;
+        public PersonEditWindow(Person p, bool NewPerson)
         {
-            newContact = NewContact;
+            newPerson = NewPerson;
             InitializeComponent();
-            contact = c;     
+            person = p;     
             this.Visibility = Visibility.Visible;
-            ContactGrid.DataContext = c;
-            if (newContact)
+            ContactGrid.DataContext = p;
+            if (newPerson)
             {
                 this.Title = "New contact";
             }
@@ -39,10 +39,10 @@ namespace WPF_OOM
                 be1.UpdateSource();
                 be2.UpdateSource();
                 be3.UpdateSource();
-                if (newContact)
+                if (newPerson)
                 {
-                    MainWindow.ContactList.Add(contact);
-                    MainWindow.conversations.Add(new Conversation(contact));
+                    MainWindow.PersonList.Add(person);
+                    MainWindow.conversations.Add(new Conversation(person));
                 }
 
                 this.Close();

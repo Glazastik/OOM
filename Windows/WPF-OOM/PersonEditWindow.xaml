@@ -1,4 +1,4 @@
-﻿<Window x:Class="WPF_OOM.ContactEditWindow"
+﻿<Window x:Class="WPF_OOM.PersonEditWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Edit contact" Height="300" Width="300">
