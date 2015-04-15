@@ -17,56 +17,42 @@ namespace WPF_OOM
     public partial class MainWindow : Window
     {
 
-        public static ObservableCollection<Contact> ContactList { get; private set; }
+        public static ObservableCollection<Person> PersonList { get; private set; }
         public static ObservableCollection<Conversation> conversations { get; private set; }
-        private Service fb;
-        public Service steam { get; private set; }
-        private Contact c;
+        public static int nextPersonID { get; private set; }
+        public static int nextAccountID { get; private set; }
+
         public MainWindow()
         {
+            nextPersonID = 0;
+            nextAccountID = 0;
             this.Closing += this.HideWindow;
-            fb = new Facebook();
-            steam = new Steam();
 
-            ContactList = new ObservableCollection<Contact>();
+            Person testPerson = new Person(nextPersonID, "Testelina");
+            nextPersonID++;
+            PersonList.Add(testPerson);
+            ChatWrapper.AddPerson(testPerson);
+            Account account = new Account(nextAccountID, 0, "1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com");
+            nextAccountID++;
+            testPerson.AddAccount(account);
+            ChatWrapper.AddAccountToPerson(testPerson.GetId(), account);
+  
             conversations = new ObservableCollection<Conversation>();
-            c = new Contact();
-            Contact d = new Contact();
-            c.FirstName = "Sven";
-            c.LastName = "Svensson";
-            d.FirstName = "Kalle";
-            d.LastName = "Karlsson";
-            c.addService(steam, new Account(0, 1, "1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com"));
-            Conversation t = new Conversation(c);
-            Conversation y = new Conversation(d);
-            Message m = new Message("this has logo", c, fb);
-            m.Services.Add(steam);
-            t.AddMessage(m);
-            t.AddMessage(new Message("hej", c, fb));
-            t.AddMessage(new Message("väldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtlångtmeddelande", Contact.Me, fb));
-            t.AddMessage(new Message("väldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtlångtmeddelande", Contact.Me, fb));
-            t.AddMessage(new Message("väldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtlångtmeddelande", Contact.Me, fb));
-            t.AddMessage(new Message("väldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtlångtmeddelande", Contact.Me, fb));
-            t.AddMessage(new Message("väldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtväldigtlångtmeddelande", Contact.Me, fb));
-            y.AddMessage(new Message("asdasdas", d, fb));
-            t.AddMessage(new Message("asdhsadg", c, fb));
+
+            Conversation t = new Conversation(testPerson);
 
             conversations.Add(t);
-            conversations.Add(y);
 
-            ContactList.Add(c);
-            ContactList.Add(d);
             InitializeComponent();
-            ContactListView.ItemsSource = ContactList;
             ChatTabControl.ItemsSource = conversations;
 
         }
 
-        private void OnSelectContact(object sender, SelectionChangedEventArgs e)
+        private void OnSelectPerson(object sender, SelectionChangedEventArgs e)
         {
             foreach (Conversation c in ChatTabControl.Items)
             {
-                if (c.Contact == ContactListView.SelectedItem)
+                if (c.Person == ContactListView.SelectedItem)
                 {
                     ChatTabControl.SelectedItem = c;
                     break;
@@ -94,25 +80,25 @@ namespace WPF_OOM
 
         }
 
-        private void EditContact(object sender, RoutedEventArgs e)
+        private void EditPerson(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem)
             {
-                Contact c = (Contact)ContactListView.SelectedItem;
-                new ContactEditWindow(c, false);
+                Person p = (Person)ContactListView.SelectedItem;
+                new ContactEditWindow(p, false);
             }
         }
 
-        private void DeleteContact(object sender, RoutedEventArgs e)
+        private void DeletePerson(object sender, RoutedEventArgs e)
         {
-            ContactList.Remove((Contact) ContactListView.SelectedItem);
+            PersonList.Remove((Person) PersonListView.SelectedItem);
             ContactListView.SelectedIndex = 0;
         }
 
-        private void NewContactMenu(object sender, RoutedEventArgs e)
-        {
-            new ContactEditWindow(new Contact(), true);
-        }
+        //private void NewPersonMenu(object sender, RoutedEventArgs e)
+        //{
+        //    new ContactEditWindow(new Person(), true);
+        //}
 
         private void Exit(object sender, RoutedEventArgs e)
         {
