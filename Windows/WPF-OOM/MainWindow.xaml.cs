@@ -52,7 +52,7 @@ namespace WPF_OOM
         {
             foreach (Conversation c in ChatTabControl.Items)
             {
-                if (c.Person == ContactListView.SelectedItem)
+                if (c.Person == PersonListView.SelectedItem)
                 {
                     ChatTabControl.SelectedItem = c;
                     break;
@@ -84,7 +84,7 @@ namespace WPF_OOM
         {
             if (sender is MenuItem)
             {
-                Person p = (Person)ContactListView.SelectedItem;
+                Person p = (Person) PersonListView.SelectedItem;
                 new PersonEditWindow(p, false);
             }
         }
@@ -92,13 +92,13 @@ namespace WPF_OOM
         private void DeletePerson(object sender, RoutedEventArgs e)
         {
             PersonList.Remove((Person) PersonListView.SelectedItem);
-            ContactListView.SelectedIndex = 0;
+            PersonListView.SelectedIndex = 0;
         }
 
-        //private void NewPersonMenu(object sender, RoutedEventArgs e)
-        //{
+        private void NewPersonMenu(object sender, RoutedEventArgs e)
+        {
         //    new ContactEditWindow(new Person(), true);
-        //}
+        }
 
         private void Exit(object sender, RoutedEventArgs e)
         {

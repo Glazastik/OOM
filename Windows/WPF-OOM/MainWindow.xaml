@@ -58,14 +58,14 @@
                 <MenuItem Header="_Exit" Click="Exit" />
             </MenuItem>
             <MenuItem Header="_Contacts">
-                <MenuItem Header="New contact..." Click="NewContactMenu"/>
+                <MenuItem Header="New contact..." Click="NewPersonMenu"/>
                 <MenuItem Header="Sort by">
                     <MenuItem Header="MMR" IsChecked="True"/>
                     <MenuItem Header="Alphabetical" IsChecked="False"/>
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <ListView x:Name="ContactListView" DockPanel.Dock="Left" SelectionChanged="OnSelectPerson" Background="Transparent" BorderThickness="0">
+        <ListView x:Name="PersonListView" DockPanel.Dock="Left" SelectionChanged="OnSelectPerson" Background="Transparent" BorderThickness="0">
             <ListView.Resources>
                 <ContextMenu x:Key="ItemContextMenu">
                     <MenuItem Header="Edit details..." Click="EditPerson"/>
