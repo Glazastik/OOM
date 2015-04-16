@@ -1,4 +1,4 @@
-#include "IRCClient.h"
+#include "IRCConnection.h"
 #include "Message.h"
 #include <boost/regex.hpp>
 
