@@ -30,18 +30,21 @@
     <ClInclude Include="Parsing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IRCMain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IRCClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IRCConnection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Parsing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IRCMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

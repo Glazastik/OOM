@@ -2,8 +2,7 @@
 #include "Message.h"
 #include <boost/regex.hpp>
 
-static const std::string servername = "irc.rizon.net";
-static const std::string port = "6667";
+
 
 IRCConnection::IRCConnection(std::string const& host, std::string const&port) :hostname(host), port(port), socket(io_service){
 	boost::bind(&IRCConnection::on_connect, this);
@@ -128,30 +127,3 @@ std::string IRCConnection::getChannel(){
 }
 
 
-int main()
-{
-	// Setup connection
-	IRCConnection irc(servername, port);
-
-
-	// Connect
-	irc.setChannel("chat");
-
-	irc.connect("testpw", "test123", "test123", irc.getChannel());
-	irc.setReciever("kimoz");
-	std::string msg;
-
-	while (getline(std::cin, msg))
-	{
-		if (msg[0] == '/'){
-			msg = message::sendServerMsg(msg.substr(1, msg.length()));
-		}
-		else if (msg[0] == '+'){
-			msg = message::sendPrivateMessage(msg.substr(1, msg.length()), irc.getChannel(), irc.getReciever());
-		}
-		else{
-			msg = message::sendChannelMsg(msg, irc.getChannel());
-		}
-		irc.send(msg);
-	}
-}

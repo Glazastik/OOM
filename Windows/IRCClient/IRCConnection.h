@@ -1,7 +1,13 @@
+#ifndef IRCCONNECTION_H
+#define IRCCONNECTION_H
+
+
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 #include <iostream>
 #include <string>
+
+
 
 class IRCConnection
 {
@@ -46,3 +52,4 @@ private:
 
 };
 
+#endif;
