@@ -18,7 +18,6 @@ namespace WPF_OOM
         public Person(int id, string name)
         {
             this.Accounts = new ObservableCollection<Account>();
-            this.Conversation = new Conversation(this);        
             this.FirstName = name;
             this.id = id;
             this.name = name;

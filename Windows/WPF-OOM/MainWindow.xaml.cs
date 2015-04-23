@@ -35,18 +35,21 @@ namespace WPF_OOM
             nextPersonID++;
             PersonList = new ObservableCollection<Person>();
             PersonList.Add(testPerson);
+
             ChatWrapper.AddPerson(testPerson);
             Account account = new Account(nextAccountID, 0, "1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com");
             nextAccountID++;
             testPerson.AddAccount(account);
-            ChatWrapper.AddAccountToPerson(testPerson.GetId(), account);
 
+            ChatWrapper.AddAccountToPerson(testPerson.GetId(), account);
+            ChatWrapper.ConnectService(0);
             Conversation t = new Conversation(testPerson);
 
-            conversations.Add(t);
+            
 
             InitializeComponent();
             ChatTabControl.ItemsSource = conversations;
+            conversations.Add(t);
             
         }
 
