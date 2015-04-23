@@ -49,6 +49,7 @@ namespace WPF_OOM
 
             InitializeComponent();
             ChatTabControl.ItemsSource = conversations;
+            PersonListView.ItemsSource = PersonList;
             conversations.Add(t);
             
         }
