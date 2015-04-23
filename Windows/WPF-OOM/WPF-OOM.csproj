@@ -61,11 +61,10 @@
     <Compile Include="Controls\ASListView.cs" />
     <Compile Include="MessageWorker.cs" />
     <Compile Include="Person.cs" />
+    <Compile Include="PersonEditWindow.xaml.cs">
+      <DependentUpon>PersonEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Service.cs" />
-    <Page Include="ContactEditWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="CustomToggleButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -79,14 +78,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Contact.cs" />
-    <Compile Include="ContactEditWindow.xaml.cs">
-      <DependentUpon>ContactEditWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Conversation.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PersonEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

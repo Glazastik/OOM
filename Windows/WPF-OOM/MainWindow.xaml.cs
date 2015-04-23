@@ -24,12 +24,14 @@ namespace WPF_OOM
 
         public MainWindow()
         {
+            ChatWrapper.Init();
             nextPersonID = 0;
             nextAccountID = 0;
             this.Closing += this.HideWindow;
 
             Person testPerson = new Person(nextPersonID, "Testelina");
             nextPersonID++;
+            PersonList = new ObservableCollection<Person>();
             PersonList.Add(testPerson);
             ChatWrapper.AddPerson(testPerson);
             Account account = new Account(nextAccountID, 0, "1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com");
@@ -45,7 +47,7 @@ namespace WPF_OOM
 
             InitializeComponent();
             ChatTabControl.ItemsSource = conversations;
-
+            
         }
 
         private void OnSelectPerson(object sender, SelectionChangedEventArgs e)
@@ -102,6 +104,7 @@ namespace WPF_OOM
 
         private void Exit(object sender, RoutedEventArgs e)
         {
+            ChatWrapper.Stop();
             Environment.Exit(0);
         }
 
