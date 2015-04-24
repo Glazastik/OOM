@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms.VisualStyles;
@@ -21,10 +22,17 @@ namespace WPF_OOM
         public static ObservableCollection<Conversation> conversations { get; private set; }
         public static int nextPersonID { get; private set; }
         public static int nextAccountID { get; private set; }
+        private MessageWorker messageWorker;
+        private Thread messageThread;
 
         public MainWindow()
         {
             ChatWrapper.Init();
+            messageWorker = new MessageWorker();
+            messageThread = new Thread(messageWorker.DoWork);
+            messageThread.Start();
+            while (!messageThread.IsAlive);
+
             nextPersonID = 0;
             nextAccountID = 0;
             this.Closing += this.HideWindow;
@@ -109,6 +117,8 @@ namespace WPF_OOM
         private void Exit(object sender, RoutedEventArgs e)
         {
             ChatWrapper.Stop();
+            messageWorker.StopWorking();
+            messageThread.Join();
             Environment.Exit(0);
         }
 
