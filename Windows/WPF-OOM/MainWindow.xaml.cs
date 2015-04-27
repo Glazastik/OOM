@@ -59,7 +59,7 @@ namespace WPF_OOM
             ChatTabControl.ItemsSource = conversations;
             PersonListView.ItemsSource = PersonList;
             conversations.Add(t);
-            
+
         }
 
         private void OnSelectPerson(object sender, SelectionChangedEventArgs e)
@@ -116,10 +116,19 @@ namespace WPF_OOM
 
         private void Exit(object sender, RoutedEventArgs e)
         {
+            Trace.WriteLine("EXITING");
             ChatWrapper.Stop();
+            Trace.WriteLine("CHATWRAPPER STOPPED");
             messageWorker.StopWorking();
+            Trace.WriteLine("MESSAGEWORKER STOPPED WORKING");
             messageThread.Join();
+            Trace.WriteLine("THREAD JOINED");
             Environment.Exit(0);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            this.Exit(this, null);
         }
 
         private void HideWindow(object sender, CancelEventArgs e)
