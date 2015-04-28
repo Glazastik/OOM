@@ -37,7 +37,7 @@ public class NewContactFragment extends android.support.v4.app.Fragment {
                     c.setFirstName(((EditText) v.findViewById(R.id.fnBox)).getText().toString());
                     c.setLastName(((EditText) v.findViewById(R.id.lnBox)).getText().toString());
                     c.setNickName(((EditText) v.findViewById(R.id.nnBox)).getText().toString());
-                    data.addNewContact(c, getActivity());
+                    data.addNewPerson(c, getActivity());
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction()
                             .replace(R.id.container, ConversationFragment.newInstance(data.getPersons().indexOf(c)))
