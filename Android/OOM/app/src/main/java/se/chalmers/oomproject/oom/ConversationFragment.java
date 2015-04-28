@@ -1,14 +1,19 @@
 package se.chalmers.oomproject.oom;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -17,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,13 +57,18 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
     }
 
     public ConversationFragment() {
-    }
 
+    }
+    public void onCreateOptionsMenu(
+            Menu menu, MenuInflater inflater) {
+        Log.d("CF", "inflating conversation actionbar");
+        inflater.inflate(R.menu.conversation, menu);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
-
+        this.setHasOptionsMenu(true);
         log = (ListView) v.findViewById(R.id.chatLogView);
         log.setAdapter(new MessageAdapter(this.getActivity(),
                 conversation.getMessages()));
@@ -75,6 +86,8 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
 
 
         Button sendButton = (Button) v.findViewById(R.id.chatSendButton);
+        Button accountButton = (Button) v.findViewById(R.id.edit_item_btn);
+
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +101,10 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
         setHasOptionsMenu(true);
 
         return v;
+
+    }
+    private void openServiceSelection(){
+        
 
     }
 
