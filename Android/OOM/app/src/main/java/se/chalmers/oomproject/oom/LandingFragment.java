@@ -19,6 +19,7 @@ import android.widget.ListView;
 public class LandingFragment extends android.support.v4.app.Fragment {
 
     private static DataSingleton data;
+
     /**
      * Returns a new instance of this fragment for the given conversation.
      */

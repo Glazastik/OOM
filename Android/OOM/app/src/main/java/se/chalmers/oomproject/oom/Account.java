@@ -14,12 +14,12 @@ public class Account {
     private String serviceName;
     private String logoId, logo2Id;
 
-    public Account(int id, int serviceType, String address){
+    public Account(int id, int serviceType, String address) {
         this.id = id;
         this.serviceType = serviceType;
         this.address = address;
 
-        switch(serviceType){
+        switch (serviceType) {
             case 0:
                 this.serviceName = "Google Hangouts";
                 logoId = "google";
@@ -35,19 +35,19 @@ public class Account {
         }
     }
 
-    public String getServiceName(){
+    public String getServiceName() {
         return serviceName;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    public int getServiceType(){
+    public int getServiceType() {
         return serviceType;
     }
 
-    public String getAddress(){
+    public String getAddress() {
         return address;
     }
 

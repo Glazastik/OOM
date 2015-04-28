@@ -38,36 +38,37 @@ public class Person {
     private String lastName;
     private ArrayList<Account> accounts;
 
-    public Person (int id, String name){
+    public Person(int id, String name) {
         this.accounts = new ArrayList<>();
         this.firstName = name;
         this.name = name;
         this.id = id;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void addAccount(Account a){
+    public void addAccount(Account a) {
         accounts.add(a);
     }
 
-    public ArrayList<Integer> getAccountIds(){
+    public ArrayList<Integer> getAccountIds() {
         ArrayList<Integer> ids = new ArrayList<>();
-        for(Account a : accounts){
+        for (Account a : accounts) {
             ids.add(a.getId());
         }
         return ids;
     }
 
     private static Person me;
-    public static Person me (){
-        if (me != null){
+
+    public static Person me() {
+        if (me != null) {
             return me;
         } else {
             me = new Person(-1, "Me");

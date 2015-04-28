@@ -19,6 +19,7 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
     private boolean isContact = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,7 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if(position == 0) {
+        if (position == 0) {
             fragmentManager.beginTransaction()
                     .replace(R.id.container, LandingFragment.newInstance())
                     .commit();
@@ -55,7 +56,7 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
-    public void onSectionAttached(String title, boolean b){
+    public void onSectionAttached(String title, boolean b) {
         mTitle = title;
         isContact = b;
     }
@@ -66,7 +67,7 @@ public class MainActivity extends ActionBarActivity
 
     }
 
-    public void onSectionAttached(){
+    public void onSectionAttached() {
         mTitle = getString(R.string.app_name);
         isContact = false;
     }
@@ -88,7 +89,7 @@ public class MainActivity extends ActionBarActivity
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.main, menu);
 
-            if(!isContactFragment()){
+            if (!isContactFragment()) {
                 //Hide contact configuration if no contact is up.
                 menu.findItem(R.id.action_contact).setVisible(false);
             }
@@ -117,7 +118,8 @@ public class MainActivity extends ActionBarActivity
 
         return super.onOptionsItemSelected(item);
     }
-    public void updateDrawer(){
+
+    public void updateDrawer() {
         mNavigationDrawerFragment.updateDrawer();
     }
 

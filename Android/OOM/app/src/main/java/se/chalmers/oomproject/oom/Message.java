@@ -9,18 +9,22 @@ public class Message {
     private String text;
     private ArrayList<Account> accounts;
     private Person sender;
-    public Message(String message, ArrayList<Account> accounts, Person sender){
+
+    public Message(String message, ArrayList<Account> accounts, Person sender) {
         this.text = message;
         this.sender = sender;
         this.accounts = accounts;
     }
-    public String getText(){
+
+    public String getText() {
         return text;
     }
-    public ArrayList<Account> getAccounts(){
+
+    public ArrayList<Account> getAccounts() {
         return accounts;
     }
-    public Person getSender(){
+
+    public Person getSender() {
         return sender;
     }
 }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
  */
 public class LandingAdapter extends ArrayAdapter<Conversation> {
     private Context context;
+
     public LandingAdapter(Context context, ArrayList<Conversation> conversations) {
         super(context, 0, conversations);
         this.context = context;
@@ -31,7 +32,7 @@ public class LandingAdapter extends ArrayAdapter<Conversation> {
             TextView tvName = (TextView) convertView.findViewById(R.id.landing_item_name);
             TextView tvText = (TextView) convertView.findViewById(R.id.landing_item_text);
             tvName.setText(con.getContact().getNickName());
-            if(con.getMessages().size() > 0) {
+            if (con.getMessages().size() > 0) {
                 tvText.setText(con.getMessages().get(con.getMessages().size() - 1).getText());
             } else {
                 tvText.setText("Nothing to display here :(");

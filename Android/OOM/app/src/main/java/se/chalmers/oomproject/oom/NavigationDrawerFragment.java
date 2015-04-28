@@ -107,7 +107,8 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }
-    public void updateDrawer(){
+
+    public void updateDrawer() {
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
@@ -118,7 +119,7 @@ public class NavigationDrawerFragment extends Fragment {
     private String[] getDrawerList() {
 
         ArrayList<String> list = (ArrayList<String>) DataSingleton.getInstance().getConversationNames();
-        list.add(0,"Landing");
+        list.add(0, "Landing");
 
         return list.toArray(new String[list.size()]);
     }

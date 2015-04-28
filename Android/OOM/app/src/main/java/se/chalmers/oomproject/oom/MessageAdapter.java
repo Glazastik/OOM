@@ -16,6 +16,7 @@ import java.util.ArrayList;
  */
 public class MessageAdapter extends ArrayAdapter<Message> {
     private Context context;
+
     public MessageAdapter(Context context, ArrayList<Message> messages) {
         super(context, 0, messages);
         this.context = context;
@@ -31,7 +32,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         }
         LinearLayout serviceList = (LinearLayout) convertView.findViewById(R.id.serviceList);
         serviceList.removeAllViews();
-        for(Account a : message.getAccounts()){
+        for (Account a : message.getAccounts()) {
             ImageView logoView = new ImageView(this.context);
             logoView.setImageDrawable(a.getLogo(this.context));
             logoView.setAdjustViewBounds(true);

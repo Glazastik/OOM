@@ -64,12 +64,12 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     sendMessage();
-                    ((TextView)v).setText("");
+                    ((TextView) v).setText("");
                     return true;
                 }
                 return false;
             }
-        } );
+        });
 
 
         Button sendButton = (Button) v.findViewById(R.id.chatSendButton);
@@ -91,9 +91,9 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
     private void sendMessage() {
         String text = chatField.getText().toString().trim();
         ArrayList<Account> accounts = new ArrayList<Account>();
-        if(text.length()!=0) {
+        if (text.length() != 0) {
             chatField.setText("");
-            conversation.addMessage(new Message(text,accounts,Person.me()));
+            conversation.addMessage(new Message(text, accounts, Person.me()));
             ((ArrayAdapter<Message>) log.getAdapter()).notifyDataSetChanged();
             hideSoftKeyboard();
         }
@@ -130,7 +130,7 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction()
                             .replace(R.id.container, LandingFragment.newInstance())

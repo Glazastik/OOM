@@ -13,8 +13,9 @@ public class DataSingleton {
     private ArrayList<Conversation> conversations;
 
     private static DataSingleton instance;
-    public static DataSingleton getInstance(){
-        if(instance != null){
+
+    public static DataSingleton getInstance() {
+        if (instance != null) {
             return instance;
         } else {
             instance = new DataSingleton();
@@ -25,9 +26,9 @@ public class DataSingleton {
     // Hidden constructor
     private DataSingleton() {
         persons = new ArrayList<>();
-        Person c1 = new Person(0,"Hest");
+        Person c1 = new Person(0, "Hest");
         c1.setNickName("Glaz");
-        Person c2 = new Person(1,"Hest");
+        Person c2 = new Person(1, "Hest");
         c2.setNickName("Meddan");
 
         persons.add(c1);
@@ -48,9 +49,9 @@ public class DataSingleton {
         return conversations;
     }
 
-    public ArrayList<String> getConversationNames(){
+    public ArrayList<String> getConversationNames() {
         ArrayList<String> names = new ArrayList<>();
-        for(Conversation c : conversations){
+        for (Conversation c : conversations) {
             names.add(c.getPerson().getNickName());
         }
         return names;

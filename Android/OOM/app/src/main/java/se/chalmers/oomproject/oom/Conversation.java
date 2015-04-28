@@ -9,18 +9,21 @@ public class Conversation {
     private Person person;
     private ArrayList<Message> messages;
 
-    public Conversation(Person p){
+    public Conversation(Person p) {
         person = p;
         messages = new ArrayList<>();
     }
 
-    public void addMessage(Message m){
+    public void addMessage(Message m) {
         //TODO: Validation
         messages.add(m);
     }
 
-    public ArrayList<Message> getMessages(){ return messages; }
-    public Person getPerson(){
+    public ArrayList<Message> getMessages() {
+        return messages;
+    }
+
+    public Person getPerson() {
         return person;
     }
 }
