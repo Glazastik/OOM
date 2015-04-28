@@ -64,4 +64,14 @@ public class Person {
         }
         return ids;
     }
+
+    private static Person me;
+    public static Person me (){
+        if (me != null){
+            return me;
+        } else {
+            me = new Person(-1, "Me");
+            return me;
+        }
+    }
 }

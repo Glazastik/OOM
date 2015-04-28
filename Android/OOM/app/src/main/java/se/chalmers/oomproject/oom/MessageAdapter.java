@@ -31,9 +31,9 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         }
         LinearLayout serviceList = (LinearLayout) convertView.findViewById(R.id.serviceList);
         serviceList.removeAllViews();
-        for(IService s : message.getServices()){
+        for(Account a : message.getAccounts()){
             ImageView logoView = new ImageView(this.context);
-            logoView.setImageDrawable(s.getLogo(this.context));
+            logoView.setImageDrawable(a.getLogo(this.context));
             logoView.setAdjustViewBounds(true);
             logoView.setMaxHeight(24);
             logoView.setMaxWidth(24);

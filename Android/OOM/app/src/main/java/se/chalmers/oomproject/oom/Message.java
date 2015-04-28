@@ -7,20 +7,20 @@ import java.util.ArrayList;
  */
 public class Message {
     private String text;
-    private ArrayList<IService> services;
-    private Contact sender;
-    public Message(String message, ArrayList<IService> services, Contact sender){
+    private ArrayList<Account> accounts;
+    private Person sender;
+    public Message(String message, ArrayList<Account> accounts, Person sender){
         this.text = message;
         this.sender = sender;
-        this.services = services;
+        this.accounts = accounts;
     }
     public String getText(){
         return text;
     }
-    public ArrayList<IService> getServices(){
-        return services;
+    public ArrayList<Account> getAccounts(){
+        return accounts;
     }
-    public Contact getSender(){
+    public Person getSender(){
         return sender;
     }
 }

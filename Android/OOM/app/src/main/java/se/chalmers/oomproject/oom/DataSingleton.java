@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class DataSingleton {
 
-    private ArrayList<Contact> contacts;
+    private ArrayList<Person> persons;
     private ArrayList<Conversation> conversations;
 
     private static DataSingleton instance;
@@ -24,14 +24,14 @@ public class DataSingleton {
 
     // Hidden constructor
     private DataSingleton() {
-        contacts = new ArrayList<>();
-        Contact c1 = new Contact();
-        c1.setName("Anton", "Glaz", "Myrholm");
-        Contact c2 = new Contact();
-        c2.setName("Christoffer", "Meddan", "Medin");
+        persons = new ArrayList<>();
+        Person c1 = new Person(0,"Hest");
+        c1.setNickName("Glaz");
+        Person c2 = new Person(1,"Hest");
+        c2.setNickName("Meddan");
 
-        contacts.add(c1);
-        contacts.add(c2);
+        persons.add(c1);
+        persons.add(c2);
 
         conversations = new ArrayList<>();
         Conversation con1 = new Conversation(c1);
@@ -40,8 +40,8 @@ public class DataSingleton {
         conversations.add(con2);
     }
 
-    public ArrayList<Contact> getContacts() {
-        return contacts;
+    public ArrayList<Person> getPersons() {
+        return persons;
     }
 
     public ArrayList<Conversation> getConversations() {
@@ -51,7 +51,7 @@ public class DataSingleton {
     public ArrayList<String> getConversationNames(){
         ArrayList<String> names = new ArrayList<>();
         for(Conversation c : conversations){
-            names.add(c.getContact().getNickName());
+            names.add(c.getPerson().getNickName());
         }
         return names;
     }
@@ -60,8 +60,8 @@ public class DataSingleton {
         return conversations.get(i).getMessages();
     }
 
-    public void addNewContact(Contact c, Activity a) {
-        this.contacts.add(c);
+    public void addNewPerson(Person c, Activity a) {
+        this.persons.add(c);
         this.conversations.add(new Conversation(c));
         ((MainActivity) a).updateDrawer();
     }

@@ -81,7 +81,7 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
         });
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        String title = conversation.getContact().getNickName();
+        String title = conversation.getPerson().getNickName();
         getActionBar().setTitle(title);
 
         return v;
@@ -90,12 +90,10 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
 
     private void sendMessage() {
         String text = chatField.getText().toString().trim();
-        ArrayList<IService> services = new ArrayList<IService>();
-        services.add(new IService.Facebook());
-        services.add(new IService.Steam());
+        ArrayList<Account> accounts = new ArrayList<Account>();
         if(text.length()!=0) {
             chatField.setText("");
-            conversation.addMessage(new Message(text,services,Contact.Me));
+            conversation.addMessage(new Message(text,accounts,Person.me()));
             ((ArrayAdapter<Message>) log.getAdapter()).notifyDataSetChanged();
             hideSoftKeyboard();
         }
