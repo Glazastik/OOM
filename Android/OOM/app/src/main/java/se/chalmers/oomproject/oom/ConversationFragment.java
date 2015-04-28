@@ -81,7 +81,7 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
         });
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        String title = conversation.getPerson().getNickName();
+        String title = conversation.getPerson().getName();
         getActionBar().setTitle(title);
 
         return v;

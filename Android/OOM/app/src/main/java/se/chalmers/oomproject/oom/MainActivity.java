@@ -62,7 +62,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void onSectionAttached(Conversation con) {
-        mTitle = con.getContact().getNickName();
+        mTitle = con.getPerson().getName();
         isContact = true;
 
     }

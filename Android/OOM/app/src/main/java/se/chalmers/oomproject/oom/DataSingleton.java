@@ -26,10 +26,8 @@ public class DataSingleton {
     // Hidden constructor
     private DataSingleton() {
         persons = new ArrayList<>();
-        Person c1 = new Person(0, "Hest");
-        c1.setNickName("Glaz");
-        Person c2 = new Person(1, "Hest");
-        c2.setNickName("Meddan");
+        Person c1 = new Person(0, "Glaz");
+        Person c2 = new Person(1, "Meddan");
 
         persons.add(c1);
         persons.add(c2);
@@ -52,7 +50,7 @@ public class DataSingleton {
     public ArrayList<String> getConversationNames() {
         ArrayList<String> names = new ArrayList<>();
         for (Conversation c : conversations) {
-            names.add(c.getPerson().getNickName());
+            names.add(c.getPerson().getName());
         }
         return names;
     }

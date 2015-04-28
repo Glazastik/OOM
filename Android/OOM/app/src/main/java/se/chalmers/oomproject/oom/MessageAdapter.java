@@ -43,7 +43,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
         TextView tvSender = (TextView) convertView.findViewById(R.id.tvSender);
         TextView tvText = (TextView) convertView.findViewById(R.id.tvText);
-        tvSender.setText(message.getSender().getNickName());
+        tvSender.setText(message.getSender().getName());
         tvText.setText(message.getText());
         return convertView;
     }

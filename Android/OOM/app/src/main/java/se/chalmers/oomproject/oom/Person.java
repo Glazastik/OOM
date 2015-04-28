@@ -9,38 +9,10 @@ public class Person {
     private int id;
     private String name;
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    private String firstName;
-    private String nickName;
-    private String lastName;
     private ArrayList<Account> accounts;
 
     public Person(int id, String name) {
         this.accounts = new ArrayList<>();
-        this.firstName = name;
         this.name = name;
         this.id = id;
     }
@@ -51,6 +23,10 @@ public class Person {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void addAccount(Account a) {

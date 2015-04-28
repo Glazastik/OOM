@@ -31,7 +31,7 @@ public class LandingAdapter extends ArrayAdapter<Conversation> {
 
             TextView tvName = (TextView) convertView.findViewById(R.id.landing_item_name);
             TextView tvText = (TextView) convertView.findViewById(R.id.landing_item_text);
-            tvName.setText(con.getContact().getNickName());
+            tvName.setText(con.getPerson().getName());
             if (con.getMessages().size() > 0) {
                 tvText.setText(con.getMessages().get(con.getMessages().size() - 1).getText());
             } else {
