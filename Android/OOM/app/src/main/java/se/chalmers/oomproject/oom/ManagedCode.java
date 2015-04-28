@@ -36,9 +36,9 @@ public class ManagedCode {
     public native void SetByteArrayMethod(byte[] byteArray);
 
     // object methods
-    //public native Contact getContact();
-    //public native void setContact(Contact contact);
-    //public native Contact[] getContacts();
+    //public native Person getPerson();
+    //public native void setPerson(Person person);
+    //public native Person[] getPersons();
 
     // C# functions
     public native void initiliaze();
@@ -48,7 +48,7 @@ public class ManagedCode {
     public native boolean hasMessage(int msgr);
     //public native Message getMessage(int msgr);
     //public native void sendMessage(int msgr, Message msg);
-    //public native Contact[] getContacts(int msgr);
+    //public native Person[] getPersons(int msgr);
 
     public ManagedCode() {
 

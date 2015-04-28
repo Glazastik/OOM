@@ -6,6 +6,6 @@
         app:showAsAction="withText|ifRoom" />
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/action_contact" android:title="@string/action_contact"
+    <item android:id="@+id/action_person" android:title="@string/action_person"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

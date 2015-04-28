@@ -18,7 +18,7 @@ public class MainActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
-    private boolean isContact = false;
+    private boolean isPerson = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,18 +58,18 @@ public class MainActivity extends ActionBarActivity
 
     public void onSectionAttached(String title, boolean b) {
         mTitle = title;
-        isContact = b;
+        isPerson = b;
     }
 
     public void onSectionAttached(Conversation con) {
         mTitle = con.getPerson().getName();
-        isContact = true;
+        isPerson = true;
 
     }
 
     public void onSectionAttached() {
         mTitle = getString(R.string.app_name);
-        isContact = false;
+        isPerson = false;
     }
 
     public void restoreActionBar() {
@@ -89,9 +89,9 @@ public class MainActivity extends ActionBarActivity
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.main, menu);
 
-            if (!isContactFragment()) {
-                //Hide contact configuration if no contact is up.
-                menu.findItem(R.id.action_contact).setVisible(false);
+            if (!isPersonFragment()) {
+                //Hide person configuration if no person is up.
+                menu.findItem(R.id.action_person).setVisible(false);
             }
 
             restoreActionBar();
@@ -100,8 +100,8 @@ public class MainActivity extends ActionBarActivity
         return super.onCreateOptionsMenu(menu);
     }
 
-    private boolean isContactFragment() {
-        return isContact;
+    private boolean isPersonFragment() {
+        return isPerson;
     }
 
     @Override

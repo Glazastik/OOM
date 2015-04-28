@@ -53,13 +53,13 @@ public class LandingFragment extends android.support.v4.app.Fragment {
 
             }
         });
-        Button newContact = (Button) v.findViewById(R.id.newContact);
-        newContact.setOnClickListener(new View.OnClickListener() {
+        Button newPerson = (Button) v.findViewById(R.id.newPerson);
+        newPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, NewContactFragment.newInstance()).addToBackStack("landing")
+                        .replace(R.id.container, NewPersonFragment.newInstance()).addToBackStack("landing")
                         .commit();
 
 

@@ -11,7 +11,7 @@
         android:layout_height="119dp">
 
         <Button
-            android:id="@+id/newContact"
+            android:id="@+id/newPerson"
             android:layout_width="0.0dp" android:layout_height="fill_parent"
             android:text="@string/landing_button1"
             android:layout_weight="1.0"

@@ -11,21 +11,21 @@ import android.widget.EditText;
 /**
  * Created by meddan on 26/03/15.
  */
-public class NewContactFragment extends android.support.v4.app.Fragment {
+public class NewPersonFragment extends android.support.v4.app.Fragment {
     private static DataSingleton data;
 
-    public static NewContactFragment newInstance() {
+    public static NewPersonFragment newInstance() {
         data = DataSingleton.getInstance();
-        return new NewContactFragment();
+        return new NewPersonFragment();
     }
 
-    public NewContactFragment() {
+    public NewPersonFragment() {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_newcontact, container, false);
+        View v = inflater.inflate(R.layout.fragment_newperson, container, false);
         Button b = (Button) v.findViewById(R.id.createButton);
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View b) {
