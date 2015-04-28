@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,7 +22,7 @@ namespace WPF_OOM
         public static ObservableCollection<Person> PersonList { get; private set; }
         public static ObservableCollection<Conversation> conversations { get; private set; }
         public static int nextPersonID { get; private set; }
-        public static int nextAccountID { get; private set; }
+        public static int nextAccountID { get; set; }
         private MessageWorker messageWorker;
         private Thread messageThread;
 
@@ -111,7 +112,8 @@ namespace WPF_OOM
 
         private void NewPersonMenu(object sender, RoutedEventArgs e)
         {
-        //    new ContactEditWindow(new Person(), true);
+            nextPersonID++;
+            new PersonEditWindow(new Person(nextPersonID-1,""), true);
         }
 
         private void Exit(object sender, RoutedEventArgs e)
@@ -136,6 +138,11 @@ namespace WPF_OOM
             e.Cancel = true;
             //this.WindowState = WindowState.Minimized;
             Environment.Exit(0);
+        }
+
+        private void newService(object sender, RoutedEventArgs e)
+        {
+            new EditAccountWindow(PersonList.First());
         }
     }
 }

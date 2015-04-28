@@ -54,6 +54,7 @@
                 <Separator />
                 <MenuItem Header="_Log off" />
                 <MenuItem Header="_Exit" Click="Exit" />
+                <MenuItem Header="_New Service" Click="newService"/>
             </MenuItem>
             <MenuItem Header="_Contacts">
                 <MenuItem Header="New contact..." Click="NewPersonMenu"/>

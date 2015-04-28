@@ -25,6 +25,7 @@
             <Button Grid.Row="4" Grid.Column="1" Content="Accept" Click="AcceptButtonClick"></Button>
             <Button Grid.Row="4" Grid.Column="2" Content="Cancel" Click="CancelButtonClick"></Button>
             <Label x:Name="ErrorLabel" Grid.Row="6" Grid.Column="0" />
+            <Button Grid.Row="4" Grid.Column="0" Content="Add service" Click="AddServiceButtonClick"></Button>
     </Grid>
     
 </Window>

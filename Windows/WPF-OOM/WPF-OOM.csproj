@@ -59,6 +59,9 @@
     <Compile Include="ChatWrapper.cs" />
     <Compile Include="Controls\ASGridView.cs" />
     <Compile Include="Controls\ASListView.cs" />
+    <Compile Include="EditAccountWindow.xaml.cs">
+      <DependentUpon>EditAccountWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MessageWorker.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="PersonEditWindow.xaml.cs">
@@ -66,6 +69,10 @@
     </Compile>
     <Compile Include="Service.cs" />
     <Page Include="CustomToggleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditAccountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

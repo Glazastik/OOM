@@ -60,5 +60,10 @@ namespace WPF_OOM
         {
             this.Close();
         }
+
+        private void AddServiceButtonClick(object sender, RoutedEventArgs e)
+        {
+            new EditAccountWindow(this.person);
+        }
     }
 }
