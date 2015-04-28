@@ -1,7 +1,5 @@
 package se.chalmers.oomproject.oom;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 /**

@@ -2,16 +2,11 @@ package se.chalmers.oomproject.oom;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 
 /**
  * Created by meddan on 26/03/15.

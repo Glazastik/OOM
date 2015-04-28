@@ -1,7 +1,6 @@
 package se.chalmers.oomproject.oom;
 
 import android.app.Activity;
-import android.provider.ContactsContract;
 
 import java.util.ArrayList;
 
