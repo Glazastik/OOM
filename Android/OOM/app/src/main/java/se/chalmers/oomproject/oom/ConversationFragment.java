@@ -104,8 +104,7 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
 
     }
     private void openServiceSelection(){
-        
-
+        new SelectAccountDialogFragment();
     }
 
     private void sendMessage() {

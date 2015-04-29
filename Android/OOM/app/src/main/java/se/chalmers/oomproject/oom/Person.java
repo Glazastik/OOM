@@ -9,10 +9,25 @@ public class Person {
     private int id;
     private String name;
 
+    public ArrayList<Account> getAccounts() {
+        return accounts;
+    }
+
     private ArrayList<Account> accounts;
+
+    public ArrayList<Account> getSelectedAccounts() {
+        return selectedAccounts;
+    }
+
+    public void setSelectedAccounts(ArrayList<Account> selectedAccounts) {
+        this.selectedAccounts = selectedAccounts;
+    }
+
+    private ArrayList<Account> selectedAccounts;
 
     public Person(int id, String name) {
         this.accounts = new ArrayList<>();
+        this.selectedAccounts = new ArrayList<>();
         this.name = name;
         this.id = id;
     }
