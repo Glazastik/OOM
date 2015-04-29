@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity"
     android:id="@+id/conversation_menu">
     <item
-    android:id="@+id/edit_item_btn"
+    android:id="@+id/serviceBtn"
     android:orderInCategory="10"
     android:title="Services"
     app:showAsAction="withText|ifRoom">

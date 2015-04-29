@@ -63,6 +63,14 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
             Menu menu, MenuInflater inflater) {
         Log.d("CF", "inflating conversation actionbar");
         inflater.inflate(R.menu.conversation, menu);
+        /*Button accountButton = (Button) v.findViewById(R.id.serviceBtn);
+        Log.d("CF", accountButton.toString());
+        accountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openServiceSelection();
+            }
+        });*/
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,7 +94,6 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
 
 
         Button sendButton = (Button) v.findViewById(R.id.chatSendButton);
-        Button accountButton = (Button) v.findViewById(R.id.edit_item_btn);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +111,7 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
 
     }
     private void openServiceSelection(){
-        new SelectAccountDialogFragment();
+        new SelectAccountDialogFragment(this.conversation.getPerson());
     }
 
     private void sendMessage() {
