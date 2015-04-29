@@ -231,13 +231,15 @@ void XmppConnection::Connect()
 		DebugPrintRead(readStr);
 
 		// Presence
-		/*stream.str("");
+		stream.str("");
 		stream.clear();
-		stream << "<presence to='1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com' type='subscribe'/>" << std::endl;
+		stream << "<presence>" << std::endl;
+		stream << "<priority>'1'</priority>" << std::endl;
+		stream << "</presence>" << std::endl;
 
 		SSLWriteSome(stream.str());
-		DebugPrintWrite(stream.str());*/
-
+		DebugPrintWrite(stream.str());
+		
 		// Send a message
 		//SendChatMessage("1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com", "TEST");
 
@@ -398,7 +400,7 @@ void XmppConnection::ReadHandler(const boost::system::error_code& error_code, si
 			readBuffer[bytes_transfered] = '\0';
 
 			// Parse address
-			int startPos = readStr.find("\"") + 1;;
+			int startPos = readStr.find("\"") + 1;
 			int length = readStr.find("\/") - startPos;
 			std::string address = readStr.substr(startPos, length);
 
