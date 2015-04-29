@@ -31,6 +31,8 @@ public class DataSingleton {
 
         persons.add(c1);
         persons.add(c2);
+        c1.addAccount(new Account(0,0,"asd"));
+        c2.addAccount(new Account(0,0,"asd"));
 
         c1.addAccount(new Account(0,0,"google"));
 

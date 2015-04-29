@@ -1,5 +1,7 @@
 package se.chalmers.oomproject.oom;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -20,6 +22,7 @@ public class Person {
     }
 
     public void setSelectedAccounts(ArrayList<Account> selectedAccounts) {
+        Log.d("PERSON","" +selectedAccounts.size());
         this.selectedAccounts = selectedAccounts;
     }
 

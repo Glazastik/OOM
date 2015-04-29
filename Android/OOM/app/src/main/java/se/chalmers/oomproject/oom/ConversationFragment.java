@@ -63,14 +63,6 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
             Menu menu, MenuInflater inflater) {
         Log.d("CF", "inflating conversation actionbar");
         inflater.inflate(R.menu.conversation, menu);
-        /*Button accountButton = (Button) v.findViewById(R.id.serviceBtn);
-        Log.d("CF", accountButton.toString());
-        accountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openServiceSelection();
-            }
-        });*/
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -111,7 +103,9 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
 
     }
     private void openServiceSelection(){
-        new SelectAccountDialogFragment(this.conversation.getPerson());
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        SelectAccountDialogFragment.newInstance(this.conversation.getPerson()).show(fragmentManager, "asdasd" );
+
     }
 
     private void sendMessage() {
@@ -176,6 +170,9 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
             fragmentManager.beginTransaction()
                     .replace(R.id.container, PersonEditFragment.newInstance(conversation.getPerson())).addToBackStack("conversation")
                     .commit();
+        } else if (item.getItemId() == R.id.serviceBtn){
+            Log.d("CF","service button");
+            openServiceSelection();
         }
 
         return super.onOptionsItemSelected(item);
