@@ -32,6 +32,8 @@ public class DataSingleton {
         persons.add(c1);
         persons.add(c2);
 
+        c1.addAccount(new Account(0,0,"google"));
+
         conversations = new ArrayList<>();
         Conversation con1 = new Conversation(c1);
         Conversation con2 = new Conversation(c2);

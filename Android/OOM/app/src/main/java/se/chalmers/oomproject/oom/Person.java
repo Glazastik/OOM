@@ -33,6 +33,10 @@ public class Person {
         accounts.add(a);
     }
 
+    public ArrayList<Account> getAccounts(){
+        return accounts;
+    }
+
     public ArrayList<Integer> getAccountIds() {
         ArrayList<Integer> ids = new ArrayList<>();
         for (Account a : accounts) {

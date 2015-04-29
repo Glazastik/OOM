@@ -63,12 +63,20 @@
             android:layout_column="0" />
 
             <ListView
-                android:layout_width="wrap_content"
+                android:layout_width="225dp"
                 android:layout_height="140dp"
-                android:id="@+id/listView"
+                android:id="@+id/edit_account_list"
                 android:layout_column="1"
+                android:fadeScrollbars="false"
                 />
         </TableRow>
     </TableLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_add"
+        android:id="@+id/button"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
