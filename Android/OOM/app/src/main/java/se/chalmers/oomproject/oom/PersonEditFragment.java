@@ -1,10 +1,12 @@
 package se.chalmers.oomproject.oom;
 
+import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -37,9 +39,9 @@ public class PersonEditFragment extends android.support.v4.app.Fragment {
         View v = inflater.inflate(R.layout.fragment_editperson, container, false);
         TextView editName = (TextView) v.findViewById(R.id.edit_person_name);
         ListView lv = (ListView) v.findViewById(R.id.edit_account_list);
+        Button addButton = (Button) v.findViewById(R.id.edit_add_button);
 
         editName.setText(person.getName());
-
 
         List<Map<String, String>> data = new ArrayList<Map<String, String>>();
         for (Account a : person.getAccounts()) {
@@ -55,8 +57,16 @@ public class PersonEditFragment extends android.support.v4.app.Fragment {
                 new int[] {android.R.id.text1,
                         android.R.id.text2});
 
-
         lv.setAdapter(adapter);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                AccountAddFragment a = AccountAddFragment.newInstance(person);
+                a.show(fm,"add_account");
+            }
+        });
 
         return v;
     }
