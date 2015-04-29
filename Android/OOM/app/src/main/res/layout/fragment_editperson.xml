@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="20dp">
+
+            <ImageView
+                android:background="@drawable/user"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:id="@+id/imageView2"
+                android:layout_column="0" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingTop="30dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_name"
+                android:id="@+id/textView"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_column="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Example name"
+                android:textSize="20sp"
+                android:id="@+id/edit_person_name"
+                android:layout_column="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingTop="30dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_account_text"
+            android:id="@+id/ePersonAccountText"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_column="0" />
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="140dp"
+                android:id="@+id/listView"
+                android:layout_column="1"
+                />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

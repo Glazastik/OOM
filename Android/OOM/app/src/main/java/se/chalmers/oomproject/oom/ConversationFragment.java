@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -83,6 +85,7 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
 
         String title = conversation.getPerson().getName();
         getActionBar().setTitle(title);
+        setHasOptionsMenu(true);
 
         return v;
 
@@ -142,4 +145,16 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.action_person){
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, PersonEditFragment.newInstance(conversation.getPerson())).addToBackStack("conversation")
+                    .commit();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

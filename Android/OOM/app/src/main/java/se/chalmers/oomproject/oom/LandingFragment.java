@@ -63,7 +63,6 @@ public class LandingFragment extends android.support.v4.app.Fragment {
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, NewPersonFragment.newInstance()).addToBackStack("landing")
                         .commit();
-
             }
         });
 
