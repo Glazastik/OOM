@@ -11,10 +11,6 @@ public class Person {
     private int id;
     private String name;
 
-    public ArrayList<Account> getAccounts() {
-        return accounts;
-    }
-
     private ArrayList<Account> accounts;
 
     public ArrayList<Account> getSelectedAccounts() {
