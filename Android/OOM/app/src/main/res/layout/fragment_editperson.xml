@@ -76,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/edit_add"
-        android:id="@+id/button"
+        android:id="@+id/edit_add_button"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
