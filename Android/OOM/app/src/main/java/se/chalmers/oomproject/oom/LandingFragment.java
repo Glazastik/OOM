@@ -46,8 +46,9 @@ public class LandingFragment extends android.support.v4.app.Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                clearBackStack();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, ConversationFragment.newInstance(position)).addToBackStack("landing")
+                        .replace(R.id.container, ConversationFragment.newInstance(position))
                         .commit();
 
 
@@ -58,10 +59,10 @@ public class LandingFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                clearBackStack();
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, NewPersonFragment.newInstance()).addToBackStack("landing")
                         .commit();
-
 
             }
         });
@@ -79,6 +80,14 @@ public class LandingFragment extends android.support.v4.app.Fragment {
 
     private ActionBar getActionBar() {
         return ((ActionBarActivity) getActivity()).getSupportActionBar();
+    }
+
+    private void clearBackStack() {
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        if (manager.getBackStackEntryCount() > 0) {
+            FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
+            manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
 
 

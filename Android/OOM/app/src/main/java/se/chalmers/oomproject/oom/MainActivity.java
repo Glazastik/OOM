@@ -44,6 +44,7 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
+        clearBackStack();
         if (position == 0) {
             fragmentManager.beginTransaction()
                     .replace(R.id.container, LandingFragment.newInstance())
@@ -121,6 +122,14 @@ public class MainActivity extends ActionBarActivity
 
     public void updateDrawer() {
         mNavigationDrawerFragment.updateDrawer();
+    }
+
+    private void clearBackStack() {
+        FragmentManager manager = getSupportFragmentManager();
+        if (manager.getBackStackEntryCount() > 0) {
+            FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
+            manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
 
 }
