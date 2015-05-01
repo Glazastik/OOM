@@ -1,65 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="25dp">
     <TableLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tableLayout">
-        <TableRow android:layout_width="fill_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="FirstName"
-                android:id="@+id/fnView" />
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/fnBox"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:inputType="text"/>
-        </TableRow>
-        <TableRow android:layout_width="fill_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nickname"
-                android:id="@+id/nnView" />
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/nnBox"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:inputType="text"/>
-        </TableRow>
-        <TableRow android:layout_width="fill_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lastname"
-                android:id="@+id/lnView" />
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/lnBox"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:inputType="text"/>
-        </TableRow>
-        <TableRow>
-
-        </TableRow>
 
     </TableLayout>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create"
+        android:text="Add person"
         android:layout_gravity="end"
-        android:layout_below="@+id/tableLayout"
-        android:layout_alignParentRight="true"
         android:id="@+id/createButton"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/nnBox"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nnBox"
+        android:layout_weight="1"
+        android:maxLines="1"
+        android:inputType="text|textCapWords"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="Enter name"
+        android:layout_toStartOf="@+id/createButton"
+        android:layout_alignRight="@+id/tableLayout"
+        android:layout_alignEnd="@+id/tableLayout" />
 </RelativeLayout>
