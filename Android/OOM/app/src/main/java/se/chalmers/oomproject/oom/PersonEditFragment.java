@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class PersonEditFragment extends android.support.v4.app.Fragment {
     private static DataSingleton data;
     private static Person person;
+    private ListView lv;
 
     public static PersonEditFragment newInstance(Person p){
         data = DataSingleton.getInstance();
@@ -38,7 +40,7 @@ public class PersonEditFragment extends android.support.v4.app.Fragment {
 
         View v = inflater.inflate(R.layout.fragment_editperson, container, false);
         TextView editName = (TextView) v.findViewById(R.id.edit_person_name);
-        ListView lv = (ListView) v.findViewById(R.id.edit_account_list);
+        lv = (ListView) v.findViewById(R.id.edit_account_list);
         Button addButton = (Button) v.findViewById(R.id.edit_add_button);
 
         editName.setText(person.getName());
@@ -58,6 +60,15 @@ public class PersonEditFragment extends android.support.v4.app.Fragment {
                         android.R.id.text2});
 
         lv.setAdapter(adapter);
+
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                person.getAccounts().remove(position);
+                ((SimpleAdapter) lv.getAdapter()).notifyDataSetChanged();
+                return true;
+            }
+        });
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
