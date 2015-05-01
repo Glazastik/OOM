@@ -14,6 +14,8 @@ public class DataSingleton {
 
     private static DataSingleton instance;
 
+    private static int accountId = 0;
+
     public static DataSingleton getInstance() {
         if (instance != null) {
             return instance;
@@ -67,5 +69,9 @@ public class DataSingleton {
         this.persons.add(c);
         this.conversations.add(new Conversation(c));
         ((MainActivity) a).updateDrawer();
+    }
+
+    public int nextAccountId(){
+        return accountId++;
     }
 }
