@@ -2,6 +2,7 @@ package se.chalmers.oomproject.oom;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ public class AccountAddFragment extends DialogFragment {
     private static Person person;
     private EditText serviceText;
     private RadioGroup rg;
+    private static Conversation con;
 
     public static AccountAddFragment newInstance(Person p){
         person = p;
@@ -51,6 +53,10 @@ public class AccountAddFragment extends DialogFragment {
                 }
 
                 person.addAccount(new Account(id,service,serviceText.getText().toString().trim()));
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, PersonEditFragment.newInstance(person))
+                        .commit();
                 getDialog().dismiss();
             }
         });
