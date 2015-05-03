@@ -1,0 +1,24 @@
+0. Delete Android NDK
+1. Install Crystax NDK (crystax.net)
+2. Update PATH (Env.Var) with Crystax NDK folder
+3. Create a user variable named ANDROID_NDK_ROOT and set it to Crystax NDK folder
+4. Update build.gradle:
+	--> See Crystax.net
+
+5. Build within Android Studio
+ 
+---- SSL is needed ----
+
+0. Download prebuilt SSL v.1.0.2 here:
+		https://github.com/emileb/OpenSSL-for-Android-Prebuilt
+		
+1. Put OpenSSL-for-Android-Prebuilt include folder (/openssl/) under:
+$(ANDROID_NDK_ROOT)\sources\boost\1.57.0\include\
+
+2. Create folder "openssl-libs" under:
+	$(ANDROID_NDK_ROOT)\sources\boost\1.57.0\
+	
+3. Copy the 'x86' and 'armeabi-v7a' to 'openssl-libs' folder.
+
+4. Done.
+
