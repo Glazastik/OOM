@@ -12,6 +12,8 @@ public class DataSingleton {
     private ArrayList<Person> persons;
     private ArrayList<Conversation> conversations;
     private ChatWrapper cw;
+    private MessageWorker messageWorker;
+
 
     private static DataSingleton instance;
 
@@ -32,6 +34,11 @@ public class DataSingleton {
         persons = new ArrayList<>();
         Person c1 = new Person(0, "Glaz");
         Person c2 = new Person(1, "Testelina");
+
+        messageWorker = new MessageWorker(cw);
+        messageWorker.start();
+        while(!messageWorker.isAlive()){}
+
 
         persons.add(c1);
         persons.add(c2);
