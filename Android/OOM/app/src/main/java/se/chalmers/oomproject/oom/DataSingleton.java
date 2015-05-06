@@ -13,6 +13,7 @@ public class DataSingleton {
     private ArrayList<Conversation> conversations;
     private ChatWrapper cw;
     private MessageWorker messageWorker;
+    private Activity activity;
 
 
     private static DataSingleton instance;
@@ -95,5 +96,13 @@ public class DataSingleton {
 
     public int nextAccountId() {
         return accountId++;
+    }
+
+    public void setContext(Activity a){
+        this.activity = a;
+    }
+
+    public Activity getContext(){
+        return activity;
     }
 }

@@ -26,4 +26,6 @@ public class Conversation {
     public Person getPerson() {
         return person;
     }
+
+
 }

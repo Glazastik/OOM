@@ -48,7 +48,7 @@ public class LandingFragment extends android.support.v4.app.Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 clearBackStack();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, ConversationFragment.newInstance(position))
+                        .replace(R.id.container, ConversationFragment.newInstance(position), "conversation_fragment")
                         .commit();
 
 

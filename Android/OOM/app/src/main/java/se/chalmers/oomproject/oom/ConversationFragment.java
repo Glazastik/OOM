@@ -27,7 +27,7 @@ import java.util.ArrayList;
 /**
  * Created by Anton on 2015-03-11.
  */
-public class ConversationFragment extends android.support.v4.app.Fragment {
+public class ConversationFragment extends android.support.v4.app.Fragment implements Updateable{
 
     private static final String CONVERSATION_NUMBER = "conversation_number";
     private static int conID;
@@ -114,10 +114,27 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
             chatField.setText("");
             Message m = new Message(text, accounts, Person.me());
             conversation.addMessage(m);
-            ((ArrayAdapter<Message>) log.getAdapter()).notifyDataSetChanged();
+            updateMessageList();
             data.sendMessage(m);
             hideSoftKeyboard();
         }
+    }
+
+    public void updateMessageList(){
+
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                log.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((ArrayAdapter<Message>) log.getAdapter()).notifyDataSetChanged();
+                    }
+                });
+            }
+        }){
+        }.start();
+
     }
 
     private void hideSoftKeyboard() {
@@ -178,4 +195,10 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void update(Object object) {
+        updateMessageList();
+    }
+
 }

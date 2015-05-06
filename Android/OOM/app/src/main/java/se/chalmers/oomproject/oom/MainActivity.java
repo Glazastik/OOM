@@ -26,6 +26,7 @@ public class MainActivity extends ActionBarActivity
 
         //Get the singleton
         DataSingleton data = DataSingleton.getInstance();
+        data.setContext(this);
 
         setContentView(R.layout.activity_main);
 
@@ -47,12 +48,12 @@ public class MainActivity extends ActionBarActivity
         clearBackStack();
         if (position == 0) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, LandingFragment.newInstance())
+                    .replace(R.id.container, LandingFragment.newInstance(), "landing_fragment")
                     .commit();
         } else {
             position--;
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, ConversationFragment.newInstance(position))
+                    .replace(R.id.container, ConversationFragment.newInstance(position), "conversation_fragment")
                     .commit();
         }
     }
