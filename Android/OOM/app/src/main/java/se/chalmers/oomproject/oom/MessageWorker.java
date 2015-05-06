@@ -36,11 +36,13 @@ public class MessageWorker extends Thread {
                 }
                 nextMessage++;
                 Log.d("message", "Message from " + senderId + " > " + message);
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+
+            }
+
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

@@ -60,6 +60,12 @@ public class DataSingleton {
         cw.connectService(0);
     }
 
+    public void sendMessage(Message m){
+        for(Account a : m.getAccounts()){
+            cw.sendChatMessage(a.getId(), m.getText());
+        }
+    }
+
     public ArrayList<Person> getPersons() {
         return persons;
     }
