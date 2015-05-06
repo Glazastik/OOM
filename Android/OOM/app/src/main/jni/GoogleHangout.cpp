@@ -1,5 +1,5 @@
 #include "GoogleHangout.h"
-#include <boost\array.hpp>
+#include <boost/array.hpp>
 
 GoogleHangout::GoogleHangout(std::shared_ptr<boost::asio::io_service> io_service, std::string authid, std::string password, 
 	std::shared_ptr<std::vector<std::shared_ptr<Person>>> persons) :

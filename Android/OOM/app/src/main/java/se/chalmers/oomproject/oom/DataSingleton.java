@@ -31,6 +31,7 @@ public class DataSingleton {
     // Hidden constructor
     private DataSingleton() {
         cw = new ChatWrapper();
+        cw.init();
         persons = new ArrayList<>();
         Person c1 = new Person(0, "Glaz");
         Person c2 = new Person(1, "Testelina");
@@ -53,7 +54,7 @@ public class DataSingleton {
         conversations.add(con1);
         conversations.add(con2);
 
-        cw.init();
+
         cw.addPerson(c2.getId(), c2.getName());
         cw.addAccountToPerson(c2.getId(), a1.getId(), a1.getServiceType(), a1.getAddress());
         cw.connectService(0);
