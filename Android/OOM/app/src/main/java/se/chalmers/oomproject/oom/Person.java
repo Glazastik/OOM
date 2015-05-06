@@ -18,7 +18,7 @@ public class Person {
     }
 
     public void setSelectedAccounts(ArrayList<Account> selectedAccounts) {
-        Log.d("PERSON","" +selectedAccounts.size());
+        Log.d("PERSON", "" + selectedAccounts.size());
         this.selectedAccounts = selectedAccounts;
     }
 
@@ -47,7 +47,7 @@ public class Person {
         accounts.add(a);
     }
 
-    public ArrayList<Account> getAccounts(){
+    public ArrayList<Account> getAccounts() {
         return accounts;
     }
 

@@ -2,9 +2,9 @@ package se.chalmers.oomproject.oom;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -14,15 +14,20 @@ import java.util.ArrayList;
  */
 public class SelectAccountDialogFragment extends DialogFragment {
     private static Person person;
-    public SelectAccountDialogFragment(){}
-    public static SelectAccountDialogFragment newInstance(Person p){
+
+    public SelectAccountDialogFragment() {
+    }
+
+    public static SelectAccountDialogFragment newInstance(Person p) {
         person = p;
         return new SelectAccountDialogFragment();
     }
+
     private ArrayList<Account> mSelectedItems;
+
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Log.d("SADF","ONCREATE");
-        Log.d("SADF",""+person.getSelectedAccounts().size());
+        Log.d("SADF", "ONCREATE");
+        Log.d("SADF", "" + person.getSelectedAccounts().size());
         mSelectedItems = person.getSelectedAccounts();  // Where we track the selected items
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Set the dialog title
@@ -39,7 +44,7 @@ public class SelectAccountDialogFragment extends DialogFragment {
                                     // If the user checked the item, add it to the selected items
                                     mSelectedItems.add(person.getAccounts().get(which));
                                 } else if (mSelectedItems.contains(person.getAccounts().get(which))) {
-                                    Log.d("SADF","ELSEIF");
+                                    Log.d("SADF", "ELSEIF");
                                     // Else, if the item is already in the array, remove it
                                     mSelectedItems.remove(person.getAccounts().get(which));
                                 }
@@ -51,7 +56,7 @@ public class SelectAccountDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK, so save the mSelectedItems results somewhere
                         // or return them to the component that opened the dialog
-                        person.setSelectedAccounts((ArrayList)mSelectedItems.clone());
+                        person.setSelectedAccounts((ArrayList) mSelectedItems.clone());
 
                     }
                 })
@@ -64,19 +69,21 @@ public class SelectAccountDialogFragment extends DialogFragment {
 
         return builder.create();
     }
-    private CharSequence[] AccountToChar(ArrayList<Account> arrayList){
+
+    private CharSequence[] AccountToChar(ArrayList<Account> arrayList) {
         CharSequence[] cs = new CharSequence[arrayList.size()];
         int i = 0;
-        for(Account a : arrayList){
+        for (Account a : arrayList) {
             cs[i] = a.getServiceName();
             i++;
         }
         return cs;
     }
-    private boolean[] GetSelectList(ArrayList<Account> accounts, ArrayList<Account> selected){
+
+    private boolean[] GetSelectList(ArrayList<Account> accounts, ArrayList<Account> selected) {
         boolean[] bools = new boolean[accounts.size()];
         int i = 0;
-        for(Account a : accounts){
+        for (Account a : accounts) {
             bools[i] = selected.contains(a);
             i++;
         }

@@ -11,16 +11,16 @@ public class MessageWorker extends Thread {
     private int nextMessage;
     private ChatWrapper cw;
 
-    public MessageWorker(ChatWrapper cw){
+    public MessageWorker(ChatWrapper cw) {
         isWorking = true;
         nextMessage = 0;
         this.cw = cw;
     }
 
     @Override
-    public void run(){
-        while(isWorking){
-            if(cw.getNumMessages() > nextMessage){
+    public void run() {
+        while (isWorking) {
+            if (cw.getNumMessages() > nextMessage) {
                 Log.d("Message", "Received a new message");
 
                 byte[] payloadBuffer = new byte[buffer_size];
@@ -28,10 +28,10 @@ public class MessageWorker extends Thread {
 
                 String message = new String(payloadBuffer);
 
-                for(Conversation c : DataSingleton.getInstance().getConversations()){
-                    if(c.getPerson().getId() == senderId){
+                for (Conversation c : DataSingleton.getInstance().getConversations()) {
+                    if (c.getPerson().getId() == senderId) {
                         int serviceId = cw.getServiceType(senderId);
-                        c.addMessage(new Message(message,c.getPerson().getAccounts(), c.getPerson()));
+                        c.addMessage(new Message(message, c.getPerson().getAccounts(), c.getPerson()));
 
                     }
                 }
@@ -48,7 +48,7 @@ public class MessageWorker extends Thread {
         }
     }
 
-    public void stopWorking(){
+    public void stopWorking() {
         isWorking = false;
     }
 }

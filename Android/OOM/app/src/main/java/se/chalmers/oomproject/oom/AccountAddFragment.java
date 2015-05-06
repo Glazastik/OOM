@@ -8,9 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 /**
  * Created by Glazastik on 29/04/15.
@@ -22,13 +20,13 @@ public class AccountAddFragment extends DialogFragment {
     private RadioGroup rg;
     private static Conversation con;
 
-    public static AccountAddFragment newInstance(Person p){
+    public static AccountAddFragment newInstance(Person p) {
         person = p;
 
         return new AccountAddFragment();
     }
 
-    public AccountAddFragment(){
+    public AccountAddFragment() {
 
     }
 
@@ -46,13 +44,13 @@ public class AccountAddFragment extends DialogFragment {
             public void onClick(View v) {
                 int id = DataSingleton.getInstance().nextAccountId();
                 int service = -1;
-                if(rg.getCheckedRadioButtonId() == R.id.radioService0){
+                if (rg.getCheckedRadioButtonId() == R.id.radioService0) {
                     service = 0;
-                } else if(rg.getCheckedRadioButtonId() == R.id.radioService1){
+                } else if (rg.getCheckedRadioButtonId() == R.id.radioService1) {
                     service = 1;
                 }
 
-                person.addAccount(new Account(id,service,serviceText.getText().toString().trim()));
+                person.addAccount(new Account(id, service, serviceText.getText().toString().trim()));
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, PersonEditFragment.newInstance(person))
@@ -61,11 +59,10 @@ public class AccountAddFragment extends DialogFragment {
             }
         });
 
-        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch(checkedId){
+                switch (checkedId) {
                     case R.id.radioService0:
                         serviceText.setHint("Google Hangouts address:");
                         break;

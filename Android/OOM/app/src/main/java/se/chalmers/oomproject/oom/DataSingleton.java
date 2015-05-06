@@ -38,15 +38,16 @@ public class DataSingleton {
 
         messageWorker = new MessageWorker(cw);
         messageWorker.start();
-        while(!messageWorker.isAlive()){}
+        while (!messageWorker.isAlive()) {
+        }
 
 
         persons.add(c1);
         persons.add(c2);
-        Account a1 = new Account(0,nextAccountId(),"1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com");
+        Account a1 = new Account(0, nextAccountId(), "1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com");
         c2.addAccount(a1);
 
-        c1.addAccount(new Account(0,nextAccountId(),"google"));
+        c1.addAccount(new Account(0, nextAccountId(), "google"));
 
         conversations = new ArrayList<>();
         Conversation con1 = new Conversation(c1);
@@ -60,8 +61,8 @@ public class DataSingleton {
         cw.connectService(0);
     }
 
-    public void sendMessage(Message m){
-        for(Account a : m.getAccounts()){
+    public void sendMessage(Message m) {
+        for (Account a : m.getAccounts()) {
             cw.sendChatMessage(a.getId(), m.getText());
         }
     }
@@ -92,7 +93,7 @@ public class DataSingleton {
         ((MainActivity) a).updateDrawer();
     }
 
-    public int nextAccountId(){
+    public int nextAccountId() {
         return accountId++;
     }
 }

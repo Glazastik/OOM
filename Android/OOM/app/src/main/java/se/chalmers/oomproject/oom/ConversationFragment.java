@@ -1,8 +1,6 @@
 package se.chalmers.oomproject.oom;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -11,9 +9,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -22,9 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -59,11 +55,13 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
     public ConversationFragment() {
 
     }
+
     public void onCreateOptionsMenu(
             Menu menu, MenuInflater inflater) {
         Log.d("CF", "inflating conversation actionbar");
         inflater.inflate(R.menu.conversation, menu);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -102,9 +100,10 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
         return v;
 
     }
-    private void openServiceSelection(){
+
+    private void openServiceSelection() {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        SelectAccountDialogFragment.newInstance(this.conversation.getPerson()).show(fragmentManager, "service_select" );
+        SelectAccountDialogFragment.newInstance(this.conversation.getPerson()).show(fragmentManager, "service_select");
 
     }
 
@@ -167,13 +166,13 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == R.id.action_person){
+        if (item.getItemId() == R.id.action_person) {
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, PersonEditFragment.newInstance(conversation.getPerson())).addToBackStack("conversation")
                     .commit();
-        } else if (item.getItemId() == R.id.serviceBtn){
-            Log.d("CF","service button");
+        } else if (item.getItemId() == R.id.serviceBtn) {
+            Log.d("CF", "service button");
             openServiceSelection();
         }
 

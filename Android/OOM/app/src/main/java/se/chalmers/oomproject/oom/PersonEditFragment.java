@@ -1,12 +1,11 @@
 package se.chalmers.oomproject.oom;
 
-import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -25,13 +24,13 @@ public class PersonEditFragment extends android.support.v4.app.Fragment {
     private static Person person;
     private ListView lv;
 
-    public static PersonEditFragment newInstance(Person p){
+    public static PersonEditFragment newInstance(Person p) {
         data = DataSingleton.getInstance();
         person = p;
         return new PersonEditFragment();
     }
 
-    public PersonEditFragment(){
+    public PersonEditFragment() {
 
     }
 
@@ -55,8 +54,8 @@ public class PersonEditFragment extends android.support.v4.app.Fragment {
 
         SimpleAdapter adapter = new SimpleAdapter(getActivity(), data,
                 android.R.layout.simple_list_item_2,
-                new String[] {"name", "address"},
-                new int[] {android.R.id.text1,
+                new String[]{"name", "address"},
+                new int[]{android.R.id.text1,
                         android.R.id.text2});
 
         lv.setAdapter(adapter);
@@ -75,7 +74,7 @@ public class PersonEditFragment extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 AccountAddFragment a = AccountAddFragment.newInstance(person);
-                a.show(fm,"add_account");
+                a.show(fm, "add_account");
             }
         });
 
