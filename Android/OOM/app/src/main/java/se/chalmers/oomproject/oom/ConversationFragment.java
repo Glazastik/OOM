@@ -104,7 +104,7 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
     }
     private void openServiceSelection(){
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        SelectAccountDialogFragment.newInstance(this.conversation.getPerson()).show(fragmentManager, "asdasd" );
+        SelectAccountDialogFragment.newInstance(this.conversation.getPerson()).show(fragmentManager, "service_select" );
 
     }
 
@@ -113,8 +113,10 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
         ArrayList<Account> accounts = new ArrayList<Account>();
         if (text.length() != 0) {
             chatField.setText("");
-            conversation.addMessage(new Message(text, accounts, Person.me()));
+            Message m = new Message(text, accounts, Person.me());
+            conversation.addMessage(m);
             ((ArrayAdapter<Message>) log.getAdapter()).notifyDataSetChanged();
+            data.sendMessage(m);
             hideSoftKeyboard();
         }
     }

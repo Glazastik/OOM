@@ -6,7 +6,7 @@
 #include <boost/thread.hpp>
 #include <iostream>
 #include <string>
-
+#include "Message.h"
 
 
 class IRCConnection
@@ -16,14 +16,15 @@ public:
 
 	~IRCConnection();
 
-
 	void connect(std::string password, std::string user, std::string nickname, std::string channel);
 	void send(std::string const& message);
 	void setReciever(std::string const& nickname);
 	std::string getReciever();
 	std::string getChannel();
-	void setChannel(std::string ch);
+	void setChannel(std::string ch); 
 
+	//returnerar en lista med alla nyligen skickade medelanden.
+	std::string getMessage();
 
 
 private:
@@ -32,6 +33,8 @@ private:
 
 	std::string channel;
 	std::string recieverNick;
+	//En lista med alla mottagna medelanden som ska skickas till interfacet.
+	std::vector<std::string> recievedMessages;
 
 	void start_read();
 	void do_read();

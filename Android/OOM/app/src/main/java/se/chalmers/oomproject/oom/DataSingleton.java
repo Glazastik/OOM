@@ -11,6 +11,9 @@ public class DataSingleton {
 
     private ArrayList<Person> persons;
     private ArrayList<Conversation> conversations;
+    private ChatWrapper cw;
+    private MessageWorker messageWorker;
+
 
     private static DataSingleton instance;
 
@@ -27,22 +30,40 @@ public class DataSingleton {
 
     // Hidden constructor
     private DataSingleton() {
+        cw = new ChatWrapper();
+        cw.init();
         persons = new ArrayList<>();
         Person c1 = new Person(0, "Glaz");
-        Person c2 = new Person(1, "Meddan");
+        Person c2 = new Person(1, "Testelina");
+
+        messageWorker = new MessageWorker(cw);
+        messageWorker.start();
+        while(!messageWorker.isAlive()){}
+
 
         persons.add(c1);
         persons.add(c2);
-        c1.addAccount(new Account(0,0,"asd"));
-        c2.addAccount(new Account(0,0,"asd"));
+        Account a1 = new Account(0,nextAccountId(),"1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com");
+        c2.addAccount(a1);
 
-        c1.addAccount(new Account(0,0,"google"));
+        c1.addAccount(new Account(0,nextAccountId(),"google"));
 
         conversations = new ArrayList<>();
         Conversation con1 = new Conversation(c1);
         Conversation con2 = new Conversation(c2);
         conversations.add(con1);
         conversations.add(con2);
+
+
+        cw.addPerson(c2.getId(), c2.getName());
+        cw.addAccountToPerson(c2.getId(), a1.getId(), a1.getServiceType(), a1.getAddress());
+        cw.connectService(0);
+    }
+
+    public void sendMessage(Message m){
+        for(Account a : m.getAccounts()){
+            cw.sendChatMessage(a.getId(), m.getText());
+        }
     }
 
     public ArrayList<Person> getPersons() {

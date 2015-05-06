@@ -12,10 +12,10 @@
 #define LOG(fmt, ...) __android_log_print(ANDROID_LOG_INFO, "TEST-BOOST", fmt, ##__VA_ARGS__)
 
 #include "gps.hpp"
-#include "boost\asio.hpp"
-#include "boost\asio\ssl.hpp"
-#include "boost\thread.hpp"
-#include "boost\lexical_cast.hpp"
+#include "boost/asio.hpp"
+#include "boost/asio/ssl.hpp"
+#include "boost/thread.hpp"
+#include "boost/lexical_cast.hpp"
 //#include "boost\log\trivial.hpp"
 #include "boost/bind.hpp"
 #include <boost/archive/iterators/base64_from_binary.hpp>
