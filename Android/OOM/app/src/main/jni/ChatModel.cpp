@@ -36,14 +36,11 @@ void ChatModel::ConnectService(int serviceType)
 		if (service->GetServiceType() == serviceType)
 		{
 			chatService = service;
-			LOGI( "This is from JNI: %d", 1);
 			chatService->Connect();
-			LOGI( "This is from JNI: %d", 2);
 		}
 	}
 	if (chatService == NULL)
 	{
-		LOGI( "This is from JNI: %d", 3);
 		//BOOST_LOG_TRIVIAL(error) << "ChatModel::ConnectService - Couldn't find service: " << boost::lexical_cast<std::string>(serviceType);
 	}
 }

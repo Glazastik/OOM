@@ -12,7 +12,7 @@
 #include <algorithm>
 #include <android/log.h>
 
-#define  LOG_TAG    "someTag"
+#define  LOG_TAG    "DEBUG"
 #define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
 #define  LOGW(...)  __android_log_print(ANDROID_LOG_WARN,LOG_TAG,__VA_ARGS__)
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
@@ -53,17 +53,11 @@ XmppConnection::~XmppConnection()
 
 void XmppConnection::Connect()
 {
-	//std::string str("hej" + hostName); //"hellu" + hostName;
-	//string str("hellu");
-	//__android_log_print(ANDROID_LOG_DEBUG,LOG_TAG, "%s", str );
-	//LOGD( "This is from JNI: " + hostName);
+
 	try {
-		LOGI( "This is from JNI: %d", 8);
 		// Connect TCP socket
 		DebugPrint("CONNECTING TO: " + hostName + ":" + boost::lexical_cast<std::string>(portNumber)+"\n");
-		LOGI( "This is from JNI: %d", 0);
 		TCPConnect();
-LOGI( "This is from JNI: %d", 0);
 		std::stringstream stream;
 		std::string readStr;
 
@@ -261,16 +255,12 @@ LOGI( "This is from JNI: %d", 0);
 		int accountId = 0;
 		std::shared_ptr<Message> message = std::make_shared<Message>(accountId, payload);
 		MessageBuffer::AddMessage(message);*/
-LOGI( "This is from JNI: %d", 5);
+
 		StartAsyncReading();
 	}
 	catch (std::exception& exception)
 	{
 		std::string str(exception.what());
-		for(int i = 0; i < str.length(); i++) {
-			LOGI("EXCEPTION: %c", str[i]);
-		}
-		LOGI("EXCEPTION: %c", *(exception.what()));
 		DebugPrintException(exception);
 	}
 }
@@ -295,24 +285,17 @@ void XmppConnection::SendChatMessage(std::string address, std::string message)
 	nextId++;
 
 	SSLWriteSome(stream.str());
-			
-			LOGI("just checking");
 	DebugPrintWrite(stream.str());
 }
 // Protected
 void XmppConnection::TCPConnect()
 {
-	LOGI( "This is from JNI: %d", 13);
+
 	// Resolve address and port
 	boost::asio::ip::tcp::resolver resolver(*io_service);
-	LOGI( "This is from JNI: %d", 113);
-	boost::asio::ip::tcp::resolver::query query(hostName, boost::lexical_cast<std::string>(portNumber), boost::asio::ip::resolver_query_base::numeric_service);
-	LOGI( "This is from JNI: %d", 1113);
-		for(int i = 0; i < hostName.length(); i++) {
-			LOGI("EXCEPTION: %c", hostName[i]);
-		}
+	boost::asio::ip::tcp::resolver::query query(boost::asio::ip::tcp::v4(), hostName, boost::lexical_cast<std::string>(portNumber));
+	
 	boost::asio::ip::tcp::resolver::iterator endpointIterator = resolver.resolve(query);
-LOGI( "This is from JNI: %d", 11113);
 	// Connect socket
 	boost::system::error_code error_code;
 	boost::asio::connect(*tcp_socket, endpointIterator, error_code);
@@ -320,7 +303,6 @@ LOGI( "This is from JNI: %d", 11113);
 	{
 		DebugPrintError(error_code);
 	}
-	LOGI( "This is from JNI: %d", 3);
 }
 
 void XmppConnection::SSLHandshake()
@@ -484,9 +466,7 @@ std::string XmppConnection::ParseElement(std::string xml, std::string elementTyp
 void XmppConnection::DebugPrint(std::string debugStr)
 {
 	//BOOST_LOG_TRIVIAL(debug) << "\n" << debugStr;
-		for(int i = 0; i < debugStr.length(); i++) {
-			LOGI("DEBUG PRINT: %c", debugStr[i]);
-		}
+	__android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, "%s", debugStr.c_str());
 }
 
 void XmppConnection::DebugPrintRead(std::string readStr)

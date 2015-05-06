@@ -32,13 +32,7 @@ int ChatInterface::ReadMessage(size_t messageNum, char* messageBuffer, int buffe
 	std::shared_ptr<Message> message = MessageBuffer::ReadMessage(messageNum);
 	std::string payload = message->GetPayload();
 	int senderId = message->GetSenderId();
-	strncpy(messageBuffer, payload.c_str(), bufferCapacity); //omgjord
-	
-	for(int i = 0; i < bufferCapacity; i++)
-	{
-		messageBuffer[i] = 'h';
-	}
-	
+	strncpy(messageBuffer, payload.c_str(), bufferCapacity); //omgjord	
 	return senderId;
 }
 
