@@ -33,8 +33,8 @@ public class DataSingleton {
         cw = new ChatWrapper();
         cw.init();
         persons = new ArrayList<>();
-        Person c1 = new Person(0, "Glaz");
-        Person c2 = new Person(1, "Testelina");
+        Person c1 = new Person(1, "Glaz");
+        Person c2 = new Person(0, "Testelina");
 
         messageWorker = new MessageWorker(cw);
         messageWorker.start();

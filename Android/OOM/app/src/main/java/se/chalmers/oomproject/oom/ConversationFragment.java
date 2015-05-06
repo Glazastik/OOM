@@ -110,7 +110,7 @@ public class ConversationFragment extends android.support.v4.app.Fragment {
 
     private void sendMessage() {
         String text = chatField.getText().toString().trim();
-        ArrayList<Account> accounts = new ArrayList<Account>();
+        ArrayList<Account> accounts = conversation.getPerson().getSelectedAccounts();
         if (text.length() != 0) {
             chatField.setText("");
             Message m = new Message(text, accounts, Person.me());

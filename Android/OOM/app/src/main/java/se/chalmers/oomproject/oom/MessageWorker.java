@@ -25,7 +25,8 @@ public class MessageWorker extends Thread {
 
                 byte[] payloadBuffer = new byte[buffer_size];
                 int senderId = cw.readMessage(nextMessage, payloadBuffer);
-                String message = payloadBuffer.toString();
+
+                String message = new String(payloadBuffer);
 
                 for(Conversation c : DataSingleton.getInstance().getConversations()){
                     if(c.getPerson().getId() == senderId){
