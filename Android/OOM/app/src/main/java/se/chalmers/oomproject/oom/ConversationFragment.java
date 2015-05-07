@@ -33,6 +33,7 @@ public class ConversationFragment extends android.support.v4.app.Fragment{
     private static int conID;
     private static DataSingleton data;
     private static Conversation conversation;
+    private static boolean paused = false;
 
     private ListView log;
     private EditText chatField;
@@ -159,9 +160,22 @@ public class ConversationFragment extends android.support.v4.app.Fragment{
     }
 
     @Override
+    public void onPause(){
+        super.onPause();
+        paused = true;
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        paused = true;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
+        paused = false;
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
         getView().setOnKeyListener(new View.OnKeyListener() {
@@ -196,8 +210,16 @@ public class ConversationFragment extends android.support.v4.app.Fragment{
         return super.onOptionsItemSelected(item);
     }
 
+    public boolean isPaused(){
+        return paused;
+    }
+
     public void update(Object object) {
         updateMessageList();
+    }
+
+    public Conversation getConversation(){
+        return conversation;
     }
 
 }

@@ -46,7 +46,7 @@ public class MessageWorker extends Thread {
                         ConversationFragment conFrag = (ConversationFragment)fm.findFragmentByTag("conversation_fragment");
                         if (conFrag != null && conFrag.isVisible()) {
                             conFrag.update(null);
-                        } else {
+                        } else if(conFrag == null || conFrag.isPaused() || !conFrag.isVisible() || conFrag.getConversation().getPerson() != c.getPerson()){
                             data.notification("OOM - " + c.getPerson().getName(), message);
                         }
                     }
