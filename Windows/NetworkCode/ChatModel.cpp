@@ -63,7 +63,8 @@ std::shared_ptr<Person> ChatModel::GetPerson(int id)
 	}
 	if (person == NULL)
 	{
-		LOG("ChatModel::GetPerson - Person with specified id does not exist.");
+		std::string message = "ChatModel::GetPerson - Person with specified id does not exist.";
+		LOG(message);
 	}
 	return person;
 }
@@ -82,7 +83,8 @@ std::shared_ptr<Account> ChatModel::GetAccount(int id)
 	}
 	if (account == NULL)
 	{
-		LOG("ChatModel::GetAccount - Account with specified id does not exist.");
+		std::string message = "ChatModel::GetAccount - Account with specified id does not exist.";
+		LOG(message);
 	}
 	return account;
 }
@@ -92,7 +94,8 @@ void ChatModel::SendChatMessage(int accountId, std::string message)
 	std::shared_ptr<Account> account = GetAccount(accountId);
 	if (account == NULL)
 	{
-		LOG("ChatModel::SendChatMessage - Account with specified id does not exist.");
+		std::string message = "ChatModel::SendChatMessage - Account with specified id does not exist.";
+		LOG(message);
 	}
 	else
 	{
@@ -135,7 +138,8 @@ int ChatModel::GetServiceType(int accountId)
 	std::shared_ptr<Account> account = GetAccount(accountId);
 	if (account == NULL)
 	{
-		LOG("ChatModel::SendChatMessage - Account with specified id does not exist.");
+		std::string message = "ChatModel::SendChatMessage - Account with specified id does not exist.";
+		LOG(message);
 	}
 	else
 	{

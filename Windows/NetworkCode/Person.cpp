@@ -46,7 +46,8 @@ std::shared_ptr<Account> Person::GetAccount(int id)
 	}
 	if (account == NULL)
 	{
-		LOG("Person::GetAccount - Account with specified id does not exist.");
+		std::string message = "Person::GetAccount - Account with specified id does not exist.";
+		LOG(message);
 	}
 	return account;
 }

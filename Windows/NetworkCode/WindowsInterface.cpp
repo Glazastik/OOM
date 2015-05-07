@@ -2,7 +2,6 @@
 #include "ChatInterface.h"
 #include "TokenHandler.h"
 #include <string>
-#include "boost/log/trivial.hpp"
 
 __declspec(dllexport) void init()
 {
