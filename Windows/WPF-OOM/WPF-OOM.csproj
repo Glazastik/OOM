@@ -128,12 +128,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="res\fb.png" />
-    <Resource Include="res\fbdark.png" />
-    <Resource Include="res\steam.png" />
-    <Resource Include="res\steamdark.png" />
+    <Resource Include="res\google.png" />
+    <Resource Include="res\googledark.png" />
+    <Resource Include="res\irc.png" />
+    <Resource Include="res\ircdark.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

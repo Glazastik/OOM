@@ -11,6 +11,12 @@
 #include "boost/bind.hpp"
 #include <algorithm>
 
+#ifdef ANDROID
+#define LOG(string)	__android_log_print(ANDROID_LOG_DEBUG, "debug", "%s", string.c_str());
+#else
+#define LOG(string)	BOOST_LOG_TRIVIAL(debug) << "\n" << string;
+#endif
+
 const int XmppConnection::bufferSize = 4096;
 
 // Public
@@ -459,7 +465,7 @@ std::string XmppConnection::ParseElement(std::string xml, std::string elementTyp
 
 void XmppConnection::DebugPrint(std::string debugStr)
 {
-	BOOST_LOG_TRIVIAL(debug) << "\n" << debugStr;
+	LOG(debugStr);
 }
 
 void XmppConnection::DebugPrintRead(std::string readStr)
