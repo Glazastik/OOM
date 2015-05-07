@@ -1,4 +1,7 @@
 # Created by https://www.gitignore.io
+*.so
+*.o
+*.d
 
 ### Android ###
 # Built application files
