@@ -5,7 +5,6 @@
 #include <boost/archive/iterators/transform_width.hpp>
 #include <boost/archive/iterators/ostream_iterator.hpp>
 #include "Base64.h"
-#include "boost/log/trivial.hpp"
 #include "MessageBuffer.h"
 #include "Message.h"
 #include "boost/bind.hpp"
@@ -13,8 +12,10 @@
 
 #ifdef ANDROID
 #define LOG(string)	__android_log_print(ANDROID_LOG_DEBUG, "debug", "%s", string.c_str());
+#include "android/log.h"
 #else
 #define LOG(string)	BOOST_LOG_TRIVIAL(debug) << "\n" << string;
+#include "boost/log/trivial.hpp"
 #endif
 
 const int XmppConnection::bufferSize = 4096;
