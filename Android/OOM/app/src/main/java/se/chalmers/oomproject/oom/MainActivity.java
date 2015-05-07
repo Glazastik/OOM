@@ -1,12 +1,18 @@
 package se.chalmers.oomproject.oom;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -19,6 +25,8 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
     private boolean isPerson = false;
+
+    private static volatile boolean canNotify = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +138,38 @@ public class MainActivity extends ActionBarActivity
         if (manager.getBackStackEntryCount() > 0) {
             FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
             manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+    }
+
+    public void notification(String title, String message){
+        if(canNotify) {
+            NotificationCompat.Builder mBuilder =
+                    new NotificationCompat.Builder(this)
+                            .setSmallIcon(R.drawable.user)
+                            .setContentTitle(title)
+                            .setContentText(message);
+
+
+            NotificationManager mNotifyMgr =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+            Notification notif = mBuilder.build();
+            notif.defaults = Notification.DEFAULT_ALL;
+            notif.flags |= Notification.FLAG_SHOW_LIGHTS;
+            notif.ledARGB = 0xff00ff00;
+            notif.ledOnMS = 300;
+            notif.ledOffMS = 1000;
+
+            mNotifyMgr.notify(001, notif);
+            canNotify = false;
+
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    canNotify = true;
+                }
+            }, 10000);
         }
     }
 

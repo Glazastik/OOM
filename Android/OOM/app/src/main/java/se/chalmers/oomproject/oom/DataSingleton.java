@@ -1,6 +1,8 @@
 package se.chalmers.oomproject.oom;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.support.v4.app.NotificationCompat;
 
 import java.util.ArrayList;
 
@@ -105,4 +107,10 @@ public class DataSingleton {
     public Activity getContext(){
         return activity;
     }
+
+
+    public void notification(String title, String message){
+        ((MainActivity) getContext()).notification(title, message);
+    }
+
 }
