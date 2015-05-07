@@ -1,6 +1,5 @@
 #include "ChatInterface.h"
 #include "MessageBuffer.h"
-#include "boost/log/trivial.hpp"
 
 std::shared_ptr<ChatModel> ChatInterface::chatModel;
 

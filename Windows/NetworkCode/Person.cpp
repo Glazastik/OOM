@@ -1,5 +1,12 @@
 #include "Person.h"
+
+#ifdef ANDROID
+#define LOG(string)	__android_log_print(ANDROID_LOG_DEBUG, "debug", "%s", string.c_str());
+#include "android/log.h"
+#else
+#define LOG(string)	BOOST_LOG_TRIVIAL(debug) << "\n" << string;
 #include "boost/log/trivial.hpp"
+#endif
 
 Person::Person(int id, std::string name)
 {
@@ -39,7 +46,7 @@ std::shared_ptr<Account> Person::GetAccount(int id)
 	}
 	if (account == NULL)
 	{
-		BOOST_LOG_TRIVIAL(error) << "Person::GetAccount - Account with specified id does not exist.";
+		LOG("Person::GetAccount - Account with specified id does not exist.");
 	}
 	return account;
 }
