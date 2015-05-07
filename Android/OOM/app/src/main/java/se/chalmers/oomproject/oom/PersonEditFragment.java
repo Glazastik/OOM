@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -23,6 +24,7 @@ public class PersonEditFragment extends android.support.v4.app.Fragment {
     private static DataSingleton data;
     private static Person person;
     private ListView lv;
+    List<Map<String, String>> listData;
 
     public static PersonEditFragment newInstance(Person p) {
         data = DataSingleton.getInstance();
@@ -44,19 +46,26 @@ public class PersonEditFragment extends android.support.v4.app.Fragment {
 
         editName.setText(person.getName());
 
-        List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+        listData = new ArrayList<Map<String, String>>();
         for (Account a : person.getAccounts()) {
             Map<String, String> datum = new HashMap<String, String>(2);
             datum.put("name", a.getServiceName());
             datum.put("address", a.getAddress());
-            data.add(datum);
+            listData.add(datum);
         }
 
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(), data,
-                android.R.layout.simple_list_item_2,
-                new String[]{"name", "address"},
-                new int[]{android.R.id.text1,
-                        android.R.id.text2});
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_2, android.R.id.text1, listData) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+                text1.setText(listData.get(position).get("name"));
+                text2.setText(listData.get(position).get("address"));
+                return view;
+            }
+        };
 
         lv.setAdapter(adapter);
 
@@ -79,6 +88,10 @@ public class PersonEditFragment extends android.support.v4.app.Fragment {
         });
 
         return v;
+    }
+
+    public void update(){
+        ((ArrayAdapter) lv.getAdapter()).notifyDataSetChanged();
     }
 
 }

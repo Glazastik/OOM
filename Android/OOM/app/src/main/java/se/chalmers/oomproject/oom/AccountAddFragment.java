@@ -51,11 +51,8 @@ public class AccountAddFragment extends DialogFragment {
                 }
 
                 person.addAccount(new Account(id, service, serviceText.getText().toString().trim()));
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, PersonEditFragment.newInstance(person))
-                        .commit();
-                getDialog().dismiss();
+                dismiss();
+
             }
         });
 

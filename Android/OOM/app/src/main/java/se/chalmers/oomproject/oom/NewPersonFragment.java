@@ -36,7 +36,7 @@ public class NewPersonFragment extends android.support.v4.app.DialogFragment {
                 if (((EditText) v.findViewById(R.id.nnBox)).getText().toString().length() != 0) {
                     Person c = new Person(0, ((EditText) v.findViewById(R.id.nnBox)).getText().toString());
                     data.addNewPerson(c, getActivity());
-                    getDialog().dismiss();
+                    dismiss();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction()
                             .replace(R.id.container, ConversationFragment.newInstance(data.getPersons().indexOf(c)))
