@@ -74,7 +74,7 @@ public class SelectAccountDialogFragment extends DialogFragment {
         CharSequence[] cs = new CharSequence[arrayList.size()];
         int i = 0;
         for (Account a : arrayList) {
-            cs[i] = a.getServiceName();
+            cs[i] = a.getServiceName() + " " + a.getId();
             i++;
         }
         return cs;
