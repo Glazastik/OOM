@@ -5,11 +5,18 @@
 #include <boost/archive/iterators/transform_width.hpp>
 #include <boost/archive/iterators/ostream_iterator.hpp>
 #include "Base64.h"
-#include "boost/log/trivial.hpp"
 #include "MessageBuffer.h"
 #include "Message.h"
 #include "boost/bind.hpp"
 #include <algorithm>
+
+#ifdef ANDROID
+#define LOG(string)	__android_log_print(ANDROID_LOG_DEBUG, "debug", "%s", string.c_str());
+#include "android/log.h"
+#else
+#define LOG(string)	BOOST_LOG_TRIVIAL(debug) << "\n" << string;
+#include "boost/log/trivial.hpp"
+#endif
 
 const int XmppConnection::bufferSize = 4096;
 
@@ -231,13 +238,15 @@ void XmppConnection::Connect()
 		DebugPrintRead(readStr);
 
 		// Presence
-		/*stream.str("");
+		stream.str("");
 		stream.clear();
-		stream << "<presence to='1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com' type='subscribe'/>" << std::endl;
+		stream << "<presence>" << std::endl;
+		stream << "<priority>'1'</priority>" << std::endl;
+		stream << "</presence>" << std::endl;
 
 		SSLWriteSome(stream.str());
-		DebugPrintWrite(stream.str());*/
-
+		DebugPrintWrite(stream.str());
+		
 		// Send a message
 		//SendChatMessage("1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com", "TEST");
 
@@ -398,7 +407,7 @@ void XmppConnection::ReadHandler(const boost::system::error_code& error_code, si
 			readBuffer[bytes_transfered] = '\0';
 
 			// Parse address
-			int startPos = readStr.find("\"") + 1;;
+			int startPos = readStr.find("\"") + 1;
 			int length = readStr.find("\/") - startPos;
 			std::string address = readStr.substr(startPos, length);
 
@@ -457,7 +466,7 @@ std::string XmppConnection::ParseElement(std::string xml, std::string elementTyp
 
 void XmppConnection::DebugPrint(std::string debugStr)
 {
-	BOOST_LOG_TRIVIAL(debug) << "\n" << debugStr;
+	LOG(debugStr);
 }
 
 void XmppConnection::DebugPrintRead(std::string readStr)
