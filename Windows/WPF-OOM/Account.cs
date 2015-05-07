@@ -23,17 +23,17 @@ namespace WPF_OOM
             {
                 case 0:
                     this.ServiceName = "Google Hangouts";
-                    var steamUri = new Uri(@"/WPF-OOM;component/res/steam.png", UriKind.Relative);
-                    Logo = new BitmapImage(steamUri);
-                    var steamDarkUri = new Uri(@"/WPF-OOM;component/res/steamdark.png", UriKind.Relative);
-                    OtherLogo = new BitmapImage(steamDarkUri);
+                    var googleUri = new Uri(@"/WPF-OOM;component/res/google.png", UriKind.Relative);
+                    Logo = new BitmapImage(googleUri);
+                    var googleDarkUri = new Uri(@"/WPF-OOM;component/res/googledark.png", UriKind.Relative);
+                    OtherLogo = new BitmapImage(googleDarkUri);
                     break;
                 case 1:
                     this.ServiceName = "IRC";
-                    var fbUri = new Uri(@"/WPF-OOM;component/res/fb.png", UriKind.Relative);
-                    Logo = new BitmapImage(fbUri);
-                    var fbDarkUri = new Uri(@"/WPF-OOM;component/res/fbdark.png", UriKind.Relative);
-                    OtherLogo = new BitmapImage(fbDarkUri);
+                    var ircUri = new Uri(@"/WPF-OOM;component/res/irc.png", UriKind.Relative);
+                    Logo = new BitmapImage(ircUri);
+                    var ircDarkUri = new Uri(@"/WPF-OOM;component/res/ircdark.png", UriKind.Relative);
+                    OtherLogo = new BitmapImage(ircDarkUri);
                     break;
             }
             this.id = id;
