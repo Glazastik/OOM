@@ -37,12 +37,6 @@ protected:
 	void ReadHandler(const boost::system::error_code& error_code, size_t bytes_transfered);
 
 	std::string ParseElement(std::string xml, std::string elementType);
-
-	void DebugPrint(std::string debugStr);
-	void DebugPrintRead(std::string readStr);
-	void DebugPrintWrite(std::string writeStr);
-	void DebugPrintError(boost::system::error_code error_code);
-	void DebugPrintException(std::exception& exception);
 private:
 	static const int bufferSize;
 	std::vector<char> readBuffer;

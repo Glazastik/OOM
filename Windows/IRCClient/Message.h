@@ -14,6 +14,7 @@ namespace message{
 	}
 
 	std::string sendChannelMsg(std::string message, std::string channel){
+		
 		return "PRIVMSG #" + channel + " " + message + "\r\n";
 	}
 
@@ -22,6 +23,6 @@ namespace message{
 	}
 
 	std::string sendPrivateMessage(std::string message, std::string channel, std::string usernick){
-		return "PRIVMSG " + usernick + " " + message + "\r\n";
+		return "PRIVMSG " + usernick + " :" + message + "\r\n";
 	}
 }

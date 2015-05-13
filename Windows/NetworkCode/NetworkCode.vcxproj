@@ -86,8 +86,11 @@
     <ClInclude Include="ChatInterface.h" />
     <ClInclude Include="ChatModel.h" />
     <ClInclude Include="ChatService.h" />
+    <ClInclude Include="DebugUtility.h" />
     <ClInclude Include="GoogleHangout.h" />
     <ClInclude Include="GoogleHangoutConnection.h" />
+    <ClInclude Include="IRC.h" />
+    <ClInclude Include="IRCConnection.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageBuffer.h" />
     <ClInclude Include="Person.h" />
@@ -102,8 +105,11 @@
     <ClCompile Include="ChatInterface.cpp" />
     <ClCompile Include="ChatModel.cpp" />
     <ClCompile Include="ChatService.cpp" />
+    <ClCompile Include="DebugUtility.cpp" />
     <ClCompile Include="GoogleHangout.cpp" />
     <ClCompile Include="GoogleHangoutConnection.cpp" />
+    <ClCompile Include="IRC.cpp" />
+    <ClCompile Include="IRCConnection.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="MessageBuffer.cpp" />
     <ClCompile Include="Person.cpp" />

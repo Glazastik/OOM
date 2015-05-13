@@ -43,9 +43,9 @@ void IRCConnection::handle_read(boost::system::error_code const& error,
 			send(message::sendServerMsg(pingResponse(line)));
 		}
 
-		if (parse(line, ":", "!") == IRCConnection::recieverNick){ //kollar om avsändaren är rätt person och lägger meddelandet i lista av mottagna meddelanden.
+		if (parse(line, ":", "!") == IRCConnection::recieverNick){
 			std::cout << parse(line, ":", "!") + ": " + parse(line.substr(1, line.length()), ":", "") << std::endl;
-			recievedMessages.push_back(line); //parsa medelande innan?
+			//recievedMessages.push_back(line); //parsa medelande innan?
 		}
 	}
 
@@ -75,16 +75,14 @@ void IRCConnection::on_connect(){
 
 void IRCConnection::send(std::string const& msg)
 {
-	try
+	std::cout << "msg: " << msg << std::endl;
+	boost::system::error_code error_code;
+	socket.write_some(boost::asio::buffer(msg), error_code);
+	if (error_code)
 	{
-		boost::asio::write(socket,
-			boost::asio::buffer(msg.data(), msg.size()),
-			boost::asio::transfer_all());
-	}
-	catch (boost::system::system_error& error)
-	{
-		std::cout << error.code() << std::endl;
-		return;
+		std::stringstream stream;
+		stream << "ERROR CODE: " << error_code << " - \"" << error_code.message() << "\"\n";
+		std::cout << stream.str() << std::endl;
 	}
 }
 
@@ -144,10 +142,10 @@ int main()
 
 
 	// Connect
-	irc.setChannel("chat");
+	irc.setChannel("chattest");
 
 	irc.connect("testpw", "test123", "test123", irc.getChannel());
-	irc.setReciever("nikey");
+	irc.setReciever("Kimpz");
 	std::string msg;
 
 	while (getline(std::cin, msg))
@@ -159,7 +157,7 @@ int main()
 			msg = message::sendPrivateMessage(msg.substr(1, msg.length()), irc.getChannel(), irc.getReciever());
 		}
 		else{
-			msg = message::sendChannelMsg(msg, irc.getChannel());
+			msg = message::sendPrivateMessage(msg, irc.getChannel(), irc.getReciever());
 		}
 		irc.send(msg);
 	}

@@ -2,14 +2,8 @@
 #include "GoogleHangout.h"
 #include "boost/lexical_cast.hpp"
 #include "boost/bind.hpp"
-
-#ifdef __ANDROID__
-#define LOG(string)	__android_log_print(ANDROID_LOG_DEBUG, "debug", "%s", string.c_str());
-#include "android/log.h"
-#else
-#define LOG(string)	BOOST_LOG_TRIVIAL(debug) << "\n" << string;
-#include "boost/log/trivial.hpp"
-#endif
+#include "IRC.h"
+#include "DebugUtility.h"
 
 // Public
 ChatModel::ChatModel()
@@ -18,7 +12,9 @@ ChatModel::ChatModel()
 	work = std::make_shared<boost::asio::io_service::work>(*io_service);
 	persons = std::make_shared<std::vector<std::shared_ptr<Person>>>();
 	chatServices.push_back(std::make_shared<GoogleHangout>(io_service, "kandidattest2015@gmail.com", "test2015", persons));
-	InitThreads(1);
+	chatServices.push_back(std::make_shared<IRC>(io_service, persons, "irc.rizon.net", "6667", "testchat", "test123", "test123", "testpw"));
+
+	InitThreads(2);
 }
 
 ChatModel::~ChatModel()
@@ -41,7 +37,7 @@ void ChatModel::ConnectService(int serviceType)
 	{
 		std::stringstream message;
 		message << "ChatModel::ConnectService - Couldn't find service: " << boost::lexical_cast<std::string>(serviceType);
-		LOG(message.str());
+		DebugUtility::DebugPrint(message.str());
 	}
 }
 
@@ -64,7 +60,7 @@ std::shared_ptr<Person> ChatModel::GetPerson(int id)
 	if (person == NULL)
 	{
 		std::string message = "ChatModel::GetPerson - Person with specified id does not exist.";
-		LOG(message);
+		DebugUtility::DebugPrint(message);
 	}
 	return person;
 }
@@ -84,7 +80,7 @@ std::shared_ptr<Account> ChatModel::GetAccount(int id)
 	if (account == NULL)
 	{
 		std::string message = "ChatModel::GetAccount - Account with specified id does not exist.";
-		LOG(message);
+		DebugUtility::DebugPrint(message);
 	}
 	return account;
 }
@@ -95,7 +91,7 @@ void ChatModel::SendChatMessage(int accountId, std::string message)
 	if (account == NULL)
 	{
 		std::string message = "ChatModel::SendChatMessage - Account with specified id does not exist.";
-		LOG(message);
+		DebugUtility::DebugPrint(message);
 	}
 	else
 	{
@@ -116,7 +112,7 @@ void ChatModel::SendChatMessage(int accountId, std::string message)
 		{
 			std::stringstream message;
 			message << "ChatModel::SendChatMessage - Account has a ServiceType that does not exist: " << boost::lexical_cast<std::string>(serviceType);
-			LOG(message.str());
+			DebugUtility::DebugPrint(message.str());
 		}
 	}
 }
@@ -139,7 +135,7 @@ int ChatModel::GetServiceType(int accountId)
 	if (account == NULL)
 	{
 		std::string message = "ChatModel::SendChatMessage - Account with specified id does not exist.";
-		LOG(message);
+		DebugUtility::DebugPrint(message);
 	}
 	else
 	{
@@ -162,10 +158,10 @@ void ChatModel::WorkerThread()
 {
 	std::stringstream message;
 	message << "Thread" << "[" << boost::this_thread::get_id() << "]" << " Start";
-	LOG(message.str());
+	DebugUtility::DebugPrint(message.str());
 	io_service->run();
 	message.str("");
 	message.clear();
 	message << "Thread" << "[" << boost::this_thread::get_id() << "]" << " Stop";
-	LOG(message.str());
+	DebugUtility::DebugPrint(message.str());
 }

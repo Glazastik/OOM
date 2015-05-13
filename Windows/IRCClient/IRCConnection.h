@@ -24,7 +24,7 @@ public:
 	void setChannel(std::string ch); 
 
 	//returnerar en lista med alla nyligen skickade medelanden.
-	std::string getMessage();
+	//std::string getMessage();
 
 
 private:
