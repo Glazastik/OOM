@@ -25,7 +25,7 @@ int ChatInterface::ReadMessage(size_t messageNum, char* messageBuffer, int buffe
 	std::shared_ptr<Message> message = MessageBuffer::ReadMessage(messageNum);
 	std::string payload = message->GetPayload();
 	int senderId = message->GetSenderId();
-	strcpy_s(messageBuffer, bufferCapacity, payload.c_str());
+	strncpy(messageBuffer, payload.c_str(), bufferCapacity);
 	return senderId;
 }
 
