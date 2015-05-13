@@ -91,6 +91,7 @@
     <ClInclude Include="GoogleHangoutConnection.h" />
     <ClInclude Include="IRC.h" />
     <ClInclude Include="IRCConnection.h" />
+    <ClInclude Include="IRCMessage.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageBuffer.h" />
     <ClInclude Include="Person.h" />

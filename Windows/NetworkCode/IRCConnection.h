@@ -22,8 +22,13 @@ private:
 	std::string username;
 	std::string nickname;
 	std::string password;
+	boost::asio::streambuf read_buffer;
+	std::string receiverNick;
 
+	void Send(std::string const& msg);
 	void StartAsyncReading();
 	void ReadHandler(boost::system::error_code const& error, std::size_t bytes_transferred);
+	std::string Parse(std::string input, std::string start, std::string ending);
+	std::string pingResponse(std::string lineread);
 };
 

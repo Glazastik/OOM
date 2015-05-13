@@ -66,6 +66,9 @@
     <ClInclude Include="DebugUtility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IRCMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChatModel.cpp">
