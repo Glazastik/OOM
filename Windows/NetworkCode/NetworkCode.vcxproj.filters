@@ -57,12 +57,6 @@
     <ClInclude Include="Message.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IRC.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IRCConnection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChatModel.cpp">
@@ -104,14 +98,11 @@
     <ClCompile Include="Message.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IRC.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IRCConnection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="..\IRCClient\IRCClient.vcxproj.filters">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

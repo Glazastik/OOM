@@ -1,6 +1,12 @@
 #include "ChatInterface.h"
 #include "MessageBuffer.h"
 
+#ifdef __ANDROID__
+#define MY_CPY(messageBuffer, bufferCapacity, payload) strncpy(messageBuffer, payload, bufferCapacity);
+#else
+#define MY_CPY(messageBuffer, bufferCapacity, payload) strcpy_s(messageBuffer, bufferCapacity, payload);
+#endif
+
 std::shared_ptr<ChatModel> ChatInterface::chatModel;
 
 // Public
@@ -25,7 +31,7 @@ int ChatInterface::ReadMessage(size_t messageNum, char* messageBuffer, int buffe
 	std::shared_ptr<Message> message = MessageBuffer::ReadMessage(messageNum);
 	std::string payload = message->GetPayload();
 	int senderId = message->GetSenderId();
-	strncpy(messageBuffer, payload.c_str(), bufferCapacity);
+	MY_CPY(messageBuffer, bufferCapacity, payload.c_str());
 	return senderId;
 }
 

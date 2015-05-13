@@ -126,12 +126,12 @@ std::string IRCConnection::getChannel(){
 	return IRCConnection::channel;
 }
 
-//inte helt färdig...
-std::string IRCConnection::getMessage(){
-	std::string strlist[40];
-	return IRCConnection::recievedMessages.pop_back;
-
-}
+////inte helt färdig...
+//std::string IRCConnection::getMessage(){
+//	std::string strlist[40];
+//	return IRCConnection::recievedMessages.pop_back;
+//
+//}
 
 int main()
 {

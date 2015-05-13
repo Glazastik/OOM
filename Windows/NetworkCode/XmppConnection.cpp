@@ -10,7 +10,7 @@
 #include "boost/bind.hpp"
 #include <algorithm>
 
-#ifdef ANDROID
+#ifdef __ANDROID__
 #define LOG(string)	__android_log_print(ANDROID_LOG_DEBUG, "debug", "%s", string.c_str());
 #include "android/log.h"
 #else

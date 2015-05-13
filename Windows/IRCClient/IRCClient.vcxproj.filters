@@ -30,9 +30,6 @@
     <ClInclude Include="Parsing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IRCMain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Message.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -47,8 +44,8 @@
     <ClCompile Include="Parsing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IRCMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
