@@ -9,14 +9,7 @@
 #include "Message.h"
 #include "boost/bind.hpp"
 #include <algorithm>
-
-#ifdef ANDROID
-#define LOG(string)	__android_log_print(ANDROID_LOG_DEBUG, "debug", "%s", string.c_str());
-#include "android/log.h"
-#else
-#define LOG(string)	BOOST_LOG_TRIVIAL(debug) << "\n" << string;
-#include "boost/log/trivial.hpp"
-#endif
+#include "DebugUtility.h"
 
 const int XmppConnection::bufferSize = 4096;
 
@@ -55,7 +48,7 @@ void XmppConnection::Connect()
 {
 	try {
 		// Connect TCP socket
-		DebugPrint("CONNECTING TO: " + hostName + ":" + boost::lexical_cast<std::string>(portNumber)+"\n");
+		DebugUtility::DebugPrint("CONNECTING TO: " + hostName + ":" + boost::lexical_cast<std::string>(portNumber)+"\n");
 		TCPConnect();
 
 		std::stringstream stream;
@@ -70,11 +63,11 @@ void XmppConnection::Connect()
 		stream << "version='1.0'>" << std::endl;
 
 		TCPWriteSome(stream.str());
-		DebugPrintWrite(stream.str());
+		DebugUtility::DebugPrintWrite(stream.str());
 		
 		// Read server response
 		readStr = TCPReadUntil("</stream:features>");
-		DebugPrintRead(readStr);
+		DebugUtility::DebugPrintRead(readStr);
 
 		// Send STARTTLS
 		stream.str("");
@@ -83,14 +76,14 @@ void XmppConnection::Connect()
 		stream << "xmlns='urn:ietf:params:xml:ns:xmpp-tls'/>" << std::endl;
 
 		TCPWriteSome(stream.str());
-		DebugPrintWrite(stream.str());
+		DebugUtility::DebugPrintWrite(stream.str());
 
 		// Read server response
 		readStr = TCPReadUntil("<proceed xmlns=\"urn:ietf:params:xml:ns:xmpp-tls\"/>");
-		DebugPrintRead(readStr);
+		DebugUtility::DebugPrintRead(readStr);
 		
 		// Perform SSL Handshake
-		DebugPrint("PERFORMING SSL HANDSHAKE\n");
+		DebugUtility::DebugPrint("PERFORMING SSL HANDSHAKE\n");
 		SSLHandshake();
 
 		// Initiate xml stream to server
@@ -104,11 +97,11 @@ void XmppConnection::Connect()
 		stream << "version='1.0'>" << std::endl;
 
 		SSLWriteSome(stream.str());
-		DebugPrintWrite(stream.str());
+		DebugUtility::DebugPrintWrite(stream.str());
 
 		// Read server response
 		readStr = SSLReadUntil("</stream:features>");
-		DebugPrintRead(readStr);
+		DebugUtility::DebugPrintRead(readStr);
 		
 		// SASL authentication
 		std::string authzid = "";
@@ -135,11 +128,11 @@ void XmppConnection::Connect()
 		stream << "</auth>";
 
 		SSLWriteSome(stream.str());
-		DebugPrintWrite(stream.str() + "\n");
+		DebugUtility::DebugPrintWrite(stream.str() + "\n");
 
 		// Read server response
 		readStr = SSLReadUntil(">");
-		DebugPrintRead(readStr);
+		DebugUtility::DebugPrintRead(readStr);
 		
 		// Initiate xml stream to server
 		stream.str("");
@@ -152,11 +145,11 @@ void XmppConnection::Connect()
 		stream << "version='1.0'>" << std::endl;
 
 		SSLWriteSome(stream.str());
-		DebugPrintWrite(stream.str());
+		DebugUtility::DebugPrintWrite(stream.str());
 
 		// Read server response
 		readStr = SSLReadUntil("</stream:features>");
-		DebugPrintRead(readStr);
+		DebugUtility::DebugPrintRead(readStr);
 		
 		// Ask server to generate resource identifier
 		stream.str("");
@@ -167,15 +160,15 @@ void XmppConnection::Connect()
 		nextId++;
 
 		SSLWriteSome(stream.str());
-		DebugPrintWrite(stream.str());
+		DebugUtility::DebugPrintWrite(stream.str());
 
 		// Read server response
 		readStr = SSLReadUntil("</iq>");
-		DebugPrintRead(readStr);
+		DebugUtility::DebugPrintRead(readStr);
 
 		// Parse resource identifier
 		jid = ParseElement(readStr, "<jid>");
-		DebugPrint("JID: " + jid + "\n");
+		DebugUtility::DebugPrint("JID: " + jid + "\n");
 		
 		// Session
 		stream.str("");
@@ -186,11 +179,11 @@ void XmppConnection::Connect()
 		nextId++;
 
 		SSLWriteSome(stream.str());
-		DebugPrintWrite(stream.str());
+		DebugUtility::DebugPrintWrite(stream.str());
 
 		// Read server response
 		readStr = SSLReadUntil(">");
-		DebugPrintRead(readStr);
+		DebugUtility::DebugPrintRead(readStr);
 		
 		// Disco items
 		stream.str("");
@@ -201,11 +194,11 @@ void XmppConnection::Connect()
 		nextId++;
 
 		SSLWriteSome(stream.str());
-		DebugPrintWrite(stream.str());
+		DebugUtility::DebugPrintWrite(stream.str());
 
 		// Read server response
 		readStr = SSLReadUntil("</iq>");
-		DebugPrintRead(readStr);
+		DebugUtility::DebugPrintRead(readStr);
 		
 		// Disco info
 		stream.str("");
@@ -216,11 +209,11 @@ void XmppConnection::Connect()
 		nextId++;
 
 		SSLWriteSome(stream.str());
-		DebugPrintWrite(stream.str());
+		DebugUtility::DebugPrintWrite(stream.str());
 
 		// Read server response
 		readStr = SSLReadUntil("</iq>");
-		DebugPrintRead(readStr);
+		DebugUtility::DebugPrintRead(readStr);
 		
 		// Get roster
 		stream.str("");
@@ -231,11 +224,11 @@ void XmppConnection::Connect()
 		nextId++;
 
 		SSLWriteSome(stream.str());
-		DebugPrintWrite(stream.str());
+		DebugUtility::DebugPrintWrite(stream.str());
 
 		// Read server response
 		readStr = SSLReadUntil("</iq>");
-		DebugPrintRead(readStr);
+		DebugUtility::DebugPrintRead(readStr);
 
 		// Presence
 		stream.str("");
@@ -245,7 +238,7 @@ void XmppConnection::Connect()
 		stream << "</presence>" << std::endl;
 
 		SSLWriteSome(stream.str());
-		DebugPrintWrite(stream.str());
+		DebugUtility::DebugPrintWrite(stream.str());
 		
 		// Send a message
 		//SendChatMessage("1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com", "TEST");
@@ -262,7 +255,7 @@ void XmppConnection::Connect()
 	}
 	catch (std::exception& exception)
 	{
-		DebugPrintException(exception);
+		DebugUtility::DebugPrintException(exception);
 	}
 }
 
@@ -286,7 +279,7 @@ void XmppConnection::SendChatMessage(std::string address, std::string message)
 	nextId++;
 
 	SSLWriteSome(stream.str());
-	DebugPrintWrite(stream.str());
+	DebugUtility::DebugPrintWrite(stream.str());
 }
 
 // Protected
@@ -302,7 +295,7 @@ void XmppConnection::TCPConnect()
 	boost::asio::connect(*tcp_socket, endpointIterator, error_code);
 	if (error_code)
 	{
-		DebugPrintError(error_code);
+		DebugUtility::DebugPrintError(error_code);
 	}
 }
 
@@ -312,7 +305,7 @@ void XmppConnection::SSLHandshake()
 	ssl_socket->handshake(boost::asio::ssl::stream<boost::asio::ip::tcp::socket>::client, error_code);
 	if (error_code)
 	{
-		DebugPrintError(error_code);
+		DebugUtility::DebugPrintError(error_code);
 	}
 }
 
@@ -328,7 +321,7 @@ std::string XmppConnection::TCPReadUntil(std::string compareStr)
 		size_t responseLength = tcp_socket->read_some(boost::asio::buffer(readBuffer, bufferSize), error_code);
 		if (error_code)
 		{
-			DebugPrintError(error_code);
+			DebugUtility::DebugPrintError(error_code);
 			break;
 		}
 
@@ -346,7 +339,7 @@ void XmppConnection::TCPWriteSome(std::string streamStr)
 	tcp_socket->write_some(boost::asio::buffer(streamStr), error_code);
 	if (error_code)
 	{
-		DebugPrintError(error_code);
+		DebugUtility::DebugPrintError(error_code);
 	}
 }
 
@@ -356,7 +349,7 @@ void XmppConnection::SSLWriteSome(std::string streamStr)
 	ssl_socket->write_some(boost::asio::buffer(streamStr), error_code);
 	if (error_code)
 	{
-		DebugPrintError(error_code);
+		DebugUtility::DebugPrintError(error_code);
 	}
 }
 
@@ -372,7 +365,7 @@ std::string XmppConnection::SSLReadUntil(std::string compareStr)
 		size_t responseLength = ssl_socket->read_some(boost::asio::buffer(readBuffer, bufferSize), error_code);
 		if (error_code)
 		{
-			DebugPrintError(error_code);
+			DebugUtility::DebugPrintError(error_code);
 			break;
 		}
 
@@ -394,7 +387,7 @@ void XmppConnection::ReadHandler(const boost::system::error_code& error_code, si
 {
 	if (error_code)
 	{
-		DebugPrintError(error_code);
+		DebugUtility::DebugPrintError(error_code);
 	}
 	else
 	{
@@ -431,7 +424,7 @@ void XmppConnection::ReadHandler(const boost::system::error_code& error_code, si
 			}
 			if (account == NULL)
 			{
-				DebugPrint("Received message from unknown account address.");
+				DebugUtility::DebugPrint("Received message from unknown account address.");
 			}
 			else
 			{
@@ -444,7 +437,7 @@ void XmppConnection::ReadHandler(const boost::system::error_code& error_code, si
 			readBufferIndex = 0;
 		}
 
-		DebugPrint(readStr);
+		DebugUtility::DebugPrint(readStr);
 
 		StartAsyncReading();
 	}
@@ -462,37 +455,4 @@ std::string XmppConnection::ParseElement(std::string xml, std::string elementTyp
 		element = xml.substr(elementStartPos + 1, typeEndPos - elementStartPos - 1);
 	}
 	return element;
-}
-
-void XmppConnection::DebugPrint(std::string debugStr)
-{
-	LOG(debugStr);
-}
-
-void XmppConnection::DebugPrintRead(std::string readStr)
-{
-	std::stringstream stream;
-	stream << "---SERVER---\n" << readStr << "\n" << "------------" << "\n";
-	DebugPrint(stream.str());
-}
-
-void XmppConnection::DebugPrintWrite(std::string writeStr)
-{
-	std::stringstream stream;
-	stream << "---CLIENT---\n" << writeStr << "------------" << "\n";
-	DebugPrint(stream.str());
-}
-
-void XmppConnection::DebugPrintError(boost::system::error_code error_code)
-{
-	std::stringstream stream;
-	stream << "ERROR CODE: " << error_code << " - \"" << error_code.message() << "\"\n";
-	DebugPrint(stream.str());
-}
-
-void XmppConnection::DebugPrintException(std::exception& exception)
-{
-	std::stringstream stream;
-	stream << "Exception: " << exception.what();
-	DebugPrint(stream.str());
 }

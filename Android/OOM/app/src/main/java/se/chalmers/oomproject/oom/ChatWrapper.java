@@ -63,6 +63,7 @@ public class ChatWrapper {
     private static String NetworkCode = "NetworkCode";
 
     static {
+        System.loadLibrary("icudata");
         System.loadLibrary(NetworkCode);
     }
 }

@@ -1,5 +1,5 @@
 #include "Person.h"
-//#include "boost/log/trivial.hpp"
+#include "DebugUtility.h"
 
 Person::Person(int id, std::string name)
 {
@@ -39,7 +39,8 @@ std::shared_ptr<Account> Person::GetAccount(int id)
 	}
 	if (account == NULL)
 	{
-		//BOOST_LOG_TRIVIAL(error) << "Person::GetAccount - Account with specified id does not exist.";
+		std::string message = "Person::GetAccount - Account with specified id does not exist.";
+		DebugUtility::DebugPrint(message);
 	}
 	return account;
 }
