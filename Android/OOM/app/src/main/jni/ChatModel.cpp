@@ -1,17 +1,9 @@
 #include "ChatModel.h"
 #include "GoogleHangout.h"
 #include "boost/lexical_cast.hpp"
-//#include "boost/log/trivial.hpp"
 #include "boost/bind.hpp"
-
-#include <android/log.h>
-
-#define  LOG_TAG    "someTag"
-
-#define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
-#define  LOGW(...)  __android_log_print(ANDROID_LOG_WARN,LOG_TAG,__VA_ARGS__)
-#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
-#define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
+#include "IRC.h"
+#include "DebugUtility.h"
 
 // Public
 ChatModel::ChatModel()
@@ -20,7 +12,9 @@ ChatModel::ChatModel()
 	work = std::make_shared<boost::asio::io_service::work>(*io_service);
 	persons = std::make_shared<std::vector<std::shared_ptr<Person>>>();
 	chatServices.push_back(std::make_shared<GoogleHangout>(io_service, "kandidattest2015@gmail.com", "test2015", persons));
-	InitThreads(1);
+	chatServices.push_back(std::make_shared<IRC>(io_service, persons, "irc.rizon.net", "6667", "testchat", "test123", "test123", "testpw"));
+
+	InitThreads(2);
 }
 
 ChatModel::~ChatModel()
@@ -41,7 +35,9 @@ void ChatModel::ConnectService(int serviceType)
 	}
 	if (chatService == NULL)
 	{
-		//BOOST_LOG_TRIVIAL(error) << "ChatModel::ConnectService - Couldn't find service: " << boost::lexical_cast<std::string>(serviceType);
+		std::stringstream message;
+		message << "ChatModel::ConnectService - Couldn't find service: " << boost::lexical_cast<std::string>(serviceType);
+		DebugUtility::DebugPrint(message.str());
 	}
 }
 
@@ -63,7 +59,8 @@ std::shared_ptr<Person> ChatModel::GetPerson(int id)
 	}
 	if (person == NULL)
 	{
-		//BOOST_LOG_TRIVIAL(error) << "ChatModel::GetPerson - Person with specified id does not exist.";
+		std::string message = "ChatModel::GetPerson - Person with specified id does not exist.";
+		DebugUtility::DebugPrint(message);
 	}
 	return person;
 }
@@ -82,7 +79,8 @@ std::shared_ptr<Account> ChatModel::GetAccount(int id)
 	}
 	if (account == NULL)
 	{
-		//BOOST_LOG_TRIVIAL(error) << "ChatModel::GetAccount - Account with specified id does not exist.";
+		std::string message = "ChatModel::GetAccount - Account with specified id does not exist.";
+		DebugUtility::DebugPrint(message);
 	}
 	return account;
 }
@@ -92,7 +90,8 @@ void ChatModel::SendChatMessage(int accountId, std::string message)
 	std::shared_ptr<Account> account = GetAccount(accountId);
 	if (account == NULL)
 	{
-		//BOOST_LOG_TRIVIAL(error) << "ChatModel::SendChatMessage - Account with specified id does not exist.";
+		std::string message = "ChatModel::SendChatMessage - Account with specified id does not exist.";
+		DebugUtility::DebugPrint(message);
 	}
 	else
 	{
@@ -111,7 +110,9 @@ void ChatModel::SendChatMessage(int accountId, std::string message)
 		}
 		if (chatService == NULL)
 		{
-			//BOOST_LOG_TRIVIAL(error) << "ChatModel::SendChatMessage - Account has a ServiceType that does not exist: " << boost::lexical_cast<std::string>(serviceType);
+			std::stringstream message;
+			message << "ChatModel::SendChatMessage - Account has a ServiceType that does not exist: " << boost::lexical_cast<std::string>(serviceType);
+			DebugUtility::DebugPrint(message.str());
 		}
 	}
 }
@@ -133,7 +134,8 @@ int ChatModel::GetServiceType(int accountId)
 	std::shared_ptr<Account> account = GetAccount(accountId);
 	if (account == NULL)
 	{
-		//BOOST_LOG_TRIVIAL(error) << "ChatModel::SendChatMessage - Account with specified id does not exist.";
+		std::string message = "ChatModel::SendChatMessage - Account with specified id does not exist.";
+		DebugUtility::DebugPrint(message);
 	}
 	else
 	{
@@ -154,7 +156,12 @@ void ChatModel::InitThreads(int numThreads)
 
 void ChatModel::WorkerThread()
 {
-	//BOOST_LOG_TRIVIAL(debug) << "Thread" << "[" << boost::this_thread::get_id() << "]" << " Start";
+	std::stringstream message;
+	message << "Thread" << "[" << boost::this_thread::get_id() << "]" << " Start";
+	DebugUtility::DebugPrint(message.str());
 	io_service->run();
-	//BOOST_LOG_TRIVIAL(debug) << "Thread" << "[" << boost::this_thread::get_id() << "]" << " Stop";
+	message.str("");
+	message.clear();
+	message << "Thread" << "[" << boost::this_thread::get_id() << "]" << " Stop";
+	DebugUtility::DebugPrint(message.str());
 }

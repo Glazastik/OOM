@@ -3,8 +3,8 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE    := NetworkCode
-LOCAL_SRC_FILES := AndroidInterface.cpp TokenHandler.cpp XmppConnection.cpp Person.cpp MessageBuffer.cpp Message.cpp GoogleHangoutConnection.cpp GoogleHangout.cpp ChatService.cpp ChatModel.cpp Base64.cpp Account.cpp ChatInterface.cpp
-LOCAL_SHARED_LIBRARIES := boost_system_shared boost_thread_shared
+LOCAL_SRC_FILES := AndroidInterface.cpp TokenHandler.cpp XmppConnection.cpp Person.cpp MessageBuffer.cpp Message.cpp GoogleHangoutConnection.cpp GoogleHangout.cpp ChatService.cpp ChatModel.cpp Base64.cpp Account.cpp ChatInterface.cpp DebugUtility.cpp IRC.cpp IRCConnection.cpp
+LOCAL_SHARED_LIBRARIES := boost_system_shared boost_thread_shared boost_regex_shared icudata_shared
 LOCAL_STATIC_LIBRARIES := ssl_static crypto_static
 LOCAL_LDLIBS    := -llog
 
@@ -23,3 +23,4 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := crypto_static
 LOCAL_SRC_FILES := openssl-libs/$(TARGET_ARCH_ABI)/lib/libcrypto.a
 include $(PREBUILT_STATIC_LIBRARY)
+

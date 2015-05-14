@@ -1,6 +1,7 @@
 #pragma once
-//#include "boost/log/trivial.hpp"
 #include "boost/lexical_cast.hpp"
+#include "DebugUtility.h"
+#include <sstream>
 
 struct ServiceType
 {
@@ -16,7 +17,9 @@ public:
 	{
 		if (i >= NUM_TYPES)
 		{
-			//BOOST_LOG_TRIVIAL(error) << "ServiceType::TypeOfIndex - Couldn't find type with index: " << boost::lexical_cast<std::string>(i);
+			std::stringstream stream;
+			stream << "ServiceType::TypeOfIndex - Couldn't find type with index: " << boost::lexical_cast<std::string>(i);
+			DebugUtility::DebugPrint(stream.str());
 		}
 		return static_cast<ServiceType::Type>(i);
 	}
