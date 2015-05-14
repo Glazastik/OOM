@@ -91,7 +91,7 @@
     <ClInclude Include="GoogleHangoutConnection.h" />
     <ClInclude Include="IRC.h" />
     <ClInclude Include="IRCConnection.h" />
-    <ClInclude Include="IRCMessage.h" />
+    <ClInclude Include="IRCMessageUtility.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageBuffer.h" />
     <ClInclude Include="Person.h" />
@@ -111,6 +111,7 @@
     <ClCompile Include="GoogleHangoutConnection.cpp" />
     <ClCompile Include="IRC.cpp" />
     <ClCompile Include="IRCConnection.cpp" />
+    <ClCompile Include="IRCMessageUtility.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="MessageBuffer.cpp" />
     <ClCompile Include="Person.cpp" />

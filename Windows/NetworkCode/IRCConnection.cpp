@@ -2,7 +2,7 @@
 #include "DebugUtility.h"
 #include "boost/bind.hpp"
 #include "boost/regex.hpp"
-#include "IRCMessage.h"
+#include "IRCMessageUtility.h"
 
 IRCConnection::IRCConnection(std::shared_ptr<boost::asio::io_service> io_service,
 	std::shared_ptr<std::vector<std::shared_ptr<Person>>> persons, std::string host, std::string port,
@@ -37,8 +37,8 @@ void IRCConnection::Connect()
 		DebugUtility::DebugPrintError(error_code);
 	}
 
-	Send(IRCMessage::authenticate(username, nickname, password));
-	Send(IRCMessage::joinChannel(channel));
+	Send(IRCMessageUtility::authenticate(username, nickname, password));
+	Send(IRCMessageUtility::joinChannel(channel));
 	StartAsyncReading();
 }
 
@@ -52,7 +52,8 @@ void IRCConnection::CloseConnection()
 
 void IRCConnection::SendChatMessage(std::string address, std::string message)
 {
-	std::string msg = IRCMessage::sendPrivateMessage(msg, channel, receiverNick);
+	DebugUtility::DebugPrint(message);
+	//std::string msg = IRCMessageUtility::sendPrivateMessage(msg, channel, receiverNick);
 }
 
 // Private
@@ -90,10 +91,10 @@ void IRCConnection::ReadHandler(boost::system::error_code const& error_code, std
 		{
 			if (line.substr(0, 4) == "PING")
 			{
-				Send(IRCMessage::sendServerMsg(pingResponse(line)));
+				Send(IRCMessageUtility::sendServerMsg(pingResponse(line)));
 			}
 
-			if (Parse(line, ":", "!") == IRCConnection::receiverNick)
+			if (Parse(line, ":", "!") == receiverNick)
 			{
 				std::cout << Parse(line, ":", "!") + ": " + Parse(line.substr(1, line.length()), ":", "") << std::endl;
 				//recievedMessages.push_back(line); //parsa medelande innan?
