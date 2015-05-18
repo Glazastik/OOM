@@ -22,8 +22,12 @@ private:
 	std::string username;
 	std::string nickname;
 	std::string password;
+
+	static const int bufferSize;
+	std::vector<char> readBuffer;
+	size_t readBufferIndex;
+
 	boost::asio::streambuf read_buffer;
-	std::string receiverNick;
 
 	void Send(std::string const& msg);
 	void StartAsyncReading();

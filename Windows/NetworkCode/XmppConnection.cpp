@@ -46,7 +46,8 @@ XmppConnection::~XmppConnection()
 
 void XmppConnection::Connect()
 {
-	try {
+	try 
+	{
 		// Connect TCP socket
 		DebugUtility::DebugPrint("CONNECTING TO: " + hostName + ":" + boost::lexical_cast<std::string>(portNumber)+"\n");
 		TCPConnect();

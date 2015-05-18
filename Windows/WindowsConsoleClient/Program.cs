@@ -29,6 +29,9 @@ namespace WindowsConsoleClient
             DebugPrintLine("Connecting to Google Hangout (0).");
             ChatWrapper.ConnectService(0);
 
+            DebugPrintLine("Connecting to IRC (1).");
+            ChatWrapper.ConnectService(1);
+
             TestLoop();
 
             ChatWrapper.Stop();
