@@ -46,12 +46,15 @@ namespace WPF_OOM
             PersonList.Add(testPerson);
 
             ChatWrapper.AddPerson(testPerson);
-            Account account = new Account(nextAccountID, 0, "1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com");
-            nextAccountID++;
+            Account account = new Account(nextAccountID++, 0, "1qb37r9krc35d08l0pdn0m4c8m@public.talk.google.com");
+            Account acc2 = new Account(nextAccountID++, 1, "testerino");
             testPerson.AddAccount(account);
+            testPerson.AddAccount(acc2);
 
             ChatWrapper.AddAccountToPerson(testPerson.GetId(), account);
+            ChatWrapper.AddAccountToPerson(testPerson.GetId(),acc2);
             ChatWrapper.ConnectService(0);
+            //ChatWrapper.ConnectService(1);
             Conversation t = new Conversation(testPerson);
 
             
